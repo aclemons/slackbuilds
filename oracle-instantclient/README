@@ -1,0 +1,16 @@
+This package will install the basic instant client package (all files required
+to run OCI, OCCI, and JDBC-OCI applications), SQL*Plus (additional libraries
+and executable for running SQL*Plus with Instant Client), and the SDK (SDK:
+Additional header files and an example makefile for developing Oracle
+applications with Instant Client)
+
+You will need an Oracle account to be able to download the source files. This
+slackbuild just repackages the rpms provided by oracle and automatically sets
+up the ORACLE_HOME environment variable and ld.so.conf with the oracle
+libraries.
+
+If you would rather setup the ld library configs yourself:
+SKIP_LDCONFIG="yes" ./oracle-instantclient.SlackBuild
+
+I use this slackbuilds for SQL*Plus and to be able to compile packages which
+need the oracle SDK, like TOra.
