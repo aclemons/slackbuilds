@@ -81,6 +81,10 @@ Terminal=false
 StartupNotify=true
 EOF
 
+# Stripping it causes it to segfault, so we'll disable this for now
+#find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
+#  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
