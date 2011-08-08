@@ -46,7 +46,7 @@ fi
 SRCNAM=$PRGNAM
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/acl}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 ORACLE_HOME=/usr/lib$LIBDIRSUFFIX/oracle/11.2/client$LIBDIRSUFFIX
