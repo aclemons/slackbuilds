@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+    |-----handy-ruler------------------------------------------------------|
+tora: tora (Database front end)
+tora:
+tora: TOra is a Toolkit for Oracle which aims to help the DBA or
+tora: developer of database application. Features PL/SQL debugger,
+tora: SQL worksheet with syntax highlighting, DB browser and a
+tora: comprehensive set of DBA tools. TOra also includes support for
+tora: MySQL and Postgresql.
+tora:
+tora: From:
+tora:       http://tora.sourceforge.net
+tora:

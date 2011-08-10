@@ -1,0 +1,16 @@
+tora (Database front end)
+
+TOra is a Toolkit for Oracle which aims to help the DBA or
+developer of database application. Features PL/SQL debugger,
+SQL worksheet with syntax highlighting, DB browser and a
+comprehensive set of DBA tools. TOra also includes support for
+MySQL and Postgresql.
+
+If you have installed the Oracle bindings you can build TOra with oracle
+support as follows:
+
+WITH_ORACLE=yes ./tora.SlackBuild
+
+TOra will be built with Postgres support if you have it install. You can get
+the slackbuild from slackbuilds.org. To actually use it, you will also need
+libqsqlpsql also available on slackbuilds.org.
