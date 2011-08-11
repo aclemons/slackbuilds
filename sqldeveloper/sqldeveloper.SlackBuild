@@ -36,11 +36,16 @@ OUTPUT=${OUTPUT:-/tmp}
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $PKG/opt $OUTPUT
+mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
+
 rm -rf $PRGNAM-$VERSION
-unzip $CWD/$PRGNAM-$VERSION-no-jre.zip -d $PKG/opt
-cd $PKG
+mkdir $PRGNAM-$VERSION
+
+cd $PRGNAM-$VERSION
+
+rpm2cpio $CWD/${PRGNAM}-${VERSION}-1.${ARCH}.rpm | cpio -mvid
+
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -48,31 +53,19 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-mkdir -p $PKG/opt/sqldeveloper/sqldeveloper/extensions/oracle.datamodeler/log
-chmod 1777 $PKG/opt/sqldeveloper/sqldeveloper/extensions/oracle.datamodeler/log
+mv opt $PKG
 
 mkdir -p $PKG/usr/bin
 
-cat << EOF > $PKG/usr/bin/$PRGNAM.sh
-#!/bin/sh
-/opt/sqldeveloper/sqldeveloper.sh
-EOF
+mv usr/local/bin/sqldeveloper $PKG/usr/bin
+
 chmod 0755 $PKG/usr/bin/* $PKG/opt/sqldeveloper/sqldeveloper.sh
 
 mkdir -p $PKG/usr/share/applications
+ln -sf /opt/sqldeveloper/sqldeveloper.desktop $PKG/usr/share/applications
 
-cat <<"EOF">$PKG/usr/share/applications/$PRGNAM.desktop
-[Desktop Entry]
-Type=Database;Office;Development
-Name=sqldeveloper
-Exec=sqldeveloper
-Icon=sqldeveloper
-Terminal=false
-StartupNotify=true
-EOF
-
-mkdir -p $PKG/usr/share/icons/hicolor/32x32/apps
-ln -sf $PKG/opt/sqldeveloper/icon.png $PKG/usr/share/icons/hicolor/32x32/apps/sqldeveloper.png
+mkdir -p $PKG/usr/share/pixmaps
+ln -sf /opt/sqldeveloper/icon.png $PKG/usr/share/pixmaps/sqldeveloper.png
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 
