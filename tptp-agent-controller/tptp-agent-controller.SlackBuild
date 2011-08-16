@@ -1,0 +1,112 @@
+#!/bin/sh
+
+# Slackware build script for the tptp agent controller
+
+# Copyright 2011 Andrew Clemons (andrew.clemons@gmail.com), Wellington, New Zealand
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ''AS IS'' AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+# EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+PRGNAM=tptp-agent-controller
+VERSION="4.7.2"
+BUILD=${BUILD:-1}
+TAG=${TAG:-_acl}
+
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) ARCH=i486 ;;
+    arm*) ARCH=arm ;;
+       *) ARCH=$( uname -m ) ;;
+  esac
+fi
+
+CWD=$(pwd)
+TMP=${TMP:-/tmp/acl}
+PKG=$TMP/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+
+case "$ARCH" in
+  x86_64)
+    DISTSUFFIX=em64t
+    ;;
+  i486)
+    DISTSUFFIX=ia32
+    ;;
+  *)
+    echo "$ARCH is not supported."
+    exit 1
+    ;;
+esac
+
+set -e
+
+rm -rf $PKG
+mkdir -p $TMP $PKG $OUTPUT
+cd $TMP
+unzip $CWD/agntctrl.linux_$DISTSUFFIX-TPTP-$VERSION.zip -d $PRGNAM-$VERSION
+
+cd $PRGNAM-$VERSION
+
+chown -R root:root .
+chmod -R u+w,go+r-w,a-s .
+
+mkdir -p $PKG/opt/tptp-agent-controller
+mv * $PKG/opt/tptp-agent-controller
+
+mkdir -p $PKG/usr/bin/
+
+ln -fs /opt/tptp-agent-controller/bin/ACStart.sh $PKG/usr/bin/ACStart.sh
+ln -fs /opt/tptp-agent-controller/bin/ACStop.sh $PKG/usr/bin/ACStop.sh
+
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+mkdir -p $PKG/etc/profile.d/
+cat << EOF > $PKG/etc/profile.d/$PRGNAM.csh
+#!/bin/csh
+setenv TPTP_AC_HOME /opt/tptp-agent-controller
+EOF
+cat << EOF > $PKG/etc/profile.d/$PRGNAM.sh
+#!/bin/sh
+export TPTP_AC_HOME=/opt/tptp-agent-controller
+EOF
+chmod 0755 $PKG/etc/profile.d/*
+
+mkdir -p $PKG/etc/rc.d/
+
+install -m 0755 $CWD/rc.tptp-agent-controller $PKG/etc/rc.d/rc.tptp-agent-controller.new
+cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
+
+if [ "${SKIP_LDCONFIG}" != "yes" ]; then
+cat << EOF >> $PKG/install/doinst.sh
+
+# set up ldconfig
+echo /opt/tptp-agent-controller/bin >> /etc/ld.so.conf
+echo /opt/tptp-agent-controller/lib >> /etc/ld.so.conf
+
+ldconfig
+
+EOF
+fi
+
+cd $PKG
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}

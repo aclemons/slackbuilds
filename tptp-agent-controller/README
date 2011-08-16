@@ -1,0 +1,36 @@
+The Agent Controller contains a server that has the capability to launch and
+manage local or remote applications from a local TPTP workbench.
+
+http://www.eclipse.org/tptp/home/downloads/4.7.0/documents/installguide/AgentController.html
+
+A Java profiling engine is also included in the Agent Controller. The Java
+profiling engine uses the JVMPI (on Java 1.4.x and lower) and JVMTI (or Java
+1.5 and higher) to profile local or remote Java applications from a local TPTP
+workbench. Using the corresponding TPTP build, you can launch and profile local
+or remote Java applications and import local or remote Apache error and access
+logs. 
+
+If you would rather set up the ld library configs yourself:
+SKIP_LDCONFIG="yes" ./tptp-agent-controller.SlackBuild
+
+After installation you will need to run SetConfig.sh script from a command
+shell in the <install-dir>/bin directory to generate the configuration file for
+the Agent Controller.
+
+To have agent controller started automatically at boot and be shut down properly,
+make sure rc.tptp-agent-controller is executable and add the following lines to
+the following files:
+
+/etc/rc.d/rc.local
+==================
+# start agent contoller
+if [ -x /etc/rc.d/rc.tptp-agent-controller ]; then
+   /etc/rc.d/rc.tptp-agent-controller start
+fi
+
+/etc/rc.d/rc.local_shutdown
+===========================
+# stop agent controller
+if [ -x /etc/rc.d/rc.tptp-agent-controller ]; then
+  /etc/rc.d/rc.tptp-agent-controller stop
+fi
