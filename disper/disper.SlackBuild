@@ -26,7 +26,7 @@ PRGNAM=disper
 VERSION=${VERSION:-0.3.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
-ARCH=${ARCH:-noarch}
+ARCH=noarch
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/acl}
