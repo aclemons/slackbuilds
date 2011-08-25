@@ -11,6 +11,9 @@ support as follows:
 
 WITH_ORACLE=yes ./tora.SlackBuild
 
-TOra will be built with Postgres support if you have it install. You can get
+This requires the oracle header files. If you have a different version than the
+one created by my slackbuild, adjust the path in the slackbuild.
+
+TOra will be built with Postgres support if you have it installed. You can get
 the slackbuild from slackbuilds.org. To actually use it, you will also need
 libqsqlpsql also available on slackbuilds.org.
