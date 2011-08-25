@@ -2,3 +2,6 @@ Mikogo is an easy-to-use cross-platform desktop sharing tool, ideal for
 web conferencing, online meetings or remote support.
 
 This script repackages the tarball provided by Mikogo.
+
+Unfortunately mikogo uses the same url for subsequent releases, so this
+script may break at any time.
