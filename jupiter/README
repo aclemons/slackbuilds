@@ -1,1 +1,3 @@
 This SlackBuild just repackages the jupiter rpm.
+
+This package requires mono, available on slackbuilds.org.
