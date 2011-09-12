@@ -62,6 +62,8 @@ chown -R root:root .
 chmod -R u+w,go+r-w,a-s .
 chmod 0755 *.sh
 
+mkdir -p $PKG/var/log/smpp-sim
+
 mkdir -p $PKG/usr/bin
 ln -sf /opt/smpp-sim/startsmppsim.sh $PKG/usr/bin/startsmppsim.sh
 
