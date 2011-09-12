@@ -1,0 +1,11 @@
+--- conf/logging.properties	2011-09-13 10:11:26.708863535 +1200
++++ conf/logging.properties.new	2011-09-13 10:11:46.949610491 +1200
+@@ -34,7 +34,7 @@
+ ############################################################
+ 
+ # default file output is in user's home directory.
+-java.util.logging.FileHandler.pattern = ./smppsim%u.log
++java.util.logging.FileHandler.pattern = /var/log/smpp-sim/smppsim%u.log
+ java.util.logging.FileHandler.limit = 5000000
+ java.util.logging.FileHandler.count = 10
+ # java.util.logging.FileHandler.formatter = java.util.logging.XMLFormatter

@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+        |-----handy-ruler------------------------------------------------------|
+smpp-sim: SMPP-Sim (a testing tool for developers of SMS applications)
+smpp-sim:
+smpp-sim: SMPPSim is a testing tool designed to be used by developers of SMS
+smpp-sim: applications. It simulates an SMSC (Short Message Service Centre)
+smpp-sim: which has an SMPP interface which can be used by software
+smpp-sim: applications for sending and receiving SMS text messages.
+smpp-sim:
+smpp-sim:
+smpp-sim: Homepage: http://www.seleniumsoftware.com/
+smpp-sim:
+smpp-sim:
