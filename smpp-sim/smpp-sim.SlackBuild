@@ -57,6 +57,11 @@ patch --verbose -p0 < $CWD/start_script.diff || exit 1
 rm *.bat
 rm build.xml
 rm -rf src
+rm deliver_messages.csv
+rm runtests.cmd
+rm -rf classes lib/junit* test
+rm starttestservers.sh startwith.sh runtests.sh
+rm conf/*test*
 
 chown -R root:root .
 chmod -R u+w,go+r-w,a-s .
