@@ -2,7 +2,7 @@
 
 # Slackware build script for tora
 
-# Copyright 2011, Andrew Clemons <andrew.clemons@gmail.com>, Wellington, New Zealand
+# Copyright 2011, Andrew Clemons, Wellington, New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +24,7 @@
 
 PRGNAM=tora
 VERSION=${VERSION:-2.1.3}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
@@ -80,7 +80,7 @@ cd build
     -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    "$ORACLE_FLAGS" \
+    $ORACLE_FLAGS \
     -DLIB_SUFFIX=${LIBDIRSUFFIX} \
     -DMAN_INSTALL_DIR=/usr/man \
     -DCMAKE_BUILD_TYPE=Release ..
