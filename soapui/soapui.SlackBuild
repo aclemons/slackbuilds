@@ -24,7 +24,7 @@
 
 PRGNAM=soapui
 VERSION="4.0.1"
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_acl}
 ARCH=noarch
 
@@ -47,9 +47,14 @@ chown -R root:root .
 chmod -R u+w,go+r-w,a-s .
 chmod 0755 bin/*.sh
 
+rm soapui-settings.xml
+rm test-soapui-project.xml
+rm HelloWS-soapui-project.xml
+
 perl -i -pe 's/\r//g' bin/soapui-log4j.xml
 
 patch --verbose -p0 < $CWD/log4j.patch || exit 1
+patch --verbose -p0 < $CWD/user_home.patch || exit 1
 
 mkdir -p $PKG/opt/soapui
 mv * $PKG/opt/soapui
@@ -65,6 +70,7 @@ chmod 0755 $PKG/usr/bin/$PRGNAM
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 mv \
   $PKG/opt/soapui/LICENSE.txt $PKG/opt/soapui/readme.txt \
+  $PKG/opt/soapui/licenses $PKG/opt/soapui/Tutorials \
   $PKG/usr/doc/$PRGNAM-$VERSION/
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
