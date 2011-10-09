@@ -4,4 +4,4 @@ on many Unix systems.
 http://sourceforge.net/projects/vacation/
 
 The vacation program included with sendmail with Slackware refused to work for
-my use case.
+me with my postfix setup. This package works fine.
