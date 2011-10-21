@@ -24,7 +24,7 @@
 
 
 PRGNAM=vacation
-VERSION=${VERSION:-1.2.7.1-beta1}
+VERSION=${VERSION:-1.2.7.1-beta2}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
