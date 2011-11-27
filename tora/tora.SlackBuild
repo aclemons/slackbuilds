@@ -113,6 +113,12 @@ install --mode=0644 src/icons/toramini.xpm $PKG/usr/share/icons/hicolor/16x16/to
 mkdir -p $PKG/usr/share/icons/hicolor/32x32
 install --mode=0644 src/icons/tora.xpm $PKG/usr/share/icons/hicolor/32x32/tora.xpm
 
+# qscintilla from vanilla slackware doesn't install shared library were
+# tora looks for it, add a symlink
+if [ "$ARCH" = "x86_64" ]; then
+  ln -s /usr/lib64/qt/lib/libqscintilla2.so.5 $PKG/usr/lib64/libqscintilla2.so.5
+fi
+
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
