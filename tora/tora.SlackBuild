@@ -90,13 +90,13 @@ cd build
 cd ..
 
 mkdir -p $PKG/usr/share/applications
-cp debian/tora.desktop $PKG/usr/share/applications/
+cp "$CWD"/tora.desktop $PKG/usr/share/applications/
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a \
   AUTHORS BUGS COPYING ChangeLog INSTALL NEWS README README.BINARIES \
-  README.CMAKE README.CODESTYLE README.LAYOUT README.LICENSE README.OSX \
-  README.RELEASE README.SVN README.WINDOWS TODO \
+  README.CMAKE README.CODESTYLE README.LAYOUT README.LICENSE  \
+  README.RELEASE README.SVN TODO \
   $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
@@ -105,15 +105,15 @@ install --mode=0644 doc/help/*.html $PKG/usr/lib$LIBDIRSUFFIX/tora/help/
 install --mode=0644 doc/help/images/*.png $PKG/usr/lib$LIBDIRSUFFIX/tora/help/images/
 
 mkdir -p $PKG/usr/share/pixmaps
-install --mode=0644 src/icons/toramini.xpm $PKG/usr/share/pixmaps/
+install --mode=0644 src/icons/tora.xpm $PKG/usr/share/pixmaps/tora.xpm
 
-mkdir -p $PKG/usr/share/icons/hicolor/16x16
-install --mode=0644 src/icons/toramini.xpm $PKG/usr/share/icons/hicolor/16x16/tora.xpm
+mkdir -p $PKG/usr/share/icons/hicolor/16x16/apps/
+install --mode=0644 src/icons/toramini.xpm $PKG/usr/share/icons/hicolor/16x16/apps/tora.xpm
 
-mkdir -p $PKG/usr/share/icons/hicolor/32x32
-install --mode=0644 src/icons/tora.xpm $PKG/usr/share/icons/hicolor/32x32/tora.xpm
+mkdir -p $PKG/usr/share/icons/hicolor/32x32/apps
+install --mode=0644 src/icons/tora.xpm $PKG/usr/share/icons/hicolor/32x32/apps/tora.xpm
 
-# qscintilla from vanilla slackware doesn't install shared library were
+# qscintilla from vanilla slackware doesn't install shared library where
 # tora looks for it, add a symlink
 if [ "$ARCH" = "x86_64" ]; then
   ln -s /usr/lib64/qt/lib/libqscintilla2.so.5 $PKG/usr/lib64/libqscintilla2.so.5

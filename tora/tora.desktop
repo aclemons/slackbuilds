@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=TOra
+Exec=/usr/bin/tora
+Icon=/usr/share/pixmaps/tora.xpm
+Type=Application
+MimeType=application/x-tora
+Comment=A graphical toolkit for database administration and development
+Comment[fr]=Une boite à outil graphique pour l'administration et le développement de base de données
+Comment[de]=Grafisches Toolkit zur Administration und Entwicklung von Datenbanken
+Categories=Application;Development;
