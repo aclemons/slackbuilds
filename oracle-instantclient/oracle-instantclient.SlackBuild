@@ -2,7 +2,7 @@
 
 # Slackware build script for oracle instantclient
 
-# Copyright 2011, Andrew Clemons <andrew.clemons@gmail.com>, Wellington, New Zealand
+# Copyright 2011, Andrew Clemons, Wellington, New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -73,16 +73,16 @@ if [ "$ARCH" = "x86_64" ]; then
   mv $PKG/usr/lib $PKG/usr/lib64
 fi
 
-ln -fs $PKG/usr/lib$LIBDIRSUFFIX/oracle/11.2/client$LIBDIRSUFFIX/bin/sqlplus $PKG/usr/bin/sqlplus$LIBDIRSUFFIX
-
 mkdir -p $PKG/etc/profile.d/
 cat << EOF > $PKG/etc/profile.d/$PRGNAM.csh
 #!/bin/csh
 setenv ORACLE_HOME ${ORACLE_HOME}
+setenv PATH ${PATH}:${ORACLE_HOME}/bin
 EOF
 cat << EOF > $PKG/etc/profile.d/$PRGNAM.sh
 #!/bin/sh
 export ORACLE_HOME=${ORACLE_HOME}
+export PATH=${PATH}:${ORACLE_HOME}/bin
 EOF
 chmod 0755 $PKG/etc/profile.d/*
 
@@ -94,6 +94,7 @@ cat $CWD/slack-desc > $PKG/install/slack-desc
 
 if [ "${SKIP_LDCONFIG}" != "yes" ]; then
   cat << EOF > $PKG/install/doinst.sh
+sed -i '/oracle\/.*client$LIBDIRSUFFIX/d' /etc/ld.so.conf
 echo /usr/lib$LIBDIRSUFFIX/oracle/11.2/client$LIBDIRSUFFIX/lib >> /etc/ld.so.conf
 ldconfig
 EOF
