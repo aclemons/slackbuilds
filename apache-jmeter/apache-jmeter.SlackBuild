@@ -1,0 +1,84 @@
+#!/bin/sh
+
+# Slackware build script for jmeter
+
+# Copyright 2011, Andrew Clemons, Wellington, New Zealand
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+# notice, this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ''AS IS'' AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+# EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+PRGNAM=apache-jmeter
+SRCNAM=jakarta-jmeter
+VERSION=2.5.1
+ARCH=noarch
+BUILD=${BUILD:-1}
+TAG=${TAG:-_acl}
+
+INST_DIR=/usr/share/$PRGNAM
+
+CWD=$(pwd)
+TMP=${TMP:-/tmp/acl}
+PKG=$TMP/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+
+set -e
+
+rm -rf $PKG
+mkdir -p $TMP $PKG/usr/share/java $PKG/$INST_DIR $OUTPUT $PKG/usr/bin
+cd $TMP
+rm -rf $SRCNAM-$VERSION
+tar xvf $CWD/$SRCNAM-$VERSION.tgz
+cd $SRCNAM-$VERSION
+chown -R root:root .
+
+cp -a bin lib extras $PKG/$INST_DIR/
+
+# remove windows stuff
+rm -f $PKG/$INST_DIR/bin/*.cmd
+rm -f $PKG/$INST_DIR/bin/*.bat
+
+cd $PKG/usr/share/java
+  for lib in $PKG/$INST_DIR/lib/*.jar ; do
+    ln -s $INST_DIR/lib/$(basename $lib) $(basename $lib)
+  done
+cd -
+
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+cp -ar LICENSE NOTICE README docs/ printable_docs $PKG/usr/doc/$PRGNAM-$VERSION
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+ln -s /usr/doc/$PRGNAM-$VERSION/printable_docs  $PKG/$INST_DIR/printable_docs
+
+for bin in "jmeter" "jmeter.sh" "jmeter-server" "jmeter-server.sh"
+do
+  cat > "$PKG/usr/bin/$bin" << EOF
+#!/bin/sh
+
+cd $INST_DIR/bin/
+./$bin
+
+EOF
+
+chmod 0755 "$PKG/usr/bin/$bin"
+done
+
+cd $PKG
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
