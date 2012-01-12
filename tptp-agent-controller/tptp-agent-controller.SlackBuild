@@ -24,7 +24,7 @@
 
 PRGNAM=tptp-agent-controller
 VERSION="4.7.2"
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
@@ -83,10 +83,12 @@ mkdir -p $PKG/etc/profile.d/
 cat << EOF > $PKG/etc/profile.d/$PRGNAM.csh
 #!/bin/csh
 setenv TPTP_AC_HOME /opt/tptp-agent-controller
+setenv JAVA_PROFILER_HOME \$TPTP_AC_HOME/plugins/org.eclipse.tptp.javaprofiler
 EOF
 cat << EOF > $PKG/etc/profile.d/$PRGNAM.sh
 #!/bin/sh
 export TPTP_AC_HOME=/opt/tptp-agent-controller
+export JAVA_PROFILER_HOME=\$TPTP_AC_HOME/plugins/org.eclipse.tptp.javaprofiler
 EOF
 chmod 0755 $PKG/etc/profile.d/*
 
@@ -99,9 +101,13 @@ cat $CWD/doinst.sh > $PKG/install/doinst.sh
 if [ "${SKIP_LDCONFIG}" != "yes" ]; then
 cat << EOF >> $PKG/install/doinst.sh
 
+# remove old 
+sed -i '/\/opt\/tptp-agent-controller/d' /etc/ld.so.conf
+
 # set up ldconfig
 echo /opt/tptp-agent-controller/bin >> /etc/ld.so.conf
 echo /opt/tptp-agent-controller/lib >> /etc/ld.so.conf
+echo /opt/tptp-agent-controller/plugins/org.eclipse.tptp.javaprofiler >> /etc/ld.so.conf
 
 ldconfig
 
