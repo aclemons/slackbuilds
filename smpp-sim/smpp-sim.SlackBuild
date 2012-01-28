@@ -2,7 +2,7 @@
 
 # Slackware build script for smpp-sim
 
-# Copyright 2011 Andrew Clemons Wellington, New Zealand
+# Copyright 2011,2012 Andrew Clemons Wellington, New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,7 +23,7 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=smpp-sim
-VERSION="2.6.7"
+VERSION="2.6.8"
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
@@ -52,6 +52,7 @@ cd $PKG/opt/smpp-sim
 perl -i -pe 's/\r//g' conf/logging.properties
 patch --verbose -p0 < $CWD/logging.diff || exit 1
 patch --verbose -p0 < $CWD/start_script.diff || exit 1
+patch --verbose -p0 < $CWD/esme_esme.diff || exit 1
 
 # removed unneeded stuff
 rm *.bat

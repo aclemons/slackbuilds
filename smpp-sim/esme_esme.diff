@@ -1,0 +1,11 @@
+--- conf/smppsim.props	2011-12-08 00:18:50.000000000 +1300
++++ conf/smppsim.props.new	2012-01-28 19:45:31.775820701 +1300
+@@ -80,7 +80,7 @@
+ LOOPBACK=FALSE
+ 
+ # ESME to ESME routing
+-ESME_TO_ESME=true
++ESME_TO_ESME=false
+ 
+ # QUEUES
+ # Maximum size parameters are expressed as max number of objects the queue can hold
