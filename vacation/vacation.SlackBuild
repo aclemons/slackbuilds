@@ -2,7 +2,7 @@
 
 # Slackware build script for vacation
 
-# Copyright 2011, Andrew Clemons, Wellington, New Zealand
+# Copyright 2011, 2012 Andrew Clemons, Wellington, New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +24,7 @@
 
 
 PRGNAM=vacation
-VERSION=${VERSION:-1.2.7.1-beta2}
+VERSION=${VERSION:-1.2.7.1}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
