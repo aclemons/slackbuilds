@@ -74,12 +74,12 @@ CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 ./configure \
   --python=python \
-  --prefix=$PKG/usr \
-  --mandir=$PKG/usr/man \
-  --infodir=$PKG/usr/info
+  --prefix=/usr \
+  --mandir=\${prefix}/man \
+  --infodir=\${prefix}/info
 
 make
-make install
+make install prefix=$PKG/usr
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
