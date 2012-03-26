@@ -2,7 +2,7 @@
 
 # Slackware build script for jmeter
 
-# Copyright 2011, Andrew Clemons, Wellington, New Zealand
+# Copyright 2011,2012, Andrew Clemons, Wellington, New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,8 +23,7 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=apache-jmeter
-SRCNAM=jakarta-jmeter
-VERSION=2.5.1
+VERSION=2.6
 ARCH=noarch
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
@@ -41,9 +40,9 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG/usr/share/java $PKG/$INST_DIR $OUTPUT $PKG/usr/bin
 cd $TMP
-rm -rf $SRCNAM-$VERSION
-tar xvf $CWD/$SRCNAM-$VERSION.tgz
-cd $SRCNAM-$VERSION
+rm -rf $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$VERSION.tgz
+cd $PRGNAM-$VERSION
 chown -R root:root .
 
 cp -a bin lib extras $PKG/$INST_DIR/
@@ -58,14 +57,18 @@ cd $PKG/usr/share/java
   done
 cd -
 
+mkdir -p $PKG/usr/share/pixmaps
+install --mode=0644 docs/images/logo.jpg  $PKG/usr/share/pixmaps/jmeter.jpg
+
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -ar LICENSE NOTICE README docs/ printable_docs $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
-ln -s /usr/doc/$PRGNAM-$VERSION/printable_docs  $PKG/$INST_DIR/printable_docs
+ln -s /usr/doc/$PRGNAM-$VERSION/printable_docs $PKG/$INST_DIR/printable_docs
 
 for bin in "jmeter" "jmeter.sh" "jmeter-server" "jmeter-server.sh"
 do
