@@ -1,0 +1,17 @@
+--- bin/soapui.sh	2012-03-26 16:14:40.000000000 +1300
++++ bin/soapui.sh.new	2012-06-18 18:28:08.693735603 +1200
+@@ -129,9 +129,13 @@
+ 	JAVA_OPTS="$JAVA_OPTS -Djava.library.path=$SOAPUI_HOME/bin"
+ 	JAVA_OPTS="$JAVA_OPTS -Dwsi.dir=$SOAPUI_HOME/wsi-test-tools"
+ #uncomment to disable browser component
+-#   JAVA_OPTS="$JAVA_OPTS -Dsoapui.jxbrowser.disable=true"
++   JAVA_OPTS="$JAVA_OPTS -Dsoapui.jxbrowser.disable=true"
+ fi
+ 
++# soap ui uses user.home to store all it's settings and for nothing else. 
++# set user home to a dot directory in the user's home to tidy that up a bit
++JAVA_OPTS="$JAVA_OPTS -Duser.home=$HOME/.soapui"
++
+ export JAVA_OPTS
+ 
+ # For Cygwin, switch paths to Windows format before running java
