@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+                   |-----handy-ruler------------------------------------------------------|
+oracle-xe-universal: oracle-xe-universal (entry-level, small-footprint database)
+oracle-xe-universal:
+oracle-xe-universal: Oracle Database 11g Express Edition (Oracle Database XE)
+oracle-xe-universal: is an entry-level, small-footprint database based on the
+oracle-xe-universal: Oracle Database 11g Release 2 code base.  It's free to
+oracle-xe-universal: develop, deploy, and distribute; fast to download; and
+oracle-xe-universal: simple to administer.
+oracle-xe-universal:
+oracle-xe-universal:
+oracle-xe-universal: Homepage: http://www.oracle.com/technetwork/products/express-edition
+oracle-xe-universal:

@@ -1,0 +1,119 @@
+#!/bin/sh
+
+# Slackware build script for oracle-xe-universal
+
+# Copyright 2012, Andrew Clemons, Wellington, New Zealand
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+# notice, this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ''AS IS'' AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+# EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+PRGNAM=oracle-xe-universal
+VERSION=${VERSION:-10.2.0.1}
+BUILD=${BUILD:-1}
+TAG=${TAG:-_acl}
+
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) ARCH=i486 ;;
+    arm*) ARCH=arm ;;
+       *) ARCH=$( uname -m ) ;;
+  esac
+fi
+
+CWD=$(pwd)
+TMP=${TMP:-/tmp/acl}
+PKG=$TMP/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+
+if ! grep ^dba: /etc/group 2>&1 > /dev/null; then
+  echo "  You must have a dba group to run this script."
+  echo "    # groupadd -g 400 dba"
+  exit 1
+elif ! grep ^oracle: /etc/passwd 2>&1 > /dev/null; then
+  echo "  You must have an oracle user to run this script."
+  echo "    # useradd -u 400 -g 400 -d /usr/lib/oracle/xe -s /bin/bash oracle"
+  exit 1
+fi
+
+if [ "$ARCH" = "i486" ]; then
+  DEBARCH="i386"
+elif [ "$ARCH" = "x86_64" ]; then
+  echo "Package for x86_64 architecture is not supported."
+  exit 1
+else
+  echo "Package for $(uname -m) architecture is not available."
+  exit 1
+fi
+
+set -e
+
+rm -rf $PKG
+mkdir -p $TMP $PKG $OUTPUT 
+cd $PKG
+
+ar p $CWD/"$PRGNAM"_"$VERSION"-1.1_"$DEBARCH".deb data.tar.gz | gzip -d | tar xv
+
+chown -R oracle:dba .
+find . \
+ \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
+ -exec chmod 755 {} \; -o \
+ \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
+ -exec chmod 644 {} \;
+
+chmod 6751 usr/lib/oracle/xe/app/oracle/product/10.2.0/server/bin/oracle
+chmod 755 usr/lib/oracle/xe/app/oracle/product/10.2.0/server/bin/sqlplus
+
+# fix broken shell script - uses #!/bin/sh, but needs bash
+perl -i -pe 's/^#!\/bin\/sh/#!\/bin\/bash/' usr/lib/oracle/xe//app/oracle/product/10.2.0/server/bin/nls_lang.sh
+
+# remove rubbish
+rm -fr usr/lib/oracle/screenrc
+rm -fr usr/lib/oracle/gtkrc
+rm -fr usr/lib/oracle/emacs
+rm -fr usr/lib/oracle/cshrc-DEFAULT_old
+rm -fr usr/lib/oracle/cshrc-DEFAULT.06292004
+rm -fr usr/lib/oracle/cshrc-DEFAULT
+rm -fr usr/lib/oracle/cshrc
+rm -fr usr/lib/oracle/bashrc-DEFAULT
+rm -fr usr/lib/oracle/bashrc_logout
+rm -fr usr/lib/oracle/xe/app/oracle/product/10.2.0/server/rdbms/admin/patch
+
+# add oracle env to globabl profile
+mkdir etc/profile.d
+
+ln -sf /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/bin/oracle_env.sh etc/profile.d/oracle_env.sh
+ln -sf /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/bin/oracle_env.csh etc/profile.d/oracle_env.csh
+
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+
+mv $PKG/usr/share/man $PKG/usr/man
+
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
+
+ar p $CWD/"$PRGNAM"_"$VERSION"-1.1_"$DEBARCH".deb control.tar.gz | gzip -d | tar Oxv ./postinst | \
+	grep -A 47 "SGA & PGA algo" | perl -pe 's/^    //' >> $PKG/install/doinst.sh
+
+echo -e "\nsh /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/network/install/sqlnet/setowner.sh" >> $PKG/install/doinst.sh
+
+cd $PKG
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
