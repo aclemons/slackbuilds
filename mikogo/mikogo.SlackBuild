@@ -2,7 +2,7 @@
 
 # Slackware build script for mikogo
 
-# Copyright 2011 Andrew Clemons Wellington, New Zealand
+# Copyright 2011,2012 Andrew Clemons Wellington, New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,7 +23,7 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=mikogo
-VERSION="4.3.110804"
+VERSION="4.5.120116"
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
@@ -62,7 +62,7 @@ mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf ""$PRGNAM""$VERSION""
 tar xvf $CWD/$PRGNAM.tar.gz
-cd ""$PRGNAM""$VERSION""
+cd mikogo4.5
 chown -R root:root .
 chmod -R u+w,go+r-w,a-s .
 
