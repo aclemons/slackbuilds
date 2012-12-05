@@ -90,13 +90,16 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
-if [ "${SKIP_LDCONFIG}" != "yes" ]; then
-  cat << EOF > $PKG/install/doinst.sh
-sed -i '/oracle\/.*client$LIBDIRSUFFIX/d' /etc/ld.so.conf
-echo /usr/lib$LIBDIRSUFFIX/oracle/11.2/client$LIBDIRSUFFIX/lib >> /etc/ld.so.conf
-ldconfig
-EOF
+cat << EOF > $PKG/install/doinst.sh
+if ! grep /usr/lib$LIBDIRSUFFIX/oracle/11.2/client$LIBDIRSUFFIX/lib etc/ld.so.conf 1> /dev/null 2> /dev/null ; then
+  echo "/usr/lib$LIBDIRSUFFIX/oracle/11.2/client$LIBDIRSUFFIX/lib" >> etc/ld.so.conf
 fi
+
+if [ -x /sbin/ldconfig ]; then
+  /sbin/ldconfig 2> /dev/null
+fi
+EOF
+
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}

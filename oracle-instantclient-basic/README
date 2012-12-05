@@ -6,6 +6,3 @@ slackbuild just repackages the rpms provided by Oracle and automatically sets
 up the ORACLE_HOME environment variable and ld.so.conf with the oracle
 libraries.
 
-If you would rather set up the ld library configs yourself:
-SKIP_LDCONFIG="yes" ./oracle-instantclient-basic.SlackBuild
-
