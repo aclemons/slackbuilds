@@ -1,0 +1,6 @@
+This package will install SQL*Plus (additional libraries and executable for
+running SQL*Plus with Instant Client).
+
+You will need an Oracle account to be able to download the source rpms. This
+slackbuild just repackages the rpms provided by Oracle.
+

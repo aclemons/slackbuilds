@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for oracle instantclient
+# Slackware build script for oracle instantclient sqlplus
 
-# Copyright 2011, Andrew Clemons, Wellington, New Zealand
+# Copyright 2011,2012 Andrew Clemons, Wellington, New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -22,8 +22,8 @@
 #  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-PRGNAM=oracle-instantclient
-VERSION=${VERSION:-11.2.0.2.0}
+PRGNAM=oracle-instantclient-sqlplus
+VERSION=${VERSION:-11.2.0.3.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
@@ -47,7 +47,6 @@ CWD=$(pwd)
 TMP=${TMP:-/tmp/acl}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-ORACLE_HOME=/usr/lib$LIBDIRSUFFIX/oracle/11.2/client$LIBDIRSUFFIX
 
 set -e
 
@@ -60,9 +59,7 @@ mkdir $SRCNAM-$VERSION
 
 cd $SRCNAM-$VERSION
 
-rpm2cpio $CWD/${SRCNAM}11.2-basic-$VERSION.$ARCH.rpm | cpio -mvid
-rpm2cpio $CWD/${SRCNAM}11.2-devel-$VERSION.$ARCH.rpm | cpio -mvid
-rpm2cpio $CWD/${SRCNAM}11.2-sqlplus-$VERSION.$ARCH.rpm | cpio -mvid
+rpm2cpio $CWD/oracle-instantclient11.2-sqlplus-$VERSION-1.$ARCH.rpm | cpio -mvid
 
 chown -R root:root .
 chmod -R u+w,go+r-w,a-s .
@@ -73,32 +70,11 @@ if [ "$ARCH" = "x86_64" ]; then
   mv $PKG/usr/lib $PKG/usr/lib64
 fi
 
-mkdir -p $PKG/etc/profile.d/
-cat << EOF > $PKG/etc/profile.d/$PRGNAM.csh
-#!/bin/csh
-setenv ORACLE_HOME ${ORACLE_HOME}
-setenv PATH ${PATH}:${ORACLE_HOME}/bin
-EOF
-cat << EOF > $PKG/etc/profile.d/$PRGNAM.sh
-#!/bin/sh
-export ORACLE_HOME=${ORACLE_HOME}
-export PATH=${PATH}:${ORACLE_HOME}/bin
-EOF
-chmod 0755 $PKG/etc/profile.d/*
-
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-
-if [ "${SKIP_LDCONFIG}" != "yes" ]; then
-  cat << EOF > $PKG/install/doinst.sh
-sed -i '/oracle\/.*client$LIBDIRSUFFIX/d' /etc/ld.so.conf
-echo /usr/lib$LIBDIRSUFFIX/oracle/11.2/client$LIBDIRSUFFIX/lib >> /etc/ld.so.conf
-ldconfig
-EOF
-fi
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
