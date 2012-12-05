@@ -22,7 +22,8 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-PRGNAM=oracle-xe-universal
+PRGNAMBASE=oracle-xe-universal
+PRGNAM=$PRGNAMBASE-10g
 VERSION=${VERSION:-10.2.0.1}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
@@ -66,7 +67,7 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT 
 cd $PKG
 
-ar p $CWD/"$PRGNAM"_"$VERSION"-1.1_"$DEBARCH".deb data.tar.gz | gzip -d | tar xv
+ar p $CWD/"$PRGNAMBASE"_"$VERSION"-1.1_"$DEBARCH".deb data.tar.gz | gzip -d | tar xv
 
 chown -R oracle:dba .
 find . \
@@ -93,7 +94,7 @@ rm -fr usr/lib/oracle/bashrc-DEFAULT
 rm -fr usr/lib/oracle/bashrc_logout
 rm -fr usr/lib/oracle/xe/app/oracle/product/10.2.0/server/rdbms/admin/patch
 
-# add oracle env to globabl profile
+# add oracle env to global profile
 mkdir etc/profile.d
 
 ln -sf /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/bin/oracle_env.sh etc/profile.d/oracle_env.sh
@@ -110,10 +111,11 @@ cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
-ar p $CWD/"$PRGNAM"_"$VERSION"-1.1_"$DEBARCH".deb control.tar.gz | gzip -d | tar Oxv ./postinst | \
+ar p $CWD/"$PRGNAMBASE"_"$VERSION"-1.1_"$DEBARCH".deb control.tar.gz | gzip -d | tar Oxv ./postinst | \
 	grep -A 47 "SGA & PGA algo" | perl -pe 's/^    //' >> $PKG/install/doinst.sh
 
 echo -e "\nsh /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/network/install/sqlnet/setowner.sh" >> $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+

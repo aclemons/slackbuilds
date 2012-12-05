@@ -1,0 +1,10 @@
+PRGNAM="oracle-xe-universal-10g
+VERSION="10.2.0.1"
+HOMEPAGE="http://www.oracle.com"
+DOWNLOAD="https://oss.oracle.com/debian/dists/unstable/non-free/binary-i386/oracle-xe-universal_10.2.0.1-1.1_i386.deb"
+MD5SUM="3140db681260242c6e5951edfd5c17b5"
+DOWNLOAD_x86_64="UNSUPPORTED"
+MD5SUM_x86_64=""
+MAINTAINER="Andrew Clemons"
+EMAIL="andrew.clemons@gmail.com"
+APPROVED="aclemons"

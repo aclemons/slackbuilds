@@ -11,7 +11,7 @@ This should work:
 groupadd -g 400 dba
 useradd -u 400 -g 400 -d /usr/lib/oracle/xe -s /bin/bash oracle
 
-Oracle Recommend at least the following:
+Oracle recommend at least the following:
 
 kernel.sem=250 32000 100 128
 kernel.shmmax=536870912
