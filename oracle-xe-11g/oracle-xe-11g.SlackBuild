@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Slackware build script for oracle-xe-universal-10g
+# Slackware build script for oracle-xe-11g
 
 # Copyright 2012, Andrew Clemons, Wellington, New Zealand
 # All rights reserved.
@@ -22,9 +22,9 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-PRGNAMBASE=oracle-xe-universal
-PRGNAM=$PRGNAMBASE-10g
-VERSION=${VERSION:-10.2.0.1}
+PRGNAMBASE=oracle-xe
+PRGNAM=$PRGNAMBASE-11g
+VERSION=${VERSION:-11.2.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
@@ -47,15 +47,14 @@ if ! grep ^dba: /etc/group 2>&1 > /dev/null; then
   exit 1
 elif ! grep ^oracle: /etc/passwd 2>&1 > /dev/null; then
   echo "  You must have an oracle user to run this script."
-  echo "    # useradd -u 400 -g 400 -d /usr/lib/oracle/xe -s /bin/bash oracle"
+  echo "    # useradd -u 400 -g 400 -d /u01/app/oracle -s /bin/bash oracle"
   exit 1
 fi
 
 if [ "$ARCH" = "i486" ]; then
-  DEBARCH="i386"
-elif [ "$ARCH" = "x86_64" ]; then
-  echo "Package for x86_64 architecture is not supported."
+  echo "Package for i486 architecture is not supported."
   exit 1
+elif [ "$ARCH" = "x86_64" ]; then :;
 else
   echo "Package for $(uname -m) architecture is not available."
   exit 1
@@ -64,30 +63,49 @@ fi
 set -e
 
 rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT 
+mkdir -p $TMP $PKG $OUTPUT
+cd $TMP
+rm -rf $PRGNAM-$VERSION
+mkdir -p $PRGNAM-$VERSION
+cd $PRGNAM-$VERSION
+
+unzip -q $CWD/$PRGNAMBASE-$VERSION-1.0.$ARCH.rpm.zip
+
 cd $PKG
 
-ar p $CWD/"$PRGNAMBASE"_"$VERSION"-1.1_"$DEBARCH".deb data.tar.gz | gzip -d | tar xv
+rpm2cpio $TMP/$PRGNAM-$VERSION/Disk1/$PRGNAMBASE-$VERSION-1.0.$ARCH.rpm | cpio -mvid
 
-chown -R oracle:dba .
+rm -rf response upgrade
+
+chown -R root:root etc usr
+
+chown -R oracle:dba u01
+
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
  -exec chmod 755 {} \; -o \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
+chmod 755 u01
+chmod 755 u01/app
+chmod 755 u01/app/oracle
+chmod 755 u01/app/oracle/product
+chmod 755 u01/app/oracle/product/11.2.0
+chmod 755 u01/app/oracle/product/11.2.0/xe
+ 
 # fix broken shell script - uses #!/bin/sh, but needs bash
-perl -i -pe 's/^#!\/bin\/sh/#!\/bin\/bash/' usr/lib/oracle/xe//app/oracle/product/10.2.0/server/bin/nls_lang.sh
+perl -i -pe 's/^#!\/bin\/sh/#!\/bin\/bash/' u01/app/oracle/product/11.2.0/xe/bin/nls_lang.sh
 
 # add oracle env to global profile
-mkdir -p etc/profile.d
+mkdir -p $PKG/etc/profile.d
 
-ln -sf /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/bin/oracle_env.sh etc/profile.d/oracle_env.sh
-ln -sf /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/bin/oracle_env.csh etc/profile.d/oracle_env.csh
+ln -sf /u01/app/oracle/product/11.2.0/xe/bin/oracle_env.sh etc/profile.d/oracle_env.sh
+ln -sf /u01/app/oracle/product/11.2.0/xe/bin/oracle_env.csh etc/profile.d/oracle_env.csh
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 
-mv $PKG/usr/share/man $PKG/usr/man
+mv $PKG/usr/share/doc/oracle_xe/* $PKG/usr/doc/$PRGNAM-$VERSION
 
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
@@ -96,14 +114,23 @@ cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
-ar p $CWD/"$PRGNAMBASE"_"$VERSION"-1.1_"$DEBARCH".deb control.tar.gz | gzip -d | tar Oxv ./postinst | \
-        sed '1,/SGA & PGA algo/d' | awk 'NR==1,/End MODE=install/' | sed '$d' | perl -pe 's/^    //' >> $PKG/install/doinst.sh
+# the oracle scripts will change the current directory
+echo "(" >> $PKG/install/doinst.sh
 
-ar p $CWD/"$PRGNAMBASE"_"$VERSION"-1.1_"$DEBARCH".deb control.tar.gz | gzip -d | tar Oxv ./postinst | \
-        grep "chmod" >> $PKG/install/doinst.sh
+rpm -qp --scripts $TMP/$PRGNAM-$VERSION/Disk1/$PRGNAMBASE-$VERSION-1.0.$ARCH.rpm | sed '1,/Executing post-install/d' | \
+      awk 'NR==1,/preuninstall scriptlet/' | sed '$d' | sed '1,/Creating the required symbolic/d' | awk 'NR==1,/^fi/' | \
+      sed '$d' | perl -pe 's/^\t//' >> $PKG/install/doinst.sh
 
-ar p $CWD/"$PRGNAMBASE"_"$VERSION"-1.1_"$DEBARCH".deb control.tar.gz | gzip -d | tar Oxv ./postinst | \
-        sed '1,/^rm/d' >> $PKG/install/doinst.sh        
+rpm -qp --scripts $TMP/$PRGNAM-$VERSION/Disk1/$PRGNAMBASE-$VERSION-1.0.$ARCH.rpm | sed '1,/Executing post-install/d' | \
+      awk 'NR==1,/preuninstall scriptlet/' | sed '$d' | sed '1,/chown/d' | awk 'NR==1,/SuSE/' | sed '$d' >> $PKG/install/doinst.sh
+
+rpm -qp --scripts $TMP/$PRGNAM-$VERSION/Disk1/$PRGNAMBASE-$VERSION-1.0.$ARCH.rpm | sed '1,/Executing post-install/d' | \
+      awk 'NR==1,/preuninstall scriptlet/' | sed '$d' | grep "751" >> $PKG/install/doinst.sh
+
+rpm -qp --scripts $TMP/$PRGNAM-$VERSION/Disk1/$PRGNAMBASE-$VERSION-1.0.$ARCH.rpm | sed '1,/Executing post-install/d' | \
+      awk 'NR==1,/preuninstall scriptlet/' | sed '$d' | sed '1,/^rm/d' | perl -pe 's/\/etc\/sysconfig/\/etc\/default/' >> $PKG/install/doinst.sh
+
+echo ")" >> $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
