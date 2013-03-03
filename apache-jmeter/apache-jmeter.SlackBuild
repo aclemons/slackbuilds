@@ -2,7 +2,7 @@
 
 # Slackware build script for jmeter
 
-# Copyright 2011,2012, Andrew Clemons, Wellington, New Zealand
+# Copyright 2011,2012,2013 Andrew Clemons, Wellington, New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,7 +23,7 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=apache-jmeter
-VERSION=2.8
+VERSION=2.9
 ARCH=noarch
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
