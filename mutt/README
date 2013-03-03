@@ -1,9 +1,0 @@
-Mutt is a small but very powerful text-based MIME mail client.  Mutt is highly
-configurable, and is well suited to the mail power user with advanced features
-like key bindings, keyboard macros, mail threading, regular expression searches
-and a powerful pattern matching language for selecting groups of messages.
-
-This is a slightly modified version of the vanilla slackbuild for mutt which
-adds the current ubuntu patches (which are based on debian's) to create a
-patched mutt. Also I link against gnutls and enable header caching with
-tokyocabinet.
