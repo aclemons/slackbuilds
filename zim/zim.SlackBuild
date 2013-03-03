@@ -2,7 +2,7 @@
 
 # Slackware build script for zim
 
-# Copyright 2011, 2012 Andrew Clemons, Wellington, New Zealand
+# Copyright 2011, 2012, 2013 Andrew Clemons, Wellington, New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +24,7 @@
 
 
 PRGNAM=zim
-VERSION=${VERSION:-0.57}
+VERSION=${VERSION:-0.59}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
