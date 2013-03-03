@@ -5,7 +5,7 @@ administer.
 
 This will only work on 32 bit slackware and with the 10g version of XE.
 
-You need an oracle user in group dba before running this creating this script.
+You need an oracle user in group dba before running this script.
 This should work:
 
 groupadd -g 400 dba
@@ -23,3 +23,4 @@ net.ipv4.ip_local_port_range=1023 65000
 
 After installing you must run /etc/init.d/oracle-xe configure to configure the
 database.
+
