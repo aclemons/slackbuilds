@@ -1,0 +1,25 @@
+#!/bin/sh
+
+CMD=/usr/share/derby/bin/NetworkServerControl
+DERBY_OPTS="-Dderby.system.home=/var/lib/derby"
+ 
+case "$1" in
+  "start")
+    su -l derby -c "DERBY_OPTS="$DERBY_OPTS" $CMD start &"
+  ;;
+  "stop")
+    su -l derby -c "DERBY_OPTS="$DERBY_OPTS" $CMD shutdown"
+  ;;
+  "restart")
+    derby shutdown
+    sleep 1
+    derby start
+  ;;
+  "status")
+    su -l derby -c "DERBY_OPTS="$DERBY_OPTS" $CMD sysinfo"
+  ;;
+  *)
+    echo "Usage: $0 {start|stop|restart|status}"
+    exit 1
+  ;;
+esac
