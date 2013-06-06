@@ -1,0 +1,6 @@
+ClamSAP is a 'C' shared library to link between ClamAV and the virus scan
+interface of SAP (NW-VSI). A SAP application can use the ClamAV engine to scan
+for malicious uploads in HTTP uploads for example.
+
+http://clamsap.sourceforge.net/
+
