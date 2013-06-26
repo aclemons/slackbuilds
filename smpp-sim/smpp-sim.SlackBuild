@@ -24,7 +24,7 @@
 
 PRGNAM=smpp-sim
 VERSION="2.6.9"
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_acl}
 
 ARCH=noarch
@@ -66,11 +66,25 @@ rm conf/*test*
 chown -R root:root .
 chmod -R u+w,go+r-w,a-s .
 chmod 0755 *.sh
+find . \
+ \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
+ -exec chmod 755 {} \; -o \
+ \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
+ -exec chmod 644 {} \;
 
-mkdir -p $PKG/var/log/smpp-sim
+mkdir -p $PKG/var/log/$PRGNAM
+touch $PKG/var/log/$PRGNAM/smppsim.log.0.new
+touch $PKG/var/log/$PRGNAM/"$PRGNAM"_console.log.new
+mkdir -p $PKG/var/run/$PRGNAM
 
 mkdir -p $PKG/usr/bin
 ln -sf /opt/smpp-sim/startsmppsim.sh $PKG/usr/bin/startsmppsim.sh
+
+cat $CWD/smpp-simd.sh > $PKG/usr/bin/smpp-simd
+chmod 0755 $PKG/usr/bin/*
+
+mkdir -p $PKG/etc/rc.d
+cp $CWD/rc.$PRGNAM $PKG/etc/rc.d/rc.$PRGNAM.new
 
 mkdir -p $PKG/usr/doc/
 mv docs $PKG/usr/doc/$PRGNAM-$VERSION
@@ -78,6 +92,7 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}

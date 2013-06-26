@@ -8,4 +8,4 @@
 +
 +DIR=/opt/smpp-sim
 +
-+java -Djava.net.preferIPv4Stack=true -Djava.util.logging.config.file=$DIR/conf/logging.properties -jar $DIR/smppsim.jar $DIR/conf/smppsim.props &
++java -Djava.net.preferIPv4Stack=true -Djava.util.logging.config.file=$DIR/conf/logging.properties -jar $DIR/smppsim.jar $DIR/conf/smppsim.props

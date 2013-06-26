@@ -1,11 +1,26 @@
---- conf/logging.properties	2011-09-13 10:11:26.708863535 +1200
-+++ conf/logging.properties.new	2011-09-13 10:11:46.949610491 +1200
-@@ -34,7 +34,7 @@
+--- conf/logging.properties	2012-07-25 02:48:12.000000000 +1200
++++ conf/logging.properties	2013-06-26 15:35:37.256101072 +1200
+@@ -18,7 +18,7 @@
+ handlers= java.util.logging.ConsoleHandler
+ 
+ # To also add the FileHandler, use the following line instead.
+-handlers= java.util.logging.FileHandler, java.util.logging.ConsoleHandler
++handlers= java.util.logging.FileHandler
+ 
+ # Default global logging level.
+ # This specifies which kinds of events are logged across
+@@ -34,13 +34,9 @@
  ############################################################
  
  # default file output is in user's home directory.
 -java.util.logging.FileHandler.pattern = ./smppsim%u.log
-+java.util.logging.FileHandler.pattern = /var/log/smpp-sim/smppsim%u.log
++java.util.logging.FileHandler.pattern = /var/log/smpp-sim/smppsim.log
  java.util.logging.FileHandler.limit = 5000000
  java.util.logging.FileHandler.count = 10
  # java.util.logging.FileHandler.formatter = java.util.logging.XMLFormatter
+ java.util.logging.FileHandler.formatter = com.seleniumsoftware.SMPPSim.LogFormatter
+ 
+-# Limit the message that are printed on the console to INFO and above.
+-java.util.logging.ConsoleHandler.level = INFO
+-# java.util.logging.ConsoleHandler.formatter = java.util.logging.SimpleFormatter
+-java.util.logging.ConsoleHandler.formatter = com.seleniumsoftware.SMPPSim.LogFormatter
