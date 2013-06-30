@@ -1,0 +1,20 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+      |-----handy-ruler------------------------------------------------------|
+sapjvm: SAP JVM A high performance Java virtual machine.
+sapjvm:
+sapjvm: A high performance Java virtual machine that acts as the foundation
+sapjvm: for the whole SAP Java stack. SAP JVM was designed and developed with
+sapjvm: supportability, broad platform support and reliability as the main
+sapjvm: paradigms. It is more than just another Java Virtual Machine because
+sapjvm: it is enhanced with many additional features.
+sapjvm:
+sapjvm: For additional information, refer to this web page:
+sapjvm:
+sapjvm:
+sapjvm:
+sapjvm:

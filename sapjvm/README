@@ -1,0 +1,17 @@
+This is a SlackBuild that will repackage SAP JVM into a package that
+can be easily installed, upgraded, or removed using Slackware's native
+package management tools.
+
+To use it, you'll need SAP's JVM package for Linux.  Get the
+appropriate version for your architecture, either 32-bit i586 or 64-bit
+x64.  Be sure to get the version that is packaged as a .tar.gz!
+
+Then, run the script like this:
+
+./java.SlackBuild /tmp/sapjvm7-7.1.1326.linux.x86_64.tar.gz
+
+A Slackware txz package will be created in /tmp.  Install or upgrade it
+with a command like this one (adjust for arch, and version):
+
+upgradepkg --install-new sapjvm-7.1.1326-x86_64-1.txz
+
