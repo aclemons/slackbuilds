@@ -4,8 +4,3 @@ QGit is a git GUI viewer built on Qt/C++.  With qgit you will be able to browse
 revisions history, view patch content and changed files, graphically following
 different development branches. 
 
-Unfortunately I need to patch the sources to get them to compile correctly. The
-first patches the src/src.pro to remove the hardcoded ~/bin installation
-directory. The other patches qgit to work with the newest git version.
-repo-config has been deprecated. This patch comes from the Fedora build config
-for qgit.

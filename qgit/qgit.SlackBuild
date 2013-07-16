@@ -2,7 +2,7 @@
 
 # Slackware build script for qgit
 
-# Copyright 2011, Andrew Clemons <andrew.clemons@gmail.com>, Wellington, New Zealand
+# Copyright 2011,2013 Andrew Clemons <andrew.clemons@gmail.com>, Wellington, New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +24,7 @@
 
 
 PRGNAM=qgit
-VERSION=${VERSION:-2.3}
+VERSION=${VERSION:-2.5}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
@@ -60,9 +60,9 @@ set -e # Exit on most errors
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PRGNAM
-tar xvf $CWD/$PRGNAM-$VERSION.tar.bz2
-cd $PRGNAM
+rm -rf redivivus
+tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
+cd redivivus
 chown -R root:root .
 find . \
  \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
@@ -70,8 +70,8 @@ find . \
  \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
  -exec chmod 644 {} \;
 
-patch --verbose -p1 < $CWD/qgit-2.3-qmake.patch || exit 1
-patch --verbose -p1 < $CWD/qgit-2.3-repo-config.patch || exit 1
+#patch --verbose -p1 < $CWD/qgit-2.3-qmake.patch || exit 1
+#patch --verbose -p1 < $CWD/qgit-2.3-repo-config.patch || exit 1
 
 qmake qgit.pro
 make
