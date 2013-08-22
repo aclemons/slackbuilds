@@ -1,0 +1,18 @@
+--- henplus-0.9.8/bin/henplus	2009-05-02 02:46:51.000000000 +1200
++++ henplus-0.9.8/bin/henplus	2013-08-23 10:11:51.571042607 +1200
+@@ -30,7 +30,6 @@
+ # location of the readline lib.
+ # Modify this, if you installation stores this at a different
+ # position.
+-LD_LIBRARY_PATH=$THISDIR/../lib:/usr/lib/jni:$LD_LIBRARY_PATH
+ CLASSPATH=$CLASSPATH:$THISDIR/../share/java/libreadline-java.jar
+ 
+ # you may just throw your own jar files in this dir.
+@@ -71,6 +70,6 @@
+     fi
+ done
+ 
+-export CLASSPATH LD_LIBRARY_PATH
++export CLASSPATH
+ 
+ exec $JAVA $JAVA_FLAGS henplus.HenPlus "$@"
