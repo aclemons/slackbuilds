@@ -1,0 +1,46 @@
+#!/bin/sh
+
+# Slackware build script for postgresql-jdbc
+
+# adapted from the mysql-connector-java slackbuild
+# Written by crocket (crockabiscuit@gmail.com)
+
+# Andrew Clemons
+# Wellington, New Zealand
+
+PRGNAM=postgresql-jdbc
+VERSION=${VERSION:-9.2.1003}
+PGVERS=${PGVERS:-9.2-1003}
+BUILD=${BUILD:-1}
+TAG=${TAG:-_acl}
+
+ARCH=noarch
+
+CWD=$(pwd)
+TMP=${TMP:-/tmp/acl}
+PKG=$TMP/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+
+set -e
+
+rm -rf $PKG
+mkdir -p $TMP $PKG $OUTPUT
+cd $TMP
+rm -rf $PRGNAM-$VERSION
+mkdir $PRGNAM-$VERSION
+cd $PRGNAM-$VERSION
+
+mkdir -p $PKG/usr/share/$PRGNAM $PKG/etc/profile.d
+install -m 0644 $CWD/postgresql-$PGVERS.jdbc4.jar $PKG/usr/share/$PRGNAM/
+sed "s/%version%/$PGVERS/" $CWD/$PRGNAM.sh > $PKG/etc/profile.d/$PRGNAM.sh
+sed "s/%version%/$PGVERS/" $CWD/$PRGNAM.csh > $PKG/etc/profile.d/$PRGNAM.csh
+chmod 755 $PKG/etc/profile.d/*
+
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
