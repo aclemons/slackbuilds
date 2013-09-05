@@ -1,0 +1,15 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+                     |-----handy-ruler-----------------------------------------------|
+adobe-connect-addin: adobe-connect-addin (Screen sharing in an Adobe Connect meeting)
+adobe-connect-addin:
+adobe-connect-addin: The Adobe Connect Meeting Add-in is required to share your
+adobe-connect-addin: screen in an Adobe Connect meeting
+adobe-connect-addin:
+adobe-connect-addin:
+adobe-connect-addin:

@@ -1,0 +1,7 @@
+This will package the Abobe Connect Addin for screen sharing in an Adobe
+Connect Meeting.
+
+After installation, each user who wants to share his screen will need to
+execute /usr/bin/init_adobe_connect_for_user.sh to create the necessary
+symlinks in his home directory.
+
