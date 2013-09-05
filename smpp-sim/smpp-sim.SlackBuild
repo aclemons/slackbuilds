@@ -24,7 +24,7 @@
 
 PRGNAM=smpp-sim
 VERSION="2.6.9"
-BUILD=${BUILD:-2}
+BUILD=${BUILD:-3}
 TAG=${TAG:-_acl}
 
 ARCH=noarch
@@ -81,7 +81,7 @@ mkdir -p $PKG/usr/bin
 ln -sf /opt/smpp-sim/startsmppsim.sh $PKG/usr/bin/startsmppsim.sh
 
 cat $CWD/smpp-simd.sh > $PKG/usr/bin/smpp-simd
-chmod 0755 $PKG/usr/bin/*
+chmod 0755 $PKG/usr/bin/smpp-simd
 
 mkdir -p $PKG/etc/rc.d
 cp $CWD/rc.$PRGNAM $PKG/etc/rc.d/rc.$PRGNAM.new
