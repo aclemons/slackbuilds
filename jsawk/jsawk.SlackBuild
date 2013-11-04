@@ -24,8 +24,8 @@
 
 
 PRGNAM=jsawk
-VERSION=${VERSION:-20120215git}
-BUILD=${BUILD:-2}
+VERSION=${VERSION:-1.4}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
 ARCH=noarch
