@@ -3,7 +3,7 @@
 # Slackware build script for p4
 # Written by Andy Bailey <bailey@akamai.com
 
-# Updated for p4 13.1
+# Updated for p4 13.3
 # Include cmdref.pdf since no man pages available
 # for newer versions
 # http://forums.perforce.com/index.php?/topic/2406-p4-command-line-client-man-pages/page__hl__man+pages
@@ -11,7 +11,7 @@
 # Wellington, NZ
 
 PRGNAM=p4
-VERSION=${VERSION:-r13.1}
+VERSION=${VERSION:-r13.3}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
@@ -35,9 +35,11 @@ set -e
 mkdir -p $TMP $PKG $OUTPUT
 cp $CWD/p4 $PKG/usr/bin
 cp $CWD/p4.SlackBuild $PKG/usr/doc/p4-$VERSION
+cp $CWD/cmdref.pdf $PKG/usr/doc/p4-$VERSION
 
 chmod 0755 $PKG/usr/bin/p4
 chmod 0644 $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+chmod 0644 $PKG/usr/doc/$PRGNAM-$VERSION/cmdref.pdf
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc

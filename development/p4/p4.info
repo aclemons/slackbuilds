@@ -1,14 +1,14 @@
 PRGNAM="p4"
-VERSION="r13.1"
+VERSION="r13.3"
 HOMEPAGE="http://www.perforce.com/"
-DOWNLOAD="http://filehost.perforce.com/perforce/r13.1/bin.linux26x86/p4 \
-          http://filehost.perforce.com/perforce/r13.1/doc/manuals/cmdref/cmdref.pdf"
-MD5SUM="4bab3d63bd35ccf434d4c51e163f60d9 \
-        6642dd0a2a4ab3c3a6192db463f2404f"
-DOWNLOAD_x86_64="http://filehost.perforce.com/perforce/r13.1/bin.linux26x86_64/p4 \
-                 http://filehost.perforce.com/perforce/r13.1/doc/manuals/cmdref/cmdref.pdf"
-MD5SUM_x86_64="c8fe91249966067abb99ff67b691084b \
-               6642dd0a2a4ab3c3a6192db463f2404f"
+DOWNLOAD="http://filehost.perforce.com/perforce/r13.3/bin.linux26x86/p4 \
+          http://filehost.perforce.com/perforce/r13.3/doc/manuals/cmdref/cmdref.pdf"
+MD5SUM="cd2616fa79057b238c69d2aacc742544 \
+        a670e1961b40ea21451b8866ad9e2b5b"
+DOWNLOAD_x86_64="http://filehost.perforce.com/perforce/r13.3/bin.linux26x86_64/p4 \
+                 http://filehost.perforce.com/perforce/r13.3/doc/manuals/cmdref/cmdref.pdf"
+MD5SUM_x86_64="b43fa8429d13d1d8cc9b245dff7b444c \
+               a670e1961b40ea21451b8866ad9e2b5b"
 REQUIRES=""
 MAINTAINER="Andrew Clemons"
 EMAIL=andrew.clemons@gmail.com"
