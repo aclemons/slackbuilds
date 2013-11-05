@@ -12,7 +12,7 @@
 
 PRGNAM=p4
 VERSION=${VERSION:-r13.3}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_acl}
 
 # Automatically determine the architecture we're building on:
@@ -33,9 +33,11 @@ OUTPUT=${OUTPUT:-/tmp}
 set -e
 
 mkdir -p $TMP $PKG $OUTPUT
+mkdir -p $PKG/usr/bin
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp $CWD/p4 $PKG/usr/bin
-cp $CWD/p4.SlackBuild $PKG/usr/doc/p4-$VERSION
-cp $CWD/cmdref.pdf $PKG/usr/doc/p4-$VERSION
+cp $CWD/p4.SlackBuild $PKG/usr/doc/$PRGNAM-$VERSION
+cp $CWD/cmdref.pdf $PKG/usr/doc/$PRGNAM-$VERSION
 
 chmod 0755 $PKG/usr/bin/p4
 chmod 0644 $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
