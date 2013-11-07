@@ -1,5 +1,12 @@
 Java Readline is a JNI wrapper for the GNU readline or the editline command
 line libraries.
 
+The native library incorrectly converts characters if your locale is UTF-8. You
+can build with UTF8FIX=yes to apply a patch to fix this. It is not a proper fix
+though since it then breaks non-utf8 locales.  If you know how to properly fix
+it, please report it with a patch upstream
+
+http://sourceforge.net/p/java-readline/bugs/7/
+
 http://java-readline.sourceforge.net/
 

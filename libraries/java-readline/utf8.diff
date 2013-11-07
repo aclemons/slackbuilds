@@ -1,0 +1,122 @@
+diff -ru libreadline-java-0.8.0/src/native/org_gnu_readline_Readline.c libreadline-java-0.8.0/src/native/org_gnu_readline_Readline.c
+--- libreadline-java-0.8.0/src/native/org_gnu_readline_Readline.c	2003-01-07 23:14:35.000000000 +1300
++++ libreadline-java-0.8.0/src/native/org_gnu_readline_Readline.c	2013-11-08 11:39:35.768924569 +1300
+@@ -564,6 +564,12 @@
+ /* -------------------------------------------------------------------------- */
+ 
+ char* utf2ucs(const char *utf8) {
++  /* this does not work with a utf8 locale. this function assumes the input
++    data is in ucs1 (so it works with a locale like de_DE@euro) but not
++     de_DE.utf8
++  */
++
++  /*
+   const char *pin;
+   char *pout, *ucs;
+   unsigned char current, next;
+@@ -579,21 +585,36 @@
+   for (i=0,pin=utf8,pout=buffer; i<bufLength && *pin; i++,pin++,pout++) {
+     current = *pin;
+     if (current >= 0xE0) {                   /* we support only two-byte utf8 */
+-      return NULL;
+-    } else if ((current & 0x80) == 0)        /* one-byte utf8                 */
+-      *pout = current;
++  /*      return NULL;
++  /*    } else if ((current & 0x80) == 0)        /* one-byte utf8                 */
++  /*      *pout = current;
+     else {                                   /* two-byte utf8                 */
+-      next = *(++pin);
+-      if (next >= 0xC0) {                    /* illegal coding                */
+-	return NULL;
+-      }
+-      *pout = ((current & 3) << 6) +         /* first two bits of first byte  */
+-	(next & 63);                         /* last six bits of second byte  */
+-    }
++	  /*      next = *(++pin);
++   /*     if (next >= 0xC0) {                    /* illegal coding                */
++	  /*	return NULL;
++  /*      }
++  /*      *pout = ((current & 3) << 6) +         /* first two bits of first byte  */
++	  /*	(next & 63);                         /* last six bits of second byte  */
++	  /*    }
++  /*  }
++  /*  if (i<bufLength)
++  /*    *pout = '\0';
++   /* return buffer; */
++
++  /* this only works with utf8 locales. the proper way would be a function to
++   * convert the input char* to a modified utf8 byte array as described in the
++   * jni docs.
++   */
++
++  size_t n;
++  n = strlen(utf8);
++  if (2*n > bufLength) {
++    if (allocBuffer(2*n))
++      return NULL;
+   }
+-  if (i<bufLength)
+-    *pout = '\0';
+-  return buffer;
++
++  memset(buffer, '\0', sizeof(buffer));
++  strcpy(buffer, utf8);
+ }
+ 
+ /* -------------------------------------------------------------------------- */
+@@ -601,6 +622,12 @@
+ /* -------------------------------------------------------------------------- */
+ 
+ char* ucs2utf(const char *ucs) {
++  /* this does not work with a utf8 locale. this function assumes the input
++     data is in ucs1 (so it works with a locale like de_DE@euro) but not
++     de_DE.utf8
++  */
++
++  /*
+   const char *pin;
+   char *pout;
+   unsigned char current;
+@@ -616,20 +643,33 @@
+   for (i=0,pin=ucs,pout=buffer; i<bufLength && *pin; i++,pin++,pout++) {
+     current = *pin;
+     if (current < 0x80)                      /* one-byte utf8                 */
+-      *pout = current;
++  /*    *pout = current;
+     else {                                   /* two-byte utf8                 */
+-      *pout = 0xC0 + (current>>6);           /* first two bits                */
+-      pout++, i++;                           /* examine second byte           */
+-      if (i>=bufLength) {                    /* cannot convert last byte      */
+-	*(--pout) = '\0';
++  /*   *pout = 0xC0 + (current>>6);           /* first two bits                */
++  /*   pout++, i++;                           /* examine second byte           */
++  /*  if (i>=bufLength) {                    /* cannot convert last byte      */
++  /*	*(--pout) = '\0';
+ 	return buffer;
+-      }
+-      *pout = 0x80 + (current & 63);         /* last six bits                 */
+-    }
++      }*/
++  /*    *pout = 0x80 + (current & 63);*/         /* last six bits                 */
++  /*  }
+   }
+   if (i<bufLength)
+     *pout = '\0';
+-  return buffer;
++  return buffer;*/
++
++  /* this only works with utf8 locales. the proper way would be a function to
++   * convert the input char* to a modified utf8 byte array as described in the
++   * jni docs.
++   */
++  size_t n;
++  n = strlen(ucs);
++  if (2*n > bufLength) {
++    if (allocBuffer(2*n))
++      return NULL;
++  }
++  memset(buffer, '\0', sizeof(buffer));
++  strcpy(buffer, ucs);
+ }
+ 
+ /* -------------------------------------------------------------------------- */
