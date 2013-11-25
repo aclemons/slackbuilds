@@ -1,0 +1,17 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|' on
+# the right side marks the last column you can put a character in.  You must make
+# exactly 11 lines for the formatting to be correct.  It's also customary to
+# leave one space after the ':'.
+
+                              |-----handy-ruler-----------------------------------------------|
+oracle-instantclient11.2-basic: oracle-instantclient11.2-basic (Oracle Call Interface)
+oracle-instantclient11.2-basic:
+oracle-instantclient11.2-basic: Oracle Call Interface (OCI) is the most comprehensive,
+oracle-instantclient11.2-basic: high performance, native 'C' language based interface to
+oracle-instantclient11.2-basic: the Oracle Database that exposes the full power of the
+oracle-instantclient11.2-basic: Oracle Database.
+oracle-instantclient11.2-basic:
+oracle-instantclient11.2-basic:
+oracle-instantclient11.2-basic:

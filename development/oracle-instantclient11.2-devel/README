@@ -1,9 +1,10 @@
-This package will install the basic instant client SDK (SDK: Additional header
-files and an example makefile for developing Oracle applications with Instant
-Client)
+This package will install the basic instant client 11.2 SDK (SDK: Additional
+header files and an example makefile for developing Oracle applications with
+Instant Client)
 
 You will need an Oracle account to be able to download the source rpms. This
 slackbuild just repackages the rpms provided by Oracle.
 
 I use this slackbuild for compiling packages which need the oracle SDK, like
 TOra.
+

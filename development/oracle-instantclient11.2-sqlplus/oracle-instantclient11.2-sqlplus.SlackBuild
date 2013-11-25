@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for oracle instantclient basic
+# Slackware build script for oracle instantclient sqlplus
 
-# Copyright 2011,2012 Andrew Clemons, Wellington, New Zealand
+# Copyright 2011,2012,2013 Andrew Clemons, Wellington, New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -22,21 +22,27 @@
 #  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-PRGNAM=oracle-instantclient-basic
-VERSION=${VERSION:-11.2.0.3.0}
+PRGNAM=oracle-instantclient11.2-sqlplus
+VERSION=${VERSION:-11.2.0.4.0}
+ORACLEVERS=11.2
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
-case "$( uname -m )" in
-  i?86) ARCH=i386 ;;
-  arm*) ARCH=arm ;;
-     *) ARCH=$( uname -m ) ;;
-esac
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) ARCH=i486 ;;
+    arm*) ARCH=arm ;;
+       *) ARCH=$( uname -m ) ;;
+  esac
+fi
+
 
 if [ "$ARCH" = "i386" ]; then
   LIBDIRSUFFIX=""
+  RPMARCH="i386"
 elif [ "$ARCH" = "x86_64" ]; then
   LIBDIRSUFFIX="64"
+  RPMARCH="$ARCH"
 else
   LIBDIRSUFFIX=""
 fi
@@ -47,7 +53,6 @@ CWD=$(pwd)
 TMP=${TMP:-/tmp/acl}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
-ORACLE_HOME=/usr/lib$LIBDIRSUFFIX/oracle/11.2/client$LIBDIRSUFFIX
 
 set -e
 
@@ -60,10 +65,14 @@ mkdir $SRCNAM-$VERSION
 
 cd $SRCNAM-$VERSION
 
-rpm2cpio $CWD/oracle-instantclient11.2-basic-$VERSION-1.$ARCH.rpm | cpio -mvid
+rpm2cpio $CWD/oracle-instantclient$ORACLEVERS-sqlplus-$VERSION-1.$RPMARCH.rpm | cpio -mvid
 
 chown -R root:root .
-chmod -R u+w,go+r-w,a-s .
+find -L . \
+ \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
+  -o -perm 511 \) -exec chmod 755 {} \; -o \
+ \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
+ -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
 mv usr $PKG
 
@@ -71,35 +80,12 @@ if [ "$ARCH" = "x86_64" ]; then
   mv $PKG/usr/lib $PKG/usr/lib64
 fi
 
-mkdir -p $PKG/etc/profile.d/
-cat << EOF > $PKG/etc/profile.d/$PRGNAM.csh
-#!/bin/csh
-setenv ORACLE_HOME ${ORACLE_HOME}
-setenv PATH ${PATH}:${ORACLE_HOME}/bin
-EOF
-cat << EOF > $PKG/etc/profile.d/$PRGNAM.sh
-#!/bin/sh
-export ORACLE_HOME=${ORACLE_HOME}
-export PATH=${PATH}:${ORACLE_HOME}/bin
-EOF
-chmod 0755 $PKG/etc/profile.d/*
-
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 
-cat << EOF > $PKG/install/doinst.sh
-if ! grep /usr/lib$LIBDIRSUFFIX/oracle/11.2/client$LIBDIRSUFFIX/lib etc/ld.so.conf 1> /dev/null 2> /dev/null ; then
-  echo "/usr/lib$LIBDIRSUFFIX/oracle/11.2/client$LIBDIRSUFFIX/lib" >> etc/ld.so.conf
-fi
-
-if [ -x /sbin/ldconfig ]; then
-  /sbin/ldconfig 2> /dev/null
-fi
-EOF
-
-
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+

@@ -1,8 +1,0 @@
-This package will install the basic instant client package (all files required
-to run OCI, OCCI, and JDBC-OCI applications)
-
-You will need an Oracle account to be able to download the source rpms. This
-slackbuild just repackages the rpms provided by Oracle and automatically sets
-up the ORACLE_HOME environment variable and ld.so.conf with the oracle
-libraries.
-
