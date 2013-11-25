@@ -1,0 +1,73 @@
+$>cat Crypt-GPG-1.63.patch
+commit e5c9658a618586ee50dd13fea478bb715ed8bc9d
+Author: Todd Rinaldo <toddr@cpanel.net>
+Date:   Fri May 20 02:18:55 2011 -0500
+
+    Fix for RT 68339 - qw() deprecation warnings in perl 5.14
+
+diff --git a/t/01-keygen.t b/t/01-keygen.t
+index d8d2bba..cb754ba 100644
+--- a/t/01-keygen.t
++++ b/t/01-keygen.t
+@@ -45,7 +45,7 @@ $gpg->debug($debug);
+ 
+ # Start test loop with different key sizes/types
+ ################################################
+-for my $bits qw(1024 2048) {
++for my $bits (qw(1024 2048)) {
+   for my $type ('ELG-E') {
+ 
+     # Generate key pair
+diff --git a/t/03-export.t b/t/03-export.t
+index 9f39591..fe03101 100644
+--- a/t/03-export.t
++++ b/t/03-export.t
+@@ -31,7 +31,7 @@ $gpg->debug($debug);
+ 
+ # Start test loop with different key sizes/types
+ ################################################
+-for my $bits qw(1024 2048) {
++for my $bits (qw(1024 2048)) {
+   for my $type ('ELG-E') {
+ 
+     # Export our public key
+diff --git a/t/04-encdec.t b/t/04-encdec.t
+index be969c6..b6f2cc9 100644
+--- a/t/04-encdec.t
++++ b/t/04-encdec.t
+@@ -32,7 +32,7 @@ $gpg->debug($debug);
+ 
+ # Start test loop with different key sizes/types
+ ################################################
+-for my $bits qw(1024 2048) {
++for my $bits (qw(1024 2048)) {
+   for my $type ('ELG-E') {
+ 
+     my $secretkey; 
+diff --git a/t/05-sigver.t b/t/05-sigver.t
+index 7129521..9f4cf37 100644
+--- a/t/05-sigver.t
++++ b/t/05-sigver.t
+@@ -32,7 +32,7 @@ $gpg->debug($debug);
+ 
+ # Start test loop with different key sizes/types
+ ################################################
+-for my $bits qw(1024 2048) {
++for my $bits (qw(1024 2048)) {
+   for my $type ('ELG-E') {
+ 
+     my $secretkey;
+diff --git a/t/06-keyops.t b/t/06-keyops.t
+index 5109474..565d40c 100644
+--- a/t/06-keyops.t
++++ b/t/06-keyops.t
+@@ -41,7 +41,7 @@ unless ($nogpg) {
+ 
+ # Start test loop with different key sizes/types
+ ################################################
+-for my $bits qw(1024 2048) {
++for my $bits (qw(1024 2048)) {
+   for my $type ('ELG-E') {
+ 
+     my @mykeys; @mykeys = $gpg->keyinfo("A $bits $type") unless $nogpg;
+

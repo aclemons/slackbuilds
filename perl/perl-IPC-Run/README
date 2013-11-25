@@ -1,0 +1,9 @@
+IPC::Run - system() and background procs w/ piping, redirs, ptys (Unix, Win32)
+
+DESCRIPTION
+  IPC::Run allows you to run and interact with child processes using files,
+  pipes, and pseudo-ttys. Both system()-style and scripted usages are supported
+  and may be mixed. Likewise, functional and OO API styles are both supported and
+  may be mixed. Various redirection operators reminiscent of those seen on common
+  Unix and DOS command lines are provided.
+

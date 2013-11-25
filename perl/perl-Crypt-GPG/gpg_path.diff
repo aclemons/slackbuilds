@@ -1,0 +1,12 @@
+diff -ru Crypt-GPG-1.63.orig/GPG.pm Crypt-GPG-1.63/GPG.pm
+--- Crypt-GPG-1.63.orig/GPG.pm	2007-04-02 13:39:39.000000000 +0000
++++ Crypt-GPG-1.63/GPG.pm	2013-11-25 21:39:25.736213376 +0000
+@@ -26,7 +26,7 @@
+ ( $VERSION ) = '$Revision: 1.63 $' =~ /\s+([\d\.]+)/;
+ 
+ sub new {
+-  bless { GPGBIN         =>   '/usr/local/bin/gpg',
++  bless { GPGBIN         =>   'gpg',
+ 	  FORCEDOPTS     =>   '--no-secmem-warning',
+ 	  GPGOPTS        =>   '--lock-multiple --compress-algo 1 ' .
+ 	                      '--cipher-algo cast5 --force-v3-sigs',

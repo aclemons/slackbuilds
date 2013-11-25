@@ -1,0 +1,12 @@
+Crypt::GPG - An Object Oriented Interface to GnuPG.
+
+DESCRIPTION
+  The Crypt::GPG module provides access to the functionality of the GnuPG
+  (www.gnupg.org) encryption tool through an object oriented interface.  It
+  provides methods for encryption, decryption, signing, signature verification,
+  key generation, key certification, export and import. Key-server access is on
+  the todo list.
+
+This requires perl-TimeDate available on slackbuilds.org and perl-IPC-Run
+available from my slackbuilds.
+
