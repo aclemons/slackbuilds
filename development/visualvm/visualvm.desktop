@@ -1,0 +1,8 @@
+[Desktop Entry]
+Categories=Development;Java;
+Comment=All-in-One Java Troubleshooting Tool
+Exec=/usr/bin/visualvm
+Icon=java
+Name=VisualVM
+Terminal=false
+Type=Application
