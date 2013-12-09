@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+        |-----handy-ruler------------------------------------------------------|
+visualvm: visualvm (All-in-One Java Troubleshooting Tool)
+visualvm:
+visualvm: VisualVM is a visual tool integrating several commandline JDK tools
+visualvm: and lightweight profiling capabilities. Designed for both production
+visualvm: and development time use, it further enhances the capability of
+visualvm: monitoring and performance analysis for the Java SE platform.
+visualvm:
+visualvm:
+visualvm: Homepage: http://visualvm.java.net/
+visualvm:
+visualvm:
