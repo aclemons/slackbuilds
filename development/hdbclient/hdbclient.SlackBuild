@@ -1,0 +1,107 @@
+#!/bin/sh
+
+# Slackware build script for hdbclient
+
+# Copyright 2013 Andrew Clemons Wellington, New Zealand
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ''AS IS'' AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+# EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+PRGNAM=hdbclient
+VERSION=${VERSION:-1.00.68.384084}
+VERS=`echo $VERSION | cut -d. -f 3`
+BUILD=${BUILD:-1}
+TAG=${TAG:-_acl}
+
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) ARCH=i486 ;;
+    arm*) ARCH=arm ;;
+       *) ARCH=$( uname -m ) ;;
+  esac
+fi
+
+if [ "$ARCH" = "i486" -o "$ARCH" = "i686" ]; then
+  ARCHSUFFIX="32"
+elif [ "$ARCH" = "x86_64" ]; then
+  ARCHSUFFIX="64"
+else 
+  ARCHSUFFIX="32"
+fi
+
+CWD=$(pwd)
+TMP=${TMP:-/tmp/acl}
+PKG=$TMP/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+
+set -e
+
+rm -rf $PKG
+mkdir -p $TMP $PKG $OUTPUT
+cd $TMP
+rm -rf ""$PRGNAM""$VERSION""
+rm -rf SAP_HANA_CLIENT_LINUX"$ARCHSUFFIX"
+
+tar xf $CWD/sap_hana_client_linux"$ARCHSUFFIX"_rev"$VERS".tgz
+
+cd SAP_HANA_CLIENT_LINUX"$ARCHSUFFIX"
+
+mkdir -p $PKG/usr/sap/$PRGNAM
+
+./hdbinst --path=$PKG/usr/sap/$PRGNAM || exit 1
+
+find $PKG/usr/sap/$PRGNAM -name '*.so' -exec chmod 0644 {} \;
+find $PKG/usr/sap/$PRGNAM -name '*.so.0' -exec chmod 0644 {} \;
+find $PKG/usr/sap/$PRGNAM -name '*.pm' -exec chmod 0644 {} \;
+
+rm -rf  $PKG/usr/sap/$PRGNAM/install
+
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION/
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+
+mkdir -p $PKG/etc/profile.d/
+cat << EOF > $PKG/etc/profile.d/$PRGNAM.sh
+#!/bin/sh
+export CLASSPATH="/usr/sap/hdbclient/ngdbc.jar:\$CLASSPATH"
+export PATH="\${PATH}:/usr/sap/hdbclient"
+EOF
+
+cat << EOF > $PKG/etc/profile.d/$PRGNAM.csh
+#!/bin/csh
+setenv CLASSPATH "/usr/sap/hdbclient/ngdbc.jar:\$CLASSPATH"
+setenv PATH \${PATH}:/usr/sap/hdbclient/
+EOF
+
+chmod 0755 $PKG/etc/profile.d/*
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cat << EOF > $PKG/install/doinst.sh
+if ! grep /usr/sap/$PRGNAM etc/ld.so.conf 1> /dev/null 2> /dev/null ; then
+  echo "/usr/sap/$PRGNAM" >> etc/ld.so.conf
+fi
+
+if [ -x /sbin/ldconfig ]; then
+  /sbin/ldconfig 2> /dev/null
+fi
+EOF
+
+cd $PKG
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+

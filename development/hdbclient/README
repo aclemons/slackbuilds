@@ -1,0 +1,12 @@
+hdbclient (JDBC, ODBC and command line client for SAP HANA)
+
+The hdbclient includes the JDBC driver, ODBC libraries and the
+hdbsql command line client.
+
+You'll need a developer account to download the binaries from SAP.
+
+hdbsql doesn't have a built-in history, so installing rlwrap is recommended.
+
+Homepage: https://hanadeveditionsapicl.hana.ondemand.com/hanadevedition/
+HANA Homepage: http://www.saphana.com/
+
