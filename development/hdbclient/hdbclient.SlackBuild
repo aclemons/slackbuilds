@@ -25,7 +25,7 @@
 PRGNAM=hdbclient
 VERSION=${VERSION:-1.00.68.384084}
 VERS=`echo $VERSION | cut -d. -f 3`
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
