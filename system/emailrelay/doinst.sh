@@ -28,3 +28,4 @@ fix_permissions()
 fix_permissions
 
 config etc/rc.d/rc.emailrelay.new
+config etc/emailrelay.conf.new
