@@ -9,8 +9,8 @@
 # Wellington, New Zealand
 
 PRGNAM=postgresql-jdbc
-VERSION=${VERSION:-9.2.1003}
-PGVERS=${PGVERS:-9.2-1003}
+VERSION=${VERSION:-9.3.1100}
+PGVERS=${PGVERS:-9.3-1100}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
@@ -31,7 +31,7 @@ mkdir $PRGNAM-$VERSION
 cd $PRGNAM-$VERSION
 
 mkdir -p $PKG/usr/share/$PRGNAM $PKG/etc/profile.d
-install -m 0644 $CWD/postgresql-$PGVERS.jdbc4.jar $PKG/usr/share/$PRGNAM/
+install -m 0644 $CWD/postgresql-$PGVERS.jdbc41.jar $PKG/usr/share/$PRGNAM/
 sed "s/%version%/$PGVERS/" $CWD/$PRGNAM.sh > $PKG/etc/profile.d/$PRGNAM.sh
 sed "s/%version%/$PGVERS/" $CWD/$PRGNAM.csh > $PKG/etc/profile.d/$PRGNAM.csh
 chmod 755 $PKG/etc/profile.d/*
@@ -44,3 +44,4 @@ cat $CWD/slack-desc > $PKG/install/slack-desc
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+
