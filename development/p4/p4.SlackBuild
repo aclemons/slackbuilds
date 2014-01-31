@@ -12,7 +12,7 @@
 
 PRGNAM=p4
 VERSION=${VERSION:-r13.3}
-BUILD=${BUILD:-3}
+BUILD=${BUILD:-4}
 TAG=${TAG:-_acl}
 
 # Automatically determine the architecture we're building on:
