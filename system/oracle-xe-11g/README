@@ -9,7 +9,7 @@ You need an oracle user in group dba before running this script.
 This should work:
 
 groupadd -g 400 dba
-useradd -u 400 -g 400 -d /usr/lib/oracle/xe -s /bin/bash oracle
+useradd -u 400 -g 400 -d /u01/app/oracle -s /bin/bash oracle
 
 Oracle recommend at least the following:
 
@@ -21,6 +21,23 @@ fs.file-max=6815744
 net.ipv4.ip_local_port_range=9000 65000
 
 
-After installing you must run /etc/init.d/oracle-xe configure to configure the
+After installing you must run /etc/rc.d/rc.oracle-xe configure to configure the
 database.
+
+To start and stop the database at boot/shutdown, make sure
+/etc/rc.d/rc.oracle-xe is executable and update the following files:
+
+/etc/rc.d/rc.local
+==================
+# Startup oracle-xe
+if [ -x /etc/rc.d/rc.oracle-xe ]; then
+    /etc/rc.d/rc.oracle-xe start
+fi
+
+/etc/rc.d/rc.local_shutdown
+===========================
+# Stop oracle-xe
+if [ -x /etc/rc.d/rc.oracle-xe ]; then
+    /etc/rc.d/rc.oracle-xe stop
+fi
 

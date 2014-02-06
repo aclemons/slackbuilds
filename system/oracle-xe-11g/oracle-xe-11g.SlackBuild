@@ -25,7 +25,7 @@
 PRGNAMBASE=oracle-xe
 PRGNAM=$PRGNAMBASE-11g
 VERSION=${VERSION:-11.2.0}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
@@ -51,10 +51,7 @@ elif ! grep ^oracle: /etc/passwd 2>&1 > /dev/null; then
   exit 1
 fi
 
-if [ "$ARCH" = "i486" ]; then
-  echo "Package for i486 architecture is not supported."
-  exit 1
-elif [ "$ARCH" = "x86_64" ]; then :;
+if [ "$ARCH" = "x86_64" ]; then :;
 else
   echo "Package for $(uname -m) architecture is not available."
   exit 1
@@ -102,6 +99,10 @@ mkdir -p $PKG/etc/profile.d
 
 ln -sf /u01/app/oracle/product/11.2.0/xe/bin/oracle_env.sh etc/profile.d/oracle_env.sh
 ln -sf /u01/app/oracle/product/11.2.0/xe/bin/oracle_env.csh etc/profile.d/oracle_env.csh
+
+mkdir -p $PKG/etc/rc.d/
+mv $PKG/etc/init.d/oracle-xe $PKG/etc/rc.d/rc.oracle-xe
+rm -rf $PKG/etc/init.d
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 
