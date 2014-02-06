@@ -25,7 +25,7 @@
 PRGNAMBASE=oracle-xe
 PRGNAM=$PRGNAMBASE-11g
 VERSION=${VERSION:-11.2.0}
-BUILD=${BUILD:-3}
+BUILD=${BUILD:-4}
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
@@ -99,6 +99,19 @@ mkdir -p $PKG/etc/profile.d
 
 ln -sf /u01/app/oracle/product/11.2.0/xe/bin/oracle_env.sh etc/profile.d/oracle_env.sh
 ln -sf /u01/app/oracle/product/11.2.0/xe/bin/oracle_env.csh etc/profile.d/oracle_env.csh
+
+mkdir -p $PKG/etc/profile.d/
+cat << EOF > $PKG/etc/profile.d/oracle_jdbc_env.csh
+#!/bin/csh
+setenv CLASSPATH \$CLASSPATH:\$ORACLE_HOME/jdbc/lib/ojdbc6.jar
+EOF
+
+cat << EOF > $PKG/etc/profile.d/oracle_jdbc_env.sh
+#!/bin/sh
+export CLASSPATH=\$CLASSPATH:\$ORACLE_HOME/jdbc/lib/ojdbc6.jar
+EOF
+
+chmod 0755 $PKG/etc/profile.d/oracle_jdbc_env.*
 
 mkdir -p $PKG/etc/rc.d/
 mv $PKG/etc/init.d/oracle-xe $PKG/etc/rc.d/rc.oracle-xe
