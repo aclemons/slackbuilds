@@ -25,7 +25,7 @@
 PRGNAMBASE=oracle-xe
 PRGNAM=$PRGNAMBASE-11g
 VERSION=${VERSION:-11.2.0}
-BUILD=${BUILD:-2}
+BUILD=${BUILD:-3}
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
@@ -132,6 +132,8 @@ rpm -qp --scripts $TMP/$PRGNAM-$VERSION/Disk1/$PRGNAMBASE-$VERSION-1.0.$ARCH.rpm
       awk 'NR==1,/preuninstall scriptlet/' | sed '$d' | sed '1,/^rm/d' | perl -pe 's/\/etc\/sysconfig/\/etc\/default/' >> $PKG/install/doinst.sh
 
 echo ")" >> $PKG/install/doinst.sh
+
+perl -i -pe 's#etc/init.d/oracle-xe#etc/rc.d/rc.oracle-xe#g' $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
