@@ -1,8 +1,0 @@
-[Desktop Entry]
-Categories=Development;
-Comment=Load testing application
-Exec=jmeter
-Icon=jmeter.jpg
-Name=JMeter
-Terminal=false
-Type=Application
