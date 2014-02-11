@@ -2,7 +2,7 @@
 
 # Slackware build script for soapui
 
-# Copyright 2011, 2012 Andrew Clemons, Wellington, New Zealand
+# Copyright 2011, 2012, 2014 Andrew Clemons, Wellington, New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,7 +23,8 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=soapui
-VERSION="4.5.1"
+SRCNAM=SoapUI
+VERSION=${VERSION:-4.6.4}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 ARCH=noarch
@@ -38,20 +39,16 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf $PRGNAM-$VERSION
-unzip $CWD/$PRGNAM-$VERSION-linux-bin.zip
+rm -rf $SRCNAM-$VERSION
+tar xf $CWD/$SRCNAM-$VERSION-linux-bin.tar.gz
 
-cd $PRGNAM-$VERSION
+cd $SRCNAM-$VERSION
 
 chown -R root:root .
 chmod -R u+w,go+r-w,a-s .
 chmod 0755 bin/*.sh
 
-rm soapui-settings.xml
-rm test-soapui-project.xml
-rm HelloWS-soapui-project.xml
-
-perl -i -pe 's/\r//g' bin/soapui-log4j.xml
+perl -i -pe 's/\r?\n/\n/g' bin/soapui-log4j.xml
 
 patch --verbose -p0 < $CWD/log4j.patch || exit 1
 patch --verbose -p0 < $CWD/user_home_and_seamonkey.patch || exit 1
@@ -68,7 +65,9 @@ chmod 0755 $PKG/usr/bin/$PRGNAM
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 mv \
-  $PKG/opt/soapui/LICENSE.txt $PKG/opt/soapui/readme.txt \
+  $PKG/opt/soapui/LICENSE.txt $PKG/opt/soapui/README.md \
+  $PKG/opt/soapui/RELEASENOTES.txt $PKG/opt/soapui/test-soapui-project.xml \
+  $PKG/opt/soapui/HelloWS-soapui-project.xml $PKG/opt/soapui/soapui-settings.xml \
   $PKG/opt/soapui/licenses $PKG/opt/soapui/Tutorials \
   $PKG/usr/doc/$PRGNAM-$VERSION/
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
