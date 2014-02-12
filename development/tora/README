@@ -11,9 +11,11 @@ support as follows:
 
 WITH_ORACLE=yes ./tora.SlackBuild
 
-This requires the oracle-instantclient11.2-devel. If you have a different
-version than the one created by my slackbuild, adjust the path in the
-slackbuild.
+This requires either oracle-instantclient11.2-devel or oracle-xe-11g. If you
+have a different version than the one created by my slackbuild, adjust the path
+used by the slackbuild with:
+
+WITH_ORACLE=yes ORACLE_INCLUDE=/some/path ./tora.SlackBuild
 
 TOra will be built with Postgres support if you have it installed. You can get
 the slackbuild from slackbuilds.org. To actually use it with Postgres,you will
