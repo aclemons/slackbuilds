@@ -97,8 +97,8 @@ perl -i -pe 's/^#!\/bin\/sh/#!\/bin\/bash/' u01/app/oracle/product/11.2.0/xe/bin
 # add oracle env to global profile
 mkdir -p $PKG/etc/profile.d
 
-ln -sf /u01/app/oracle/product/11.2.0/xe/bin/oracle_env.sh etc/profile.d/oracle_env.sh
-ln -sf /u01/app/oracle/product/11.2.0/xe/bin/oracle_env.csh etc/profile.d/oracle_env.csh
+ln -sf /u01/app/oracle/product/11.2.0/xe/bin/oracle_env.sh $PKG/etc/profile.d/oracle_env.sh
+ln -sf /u01/app/oracle/product/11.2.0/xe/bin/oracle_env.csh $PKG/etc/profile.d/oracle_env.csh
 
 mkdir -p $PKG/etc/profile.d/
 cat << EOF > $PKG/etc/profile.d/oracle_jdbc_env.csh
