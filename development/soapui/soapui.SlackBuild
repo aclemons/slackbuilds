@@ -23,9 +23,9 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=soapui
-SRCNAM=SoapUI
-VERSION=${VERSION:-4.6.4}
-BUILD=${BUILD:-2}
+SRCNAM=soapui
+VERSION=${VERSION:-4.5.2}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 ARCH=noarch
 
@@ -66,7 +66,7 @@ chmod 0755 $PKG/usr/bin/$PRGNAM
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 mv \
   $PKG/opt/soapui/LICENSE.txt $PKG/opt/soapui/README.md \
-  $PKG/opt/soapui/RELEASENOTES.txt $PKG/opt/soapui/test-soapui-project.xml \
+  $PKG/opt/soapui/test-soapui-project.xml \
   $PKG/opt/soapui/HelloWS-soapui-project.xml $PKG/opt/soapui/soapui-settings.xml \
   $PKG/opt/soapui/licenses $PKG/opt/soapui/Tutorials \
   $PKG/usr/doc/$PRGNAM-$VERSION/
