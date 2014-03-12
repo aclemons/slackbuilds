@@ -1,4 +1,4 @@
-/var/log/derby {
+/var/log/derby/derby.log {
     daily
     rotate 7
     copytruncate
