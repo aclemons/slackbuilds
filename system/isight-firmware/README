@@ -1,0 +1,20 @@
+This slackbuild creates a package for the isight-firmware.
+
+The isight-firmware tools are used to extract the firmware for the camera and
+then create a slackware package from it. You will need the firmware file from
+your OS X partition or you can extract is from the installation DVD. You can
+mount the DVD like this:
+
+# /sbin/losetup /dev/loop0 /dev/sr0
+# partx -av /dev/loop0 # fine the correct partition
+# file -s /dev/loop0*
+# mount -t hfsplus -o ro /dev/loop0p3 /media/dvd
+# find /media/dvd -name AppleUSBVideoSupport
+
+You can find it on your OS X partition here:
+/System/Library/Extensions/IOUSBFamily.kext/Contents/PlugIns/AppleUSBVideoSupport.kext/Contents/MacOS/AppleUSBVideoSupport
+
+No md5sum or version is specified since it will depend on your OS X version.
+
+Requires: isight-firmware-tools
+
