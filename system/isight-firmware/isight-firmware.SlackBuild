@@ -2,7 +2,7 @@
 
 # Slackware build script for isight-firmware
 
-# Copyright 2014 Andrew Cleons, Wellington, New Zealand
+# Copyright 2014 Andrew Clemons, Wellington, New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=isight-firmware
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_acl}
 
 ARCH=noarch
