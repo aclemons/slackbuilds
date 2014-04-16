@@ -7,4 +7,3 @@ DOWNLOAD_x86_64="http://download.oracle.com/otn/linux/oracle11g/xe/oracle-xe-11.
 MD5SUM_x86_64="dd7881a55569d890241f11cd0eeb7d48"
 MAINTAINER="Andrew Clemons"
 EMAIL="andrew.clemons@gmail.com"
-APPROVED="aclemons"

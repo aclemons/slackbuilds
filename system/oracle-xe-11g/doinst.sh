@@ -11,3 +11,20 @@ if [ -x /sbin/ldconfig ]; then
 fi
 
 # from oracle scripts
+
+availphymem=`cat /proc/meminfo | grep '^MemTotal' | awk '{print $2}'`
+availphymem=`echo $availphymem / 1024 | bc`
+memory_target=`echo 0.40 \* $availphymem | bc | sed "s/\..*//"`
+
+if [ $memory_target -gt 1024 ];
+then
+  memory_target=`echo 1024 \* 1048576 | bc`
+else
+  memory_target=`echo $memory_target \* 1048576 | bc`
+fi
+
+sed -i "s/%memory_target%/$memory_target/g" u01/app/oracle/product/11.2.0/xe/config/scripts/init.ora
+sed -i "s/%memory_target%/$memory_target/g" u01/app/oracle/product/11.2.0/xe/config/scripts/initXETemp.ora
+
+# end from oracle scripts
+
