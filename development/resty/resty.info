@@ -1,9 +1,14 @@
 PRGNAM="resty"
 VERSION="2.2"
 HOMEPAGE="http://github.com/micha/resty"
-DOWNLOAD="https://raw.githubusercontent.com/micha/resty/2.2/resty"
-MD5SUM="a16261c9b8d73b264c079e6d21a263f5"
+DOWNLOAD="https://raw.githubusercontent.com/micha/resty/2.2/resty \
+          https://raw.githubusercontent.com/micha/resty/2.2/pypp \
+          https://raw.githubusercontent.com/micha/resty/2.2/pp"
+MD5SUM="a16261c9b8d73b264c079e6d21a263f5 \
+        6188120b3bac3faea4cad088f1a73839 \
+        8e0592210aba1597fe29cd28e9e3e9e3"
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""
+REQUIRES=""
 MAINTAINER="Andrew Clemons"
 EMAIL="andrew.clemons@gmail.com"
