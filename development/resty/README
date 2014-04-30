@@ -1,0 +1,7 @@
+resty - Resty is a tiny script wrapper for curl.
+
+Since resty is just a script to be sourced by bash shells, it is added to
+/etc/profile.d
+
+https://github.com/micha/resty
+
