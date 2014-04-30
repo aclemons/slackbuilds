@@ -1,0 +1,8 @@
+[Desktop Entry]
+Categories=Development;Java;
+Comment=Sybase ASE Performance Monitor
+Exec=asetune
+Icon=/opt/asetune/lib/asetune_icon_32.png
+Name=AseTune
+Terminal=false
+Type=Application

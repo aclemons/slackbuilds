@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.  Line
+# up the first '|' above the ':' following the base package name, and the '|'
+# on the right side marks the last column you can put a character in.  You must
+# make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':'.
+
+        |-----handy-ruler------------------------------------------------------|
+asetune: asetune (Sybase ASE Performance Monitor)
+asetune:
+asetune: Performance Monitor for Sybase ASE. MDA monitor tables are great, but
+asetune: there is a fair amount of work necessary to use them, especially
+asetune: without a tool. AseTune is performance monitoring tool that makes this
+asetune: valuable data readable quickly and easily.
+asetune:
+asetune:
+asetune: Homepage: http://sourceforge.net/projects/asetune/
+asetune:
+asetune:
