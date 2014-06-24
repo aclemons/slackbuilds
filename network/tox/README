@@ -5,5 +5,7 @@ application that allows you to connect with friends and family without anyone
 else listening in. While other big-name services require you to pay for
 features, Tox is totally free, and comes without advertising.
 
+This requires: check opus libvpx
+
 https://tox.im/
 
