@@ -62,7 +62,7 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf irungentoo-toxcore-$GITREV
-tar xvf $CWD/irungentoo-toxcore-$GITREV.tar.gz
+tar xvf $CWD/irungentoo-toxcore-$GITREV.tar.gz || tar xvf $CWD/$GITREV
 cd irungentoo-toxcore-$GITREV
 chown -R root:root .
 find -L . \
