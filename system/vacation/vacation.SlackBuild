@@ -2,7 +2,7 @@
 
 # Slackware build script for vacation
 
-# Copyright 2011, 2012 Andrew Clemons, Wellington, New Zealand
+# Copyright 2011,2012,2014 Andrew Clemons, Wellington, New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,8 +24,9 @@
 
 
 PRGNAM=vacation
-VERSION=${VERSION:-1.2.7.1}
+VERSION=${VERSION:-1.2.8.0_beta1}
 BUILD=${BUILD:-1}
+SRCVERS=$(printf $VERSION | tr _ -)
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
@@ -45,26 +46,27 @@ set -e
 
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
+rm -rf $TMP/$PRGNAM-$SRCVERS
 cd $TMP
-rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
-cd $PRGNAM-$VERSION
+tar xvf $CWD/$PRGNAM-$SRCVERS.tar.gz
+cd $PRGNAM-$SRCVERS
 chown -R root:root .
-find . \
- \( -perm 777 -o -perm 775 -o -perm 711 -o -perm 555 -o -perm 511 \) \
- -exec chmod 755 {} \; -o \
- \( -perm 666 -o -perm 664 -o -perm 600 -o -perm 444 -o -perm 440 -o -perm 400 \) \
- -exec chmod 644 {} \;
+find -L . \
+ \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
+  -o -perm 511 \) -exec chmod 755 {} \; -o \
+ \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
+  -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-
 make
 
-install -D -p -m 755 vacation $PKG/usr/bin/vacation
-install -D -p -m 755 vaclook $PKG/usr/bin/vaclook
-install -D -p -m 444 vacation.man $PKG/usr/man/man1/vacation.1
-install -D -p -m 444 vaclook.man $PKG/usr/man/man1/vaclook.1
+make install DESTDIR=$PKG
+
+mv $PKG/usr/share/man $PKG/usr/man
+rm -rf $PKG/usr/share
+
+install -D -p -m 755 contrib/chkvacation $PKG/usr/bin/chkvacation
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
