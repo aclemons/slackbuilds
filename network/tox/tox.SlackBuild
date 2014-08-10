@@ -24,7 +24,7 @@
 
 
 PRGNAM=tox
-VERSION=${VERSION:-gitb1a15b1}
+VERSION=${VERSION:-git56624c0}
 GITREV="$(echo $VERSION | sed -e 's/^git//' )"
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
@@ -81,6 +81,7 @@ CXXFLAGS="$SLKCFLAGS" \
   --sysconfdir=/etc \
   --localstatedir=/var \
   --mandir=/usr/man \
+  --enable-ntox \
   --docdir=/usr/doc/$PRGNAM-$VERSION \
   --build=$ARCH-slackware-linux
 
