@@ -1,0 +1,4 @@
+git-review (A git command for submitting branches to Gerrit)
+
+git-review is a tool that helps submitting git branches to gerrit for review.
+
