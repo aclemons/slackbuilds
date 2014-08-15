@@ -2,13 +2,20 @@
 
 CMD=/usr/share/derby/bin/NetworkServerControl
 DERBY_OPTS="-Dderby.system.home=/var/lib/derby"
+DERBY_START_OPTS="-Dderby.system.home=/var/lib/derby"
+#DERBY_START_OPTS="-Dderby.system.home=/var/lib/derby -Djava.security.manager -Djava.security.policy=server.policy"
  
 case "$1" in
   "start")
-    su -l derby -c "DERBY_OPTS="$DERBY_OPTS" $CMD start &"
+    # derby will fail to start on jdk7 >= 7u51
+    # if so, you can start derby without the security manager or use the template
+    # security file and start
+    # https://issues.apache.org/jira/browse/DERBY-6438
+    # su -l derby -c "DERBY_OPTS=\"$DERBY_START_OPTS\" $CMD start &"
+    su -l derby -c "DERBY_OPTS=\"$DERBY_START_OPTS\" $CMD start -noSecurityManager &"
   ;;
   "stop")
-    su -l derby -c "DERBY_OPTS="$DERBY_OPTS" $CMD shutdown"
+    su -l derby -c "DERBY_OPTS=\"$DERBY_OPTS\" $CMD shutdown"
   ;;
   "restart")
     derby shutdown
@@ -16,7 +23,7 @@ case "$1" in
     derby start
   ;;
   "status")
-    su -l derby -c "DERBY_OPTS="$DERBY_OPTS" $CMD sysinfo"
+    su -l derby -c "DERBY_OPTS=\"$DERBY_OPTS\" $CMD sysinfo"
   ;;
   *)
     echo "Usage: $0 {start|stop|restart|status}"
