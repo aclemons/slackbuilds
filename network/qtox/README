@@ -1,0 +1,9 @@
+qtox - Powerful Tox client
+
+Powerful Tox client that tries to follow the Tox UI mockup while running on all
+major systems.
+
+This requires: tox OpenAL opencv qt5
+
+https://github.com/tux3/qTox
+
