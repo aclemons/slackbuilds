@@ -24,7 +24,7 @@
 
 
 PRGNAM=tox
-VERSION=${VERSION:-git56624c0}
+VERSION=${VERSION:-gitf52261e}
 GITREV="$(echo $VERSION | sed -e 's/^git//' )"
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
