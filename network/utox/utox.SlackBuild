@@ -26,7 +26,7 @@
 PRGNAM=utox
 VERSION=${VERSION:-git5e60548}
 GITREV="$(echo $VERSION | sed -e 's/^git//' )"
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
@@ -62,7 +62,7 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf notsecure-uTox-$GITREV
-tar xvf $CWD/notsecure-uTox--$GITREV.tar.gz || tar xvf $CWD/$GITREV
+tar xvf $CWD/notsecure-uTox-$GITREV.tar.gz || tar xvf $CWD/$GITREV
 cd notsecure-uTox-$GITREV
 chown -R root:root .
 find -L . \
