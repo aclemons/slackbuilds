@@ -24,9 +24,9 @@
 
 
 PRGNAM=utox
-VERSION=${VERSION:-git5e60548}
+VERSION=${VERSION:-gite9277e2}
 GITREV="$(echo $VERSION | sed -e 's/^git//' )"
-BUILD=${BUILD:-2}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
