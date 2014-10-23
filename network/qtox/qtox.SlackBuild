@@ -24,7 +24,7 @@
 
 
 PRGNAM=qtox
-VERSION=${VERSION:-git627f580}
+VERSION=${VERSION:-git93ea674}
 GITREV="$(echo $VERSION | sed -e 's/^git//' )"
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
@@ -62,7 +62,7 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf tux3-qTox-$GITREV
-tar xvf $CWD/tux3-qTox-$GITREV.tar.gz || tar xvf $CWD/$GITREV
+tar xvf $CWD/tux3-qTox-qtox-windows-1414006031.04-0-g$GITREV.tar.gz || tar xvf $CWD/$GITREV
 cd tux3-qTox-$GITREV
 chown -R root:root .
 find -L . \
