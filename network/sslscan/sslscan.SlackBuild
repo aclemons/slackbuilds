@@ -69,7 +69,7 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf rbsec-sslscan-$GITREV
-tar xvf $CWD/rbsec-sslscan-1.9.6-rbsec-13-$GITREV.tar.gz || tar xvf $CWD/$GITREV
+tar xvf $CWD/rbsec-sslscan-1.9.6-rbsec-13-g$GITREV.tar.gz || tar xvf $CWD/$GITREV
 cd rbsec-sslscan-$GITREV
 chown -R root:root .
 find -L . \
