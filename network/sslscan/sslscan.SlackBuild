@@ -30,9 +30,10 @@
 # 2014-10-23 - changed to build rbsec's fork from github
 
 PRGNAM=sslscan
-VERSION=${VERSION:-git743120b}
+VERSION=${VERSION:-git30cf20c}
+GITSHA1="30cf20c576f8124907aa5b2d862659731ab4b589"
 GITREV="$(echo $VERSION | sed -e 's/^git//' )"
-BUILD=${BUILD:-2}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
@@ -68,9 +69,9 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf rbsec-sslscan-$GITREV
-tar xvf $CWD/rbsec-sslscan-1.9.6-rbsec-13-g$GITREV.tar.gz 2&>1 > /dev/null || tar xvf $CWD/$GITREV
-cd rbsec-sslscan-$GITREV
+rm -rf sslscan-$GITSHA1
+tar xvf $CWD/$PRGNAM-$GITSHA1.tar.gz
+cd sslscan-$GITSHA1
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
