@@ -30,8 +30,8 @@
 # 2014-10-23 - changed to build rbsec's fork from github
 
 PRGNAM=sslscan
-VERSION=${VERSION:-gite84956f}
-GITSHA1="e84956fa22f19a7aa1626bb7fc9ad3b26e21f4ce"
+VERSION=${VERSION:-gitb730ff2}
+GITSHA1="b730ff24c8d20bacac31708ecde85e7224aef1b7"
 GITREV="$(echo $VERSION | sed -e 's/^git//' )"
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
