@@ -13,8 +13,7 @@ config() {
   fi
 }
 
-fix_permissions()
-{
+fix_permissions() {
         if ls -nd "$spool" | cut -d' ' --fields=3,4 | grep -q '^0 0$'
         then
                 chgrp daemon "$spool" && chmod 775 "$spool"
