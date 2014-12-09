@@ -3,6 +3,7 @@
 # Slackware build script for hdbclient
 
 # Copyright 2013 Andrew Clemons Wellington, New Zealand
+# Copyright 2014 Andrew Clemons Leimen, Germany
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,9 +24,9 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=hdbclient
-VERSION=${VERSION:-1.00.68.384084}
+VERSION=${VERSION:-1.00.80.391861}
 VERS=`echo $VERSION | cut -d. -f 3`
-BUILD=${BUILD:-2}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
@@ -57,9 +58,10 @@ cd $TMP
 rm -rf ""$PRGNAM""$VERSION""
 rm -rf SAP_HANA_CLIENT_LINUX"$ARCHSUFFIX"
 
-tar xf $CWD/sap_hana_client_linux"$ARCHSUFFIX"_rev"$VERS".tgz
+# looks like the tarball was created on os-x
+bsdtar -xf $CWD/sap_hana_linux"$ARCHSUFFIX"_client_rev"$VERS".tgz
 
-cd SAP_HANA_CLIENT_LINUX"$ARCHSUFFIX"
+cd sap_hana_linux"$ARCHSUFFIX"_client_rev"$VERS"
 
 mkdir -p $PKG/usr/sap/$PRGNAM
 
