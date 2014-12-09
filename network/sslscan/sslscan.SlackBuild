@@ -30,9 +30,8 @@
 # 2014-10-23 - changed to build rbsec's fork from github
 
 PRGNAM=sslscan
-VERSION=${VERSION:-gitb730ff2}
-GITSHA1="b730ff24c8d20bacac31708ecde85e7224aef1b7"
-GITREV="$(echo $VERSION | sed -e 's/^git//' )"
+VERSION=${VERSION:-1.9.8_rbsec}
+SRCVERS=$(printf $VERSION | tr _ -)
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
@@ -69,9 +68,9 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf sslscan-$GITSHA1
-tar xf $CWD/$PRGNAM-$GITSHA1.tar.gz > /dev/null 2>&1 || tar xf $CWD/$GITSHA1
-cd sslscan-$GITSHA1
+rm -rf $PRGNAM-$SRCVERS
+tar xf $CWD/$SRCVERS.tar.gz 2> /dev/null || $PRGNAM-$SRCVERS.tar.gz
+cd $PRGNAM-$SRCVERS
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
