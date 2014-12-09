@@ -69,7 +69,7 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$SRCVERS
-tar xf $CWD/$SRCVERS.tar.gz 2> /dev/null || $PRGNAM-$SRCVERS.tar.gz
+tar xf $CWD/$SRCVERS.tar.gz 2> /dev/null || tar xf $CWD/$PRGNAM-$SRCVERS.tar.gz
 cd $PRGNAM-$SRCVERS
 chown -R root:root .
 find -L . \
