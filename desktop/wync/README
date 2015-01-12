@@ -1,0 +1,5 @@
+wync - Lync for Linux
+
+wync requires libpulse and works with pulseaudio but it also works perfectly
+fine using apulse as well.
+
