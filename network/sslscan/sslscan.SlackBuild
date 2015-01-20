@@ -4,6 +4,7 @@
 
 # Copyright (c) 2010  Markus Reichelt, Aachen, DE
 # Copyright (c) 2014  Andrew Clemons, Wellington, New Zealand
+# Copyright (c) 2015  Andrew Clemons, Leimen, Germany
 # All rights reserved.
 #
 #   Permission to use, copy, modify, and distribute this software for
@@ -30,7 +31,7 @@
 # 2014-10-23 - changed to build rbsec's fork from github
 
 PRGNAM=sslscan
-VERSION=${VERSION:-1.9.8_rbsec}
+VERSION=${VERSION:-1.9.9_rbsec}
 SRCVERS=$(printf $VERSION | tr _ -)
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
