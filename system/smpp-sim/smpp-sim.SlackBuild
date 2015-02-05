@@ -3,6 +3,7 @@
 # Slackware build script for smpp-sim
 
 # Copyright 2011,2012 Andrew Clemons Wellington, New Zealand
+# Copyright 2015 Andrew Clemons Leimen, Germany
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,8 +24,8 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=smpp-sim
-VERSION="2.6.9"
-BUILD=${BUILD:-3}
+VERSION="2.6.11"
+BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
 ARCH=noarch
