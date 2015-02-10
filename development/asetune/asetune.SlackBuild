@@ -3,6 +3,7 @@
 # Slackware build script for asetune
 
 # Copyright 2014 Andrew Clemons Wellington, New Zealand
+# Copyright 2015 Andrew Clemons Leimen, Germany
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,7 +24,7 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=asetune
-VERSION=${VERSION:-2013_06_28}
+VERSION=${VERSION:-2014_07_07}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 SRC_VERSION=$(echo $VERSION | tr _ -)
