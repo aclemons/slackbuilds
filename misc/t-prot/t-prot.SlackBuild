@@ -3,6 +3,7 @@
 # Slackware build script for t-prot
 
 # Copyright 2013, Andrew Clemons, Wellington, New Zealand
+# Copyright 2015, Andrew Clemons, Leimen, Germany
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +25,7 @@
 
 
 PRGNAM=t-prot
-VERSION=${VERSION:-3.0}
+VERSION=${VERSION:-3.4}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
@@ -48,7 +49,7 @@ find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
   -o -perm 511 \) -exec chmod 755 {} \; -o \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
- -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
+  -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
 install -D -p -m 755 t-prot $PKG/usr/bin/t-prot
 install -D -p -m 444 t-prot.1 $PKG/usr/man/man1/t-prot.1
