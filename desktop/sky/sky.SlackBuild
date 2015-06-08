@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Slackware build script for wync
+# Slackware build script for sky
 
 # Copyright 2015 Andrew Clemons Leimen, Germany
 # All rights reserved.
@@ -22,8 +22,8 @@
 #  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-PRGNAM=wync
-VERSION=${VERSION:-2.0.305}
+PRGNAM=sky
+VERSION=${VERSION:-2.0.352}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
@@ -41,11 +41,9 @@ PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
 if [ "$ARCH" = "i486" ]; then
-  VERSION=${VERSION32:-2.0.257}
   DEBARCH="32"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
-  VERSION=${VERSION32:-2.0.257}
   DEBARCH="32"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
@@ -61,7 +59,7 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $PKG
-ar p $CWD/"wync_ubuntu$DEBARCH""_v$VERSION.deb" data.tar.gz | gzip -d | tar xv
+ar p $CWD/"sky_ubuntu$DEBARCH""_v$VERSION.deb" data.tar.gz | gzip -d | tar xv
 
 find -type d -exec chmod 0755 {} \;
 
@@ -75,11 +73,25 @@ find -L . \
 #find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
 #  | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
-rm $PKG/usr/bin/uninstall_wync
+perl -i -pe 's#sh /opt/sky_linux/sky.sh#/usr/bin/sky#' $PKG/usr/share/applications/sky.desktop
+
+# thanks to the archlinux pkgbuild maintainer for these!
+chrpath -d $PKG/opt/sky_linux/lib/libicudata.so*
+chrpath -d $PKG/opt/sky_linux/lib/libicudata.so*
+chrpath -d $PKG/opt/sky_linux/lib/libicudata.so*
+chrpath -d $PKG/opt/sky_linux/lib/libicule.so*
+chrpath -d $PKG/opt/sky_linux/lib/libiculx.so*
+chrpath -d $PKG/opt/sky_linux/lib/libicutest.so*
+chrpath -d $PKG/opt/sky_linux/lib/libicutu.so*
+chrpath -d $PKG/opt/sky_linux/lib/libicuuc.so*
+chrpath -d $PKG/opt/sky_linux/lib/libicui18n.so*
+chrpath -d $PKG/opt/sky_linux/lib/libicuio.so*
+
+rm $PKG/usr/bin/uninstall_sky
 rm -rf $PKG/usr/share/lintian
 rm -rf $PKG/etc/xdg
 
-ln -s /opt/wync_linux/wync.sh $PKG/usr/bin/wync
+ln -s /opt/sky_linux/sky.sh $PKG/usr/bin/sky
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
