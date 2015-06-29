@@ -1,7 +1,7 @@
 PRGNAM="jenkins"
 VERSION="1.609.1"
 HOMEPAGE="http://jenkins-ci.org"
-DOWNLOAD="http://mirrors.jenkins-ci.org/war-stable/latest/jenkins.war"
+DOWNLOAD="http://mirrors.jenkins-ci.org/war-stable/1.609.1/jenkins.war"
 MD5SUM="1ef57beaa296be91bfa8ba3726b501f7"
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""
