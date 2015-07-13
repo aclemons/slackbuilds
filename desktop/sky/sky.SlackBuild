@@ -96,7 +96,7 @@ rm -rf $PKG/etc/xdg
 
 ln -s /opt/sky_linux/sky.sh $PKG/usr/bin/sky
 
-chmod 0755 $PKG/opt/sky_linux/sky.sh
+chmod 0755 $PKG/opt/sky_linux/sky*
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
