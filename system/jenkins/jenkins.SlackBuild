@@ -3,7 +3,7 @@
 # Slackware build script for jenkins
 
 # package jenkins lts versions
-# 2013
+# 2013-2015
 # Andrew Clemons, Wellington, New Zealand
 # Andrew Clemons, Leimen, Germany
 
@@ -28,14 +28,14 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=jenkins
-VERSION=${VERSION:-1.609.1}
+VERSION=${VERSION:-1.609.2}
 BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
+TAG=${TAG:-_acl}
 
 ARCH=noarch
 
 CWD=$(pwd)
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/acl}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
