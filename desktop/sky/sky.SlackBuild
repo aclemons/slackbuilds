@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=sky
-VERSION=${VERSION:-2.0.378}
+VERSION=${VERSION:-2.0.397}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
@@ -41,11 +41,11 @@ PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
 if [ "$ARCH" = "i486" ]; then
-  VERSION=${VERSION32:-2.0.355}
+  VERSION=${VERSION32:-2.0.391}
   DEBARCH="32"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
-  VERSION=${VERSION32:-2.0.355}
+  VERSION=${VERSION32:-2.0.391}
   DEBARCH="32"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
@@ -89,6 +89,7 @@ chrpath -d $PKG/opt/sky_linux/lib/libicutu.so*
 chrpath -d $PKG/opt/sky_linux/lib/libicuuc.so*
 chrpath -d $PKG/opt/sky_linux/lib/libicui18n.so*
 chrpath -d $PKG/opt/sky_linux/lib/libicuio.so*
+chrpath -d $PKG/opt/sky_linux/platforminputcontexts/libfcitxplatforminputcontextplugin.so
 
 rm $PKG/usr/bin/uninstall_sky
 rm -rf $PKG/usr/share/lintian
