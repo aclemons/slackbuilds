@@ -3,6 +3,7 @@
 # Slackware build script for qtox
 
 # Copyright 2014 Andrew Clemons, Wellington, New Zealand
+# Copyright 2014 Andrew Clemons, Leimen, Germany
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +25,7 @@
 
 
 PRGNAM=qtox
-VERSION=${VERSION:-git93ea674}
+VERSION=${VERSION:-git6d5b70c}
 GITREV="$(echo $VERSION | sed -e 's/^git//' )"
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
@@ -81,9 +82,6 @@ install -Dm755 $PRGNAM $PKG/usr/bin/$PRGNAM
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
-mkdir -p $PKG/usr/share/pixmaps
-install -Dm644 img/icon.png $PKG/usr/share/pixmaps/$PRGNAM.png
-
 mkdir -p $PKG/usr/share/applications
 cat << EOF > $PKG/usr/share/applications/$PRGNAM.desktop
 [Desktop Entry]
@@ -107,7 +105,7 @@ mkdir -p $PKG/usr/share/$PRGNAM
 chmod 0755 $PKG/usr/share/$PRGNAM
 cp -R smileys $PKG/usr/share/$PRGNAM
 
-cp -a NURUPOWILLSUEME COPYING README.md LICENSE $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a INSTALL.md LICENSE README.md $PKG/usr/doc/$PRGNAM-$VERSION
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
