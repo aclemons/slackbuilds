@@ -3,6 +3,7 @@
 # Slackware build script for tox
 
 # Copyright 2014 Andrew Clemons, Wellington, New Zealand
+# Copyright 2015 Andrew Clemons, Leimen, Germany
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +25,7 @@
 
 
 PRGNAM=tox
-VERSION=${VERSION:-git627e4d3}
+VERSION=${VERSION:-git2ab3b14}
 GITREV="$(echo $VERSION | sed -e 's/^git//' )"
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
