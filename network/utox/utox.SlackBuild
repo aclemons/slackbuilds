@@ -3,6 +3,7 @@
 # Slackware build script for utox
 
 # Copyright 2014 Andrew Clemons, Wellington, New Zealand
+# Copyright 2014 Andrew Clemons, Leimen, Germany
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +25,7 @@
 
 
 PRGNAM=utox
-VERSION=${VERSION:-gite9277e2}
+VERSION=${VERSION:-gite39ce15}
 GITREV="$(echo $VERSION | sed -e 's/^git//' )"
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
@@ -77,10 +78,15 @@ make install DESTDIR=$PKG PREFIX="/usr"
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
+mv $PKG/usr/share/man $PKG/usr/man
+
+find $PKG/usr/man -type f -exec gzip -9 {} \;
+for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
+
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
-cp -a INSTALL.md README.md LICENSE $PKG/usr/doc/$PRGNAM-$VERSION
+cp -a docs/* $PKG/usr/doc/$PRGNAM-$VERSION
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
