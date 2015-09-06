@@ -25,7 +25,7 @@
 
 
 PRGNAM=toxic
-VERSION=${VERSION:-git92d76c7}
+VERSION=${VERSION:-gitf295352}
 GITREV="$(echo $VERSION | sed -e 's/^git//' )"
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
