@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=sky
-VERSION=${VERSION:-2.0.397}
+VERSION=${VERSION:-2.0.401}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
@@ -79,6 +79,7 @@ find -L . \
 perl -i -pe 's#sh /opt/sky_linux/sky.sh#/usr/bin/sky#' $PKG/usr/share/applications/sky.desktop
 
 # thanks to the archlinux pkgbuild maintainer for these!
+chrpath -d $PKG/opt/sky_linux/lib/libsipw.so*
 chrpath -d $PKG/opt/sky_linux/lib/libicudata.so*
 chrpath -d $PKG/opt/sky_linux/lib/libicudata.so*
 chrpath -d $PKG/opt/sky_linux/lib/libicudata.so*
