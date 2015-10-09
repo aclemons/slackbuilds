@@ -1,7 +1,13 @@
 SSLScan queries SSL services, such as HTTPS, in order to determine the
 ciphers that are supported.  SSLScan is designed to be easy, lean and
-fast.  The output includes prefered ciphers of the SSL service, the
+fast. The output includes prefered ciphers of the SSL service, the
 certificate, and is in Text and XML formats.
+
+By default, this slackbuild will build OpenSSL 1.0.2 and statically
+link sslscan against it. This gives the widest compatibility for
+scanning. You can build against the system openssl with:
+
+STATIC=no
 
 This is a slackbuild for the forked version from rbsec on github.
 

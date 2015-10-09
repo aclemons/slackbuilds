@@ -34,7 +34,7 @@
 PRGNAM=sslscan
 VERSION=${VERSION:-1.11.0_rbsec}
 SRCVERS=$(printf $VERSION | tr _ -)
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
@@ -72,6 +72,21 @@ cd $TMP
 rm -rf $PRGNAM-$SRCVERS
 tar xf $CWD/$SRCVERS.tar.gz 2> /dev/null || tar xf $CWD/$PRGNAM-$SRCVERS.tar.gz
 cd $PRGNAM-$SRCVERS
+
+STATIC=${STATIC:-yes}
+
+if [ "$STATIC" = "yes" ] ; then
+  OPENSSLVERSION=${OPENSSLVERSION:-1.0.2d}
+
+  tar xf $CWD/OpenSSL_"$(echo "$OPENSSLVERSION" | tr '.' '_')".tar.gz
+  mv openssl-OpenSSL_"$(echo "$OPENSSLVERSION" | tr '.' '_')" openssl
+
+  # i cannot get the static build for openssl to work the the sslscan makefile
+  # i patched this commands out and run make depend; make all; make test myself below
+  patch -p1 < $CWD/Makefile.diff
+
+fi
+
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -81,7 +96,16 @@ find -L . \
 
 mkdir -p $PKG/usr/bin $PKG/usr/man/man1
 
-make CFLAGS="$SLKCFLAGS" MANPATH=/usr/man/ LDFLAGS="-lcrypto"
+if [ "$STATIC" = "yes" ] ; then
+  ( cd ./openssl; ./config no-shares )
+  ( cd ./openssl; make -j1 depend )
+  ( cd ./openssl; make -j1 all )
+  ( cd ./openssl; make -j1 test )
+  make static CFLAGS="$SLKCFLAGS" MANPATH=/usr/man/
+else
+  make CFLAGS="$SLKCFLAGS" MANPATH=/usr/man/ LDFLAGS="-lcrypto"
+fi
+
 make install BINPATH=$PKG/usr/bin MANPATH=$PKG/usr/man/
 
 find $PKG | xargs file | grep -e "executable" -e "shared object" | grep ELF \
