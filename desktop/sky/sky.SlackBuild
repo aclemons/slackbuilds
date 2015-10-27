@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=sky
-VERSION=${VERSION:-2.0.401}
+VERSION=${VERSION:-2.0.414}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
@@ -41,11 +41,9 @@ PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
 if [ "$ARCH" = "i486" ]; then
-  VERSION=${VERSION32:-2.0.391}
   DEBARCH="32"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
-  VERSION=${VERSION32:-2.0.391}
   DEBARCH="32"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
