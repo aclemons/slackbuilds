@@ -1,0 +1,14 @@
+--- sslscan-1.11.0-rbsec/Makefile	2015-09-24 16:18:55.000000000 +0200
++++ sslscan-1.11.0-rbsec/Makefile	2015-12-08 08:45:39.958976323 +0100
+@@ -50,10 +50,7 @@
+ 	rm -f $(BINPATH)sslscan
+ 	rm -f $(MANPATH)man1/sslscan.1
+ 
+-openssl/Makefile:
+-	[ -d openssl -a -d openssl/.git ] && true || git clone https://github.com/openssl/openssl ./openssl && cd ./openssl && git checkout OpenSSL_1_0_2-stable
+-
+-openssl/libcrypto.a: openssl/Makefile
++openssl/libcrypto.a:
+ 	cd ./openssl; ./config no-shares
+ 	$(MAKE) -C openssl depend
+ 	$(MAKE) -C openssl all
