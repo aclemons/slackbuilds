@@ -34,7 +34,7 @@
 PRGNAM=sslscan
 VERSION=${VERSION:-1.11.0_rbsec}
 SRCVERS=$(printf $VERSION | tr _ -)
-BUILD=${BUILD:-3}
+BUILD=${BUILD:-4}
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
@@ -107,7 +107,13 @@ mkdir -p $PKG/usr/bin $PKG/usr/man/man1
 perl -i -pe "s/^(CFLAGS.*$)/\1 $SLKCFLAGS/" Makefile
 
 if [ "$STATIC" = "yes" ] ; then
-  ( cd ./openssl; ./config no-shares )
+  if [ "$ARCH" = "i486" ] || [ "$ARCH" = "i686" ] ; then
+    # force 32bit
+    ( cd ./openssl; MACHINE="$ARCH" ./config no-shares )
+  else
+    ( cd ./openssl; ./config no-shares )
+  fi
+
   ( cd ./openssl; make -j1 depend )
   ( cd ./openssl; make -j1 all )
 
