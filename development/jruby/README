@@ -1,0 +1,10 @@
+JRuby is a high performance, stable, fully threaded Java implementation
+of the Ruby programming language.
+
+apache-maven is only need to build this package, not at runtime.
+
+To avoid collisions with ruby packaged with slackware, gem, rdoc, ri and
+testrb are linked into /usr/lib with a jruby- prefix.
+
+http://jruby.org/
+
