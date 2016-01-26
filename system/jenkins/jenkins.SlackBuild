@@ -3,7 +3,7 @@
 # Slackware build script for jenkins
 
 # package jenkins lts versions
-# 2013-2015
+# 2013-2016
 # Andrew Clemons, Wellington, New Zealand
 # Andrew Clemons, Leimen, Germany
 
@@ -28,7 +28,7 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=jenkins
-VERSION=${VERSION:-1.625.3}
+VERSION=${VERSION:-1.642.1}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
