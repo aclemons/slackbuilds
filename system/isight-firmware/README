@@ -14,7 +14,5 @@ mount the DVD like this:
 You can find it on your OS X partition here:
 /System/Library/Extensions/IOUSBFamily.kext/Contents/PlugIns/AppleUSBVideoSupport.kext/Contents/MacOS/AppleUSBVideoSupport
 
-No md5sum or version is specified since it will depend on your OS X version.
-
 Requires: isight-firmware-tools
 
