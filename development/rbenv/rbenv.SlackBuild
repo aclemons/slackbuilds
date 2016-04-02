@@ -25,7 +25,7 @@
 
 PRGNAM=rbenv
 VERSION=${VERSION:-1.0.0}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_acl}
 
 # Automatically determine the architecture we're building on:
@@ -65,6 +65,9 @@ cd $TMP
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
 cd $PRGNAM-$VERSION
+
+patch -p1 < $CWD/dylib-patch.diff
+
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -77,10 +80,8 @@ find -L . \
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
-mv src/realpath.o . && rm src/* && mv realpath.o src/
-
 mkdir -p $PKG/opt/rbenv
-mv bin completions libexec rbenv.d src $PKG/opt/rbenv/
+mv bin completions libexec rbenv.d $PKG/opt/rbenv/
 
 mkdir -p $PKG/usr/bin
 ln -s /opt/rbenv/libexec/rbenv $PKG/usr/bin/
