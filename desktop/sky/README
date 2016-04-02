@@ -1,5 +1,0 @@
-sky - Lync & Skype for business on Linux
-
-sky requires libpulse and works with pulseaudio but it also works perfectly
-fine using apulse as well.
-
