@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Slackware build script for slack
+# Slackware build script for slack-desktop
 
 # Copyright 2016 Andrew Clemons Wellington, New Zealand
 # All rights reserved.
@@ -22,7 +22,7 @@
 #  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-PRGNAM=slack
+PRGNAM=slack-desktop
 VERSION=${VERSION:-2.0.3}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
@@ -52,7 +52,7 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $PKG
-ar p $CWD/"slack-desktop-$VERSION-amd64.deb" data.tar.xz | xz -d | tar xv
+ar p $CWD/slack-desktop-$VERSION-amd64.deb data.tar.xz | xz -d | tar xv
 
 find -type d -exec chmod 0755 {} \;
 
