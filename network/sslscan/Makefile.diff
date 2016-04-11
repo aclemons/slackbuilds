@@ -1,14 +1,57 @@
---- sslscan-1.11.0-rbsec/Makefile	2015-09-24 16:18:55.000000000 +0200
-+++ sslscan-1.11.0-rbsec/Makefile	2015-12-08 08:45:39.958976323 +0100
-@@ -50,10 +50,7 @@
- 	rm -f $(BINPATH)sslscan
- 	rm -f $(MANPATH)man1/sslscan.1
+diff -Naur sslscan-1.11.6-rbsec.orig/Makefile sslscan-1.11.6-rbsec/Makefile
+--- sslscan-1.11.6-rbsec.orig/Makefile	2016-04-10 09:47:32.000000000 +1200
++++ sslscan-1.11.6-rbsec/Makefile	2016-04-12 09:01:31.936119084 +1200
+@@ -3,12 +3,7 @@
+   CC=gcc
+ endif
  
--openssl/Makefile:
--	[ -d openssl -a -d openssl/.git ] && true || git clone https://github.com/openssl/openssl ./openssl && cd ./openssl && git checkout OpenSSL_1_0_2-stable
+-GIT_VERSION = $(shell git describe --tags --always --dirty=-wip)
+-
+-# Ugly hack to get version if git isn't installed
+-ifeq ($(GIT_VERSION),)
+-  GIT_VERSION = $(shell grep -E -o -m 1 "[0-9]+\.[0-9]+\.[0-9]+" Changelog)
+-endif
++GIT_VERSION = @GIT_VERSION@
+ 
+ # Detect OS
+ OS := $(shell uname)
+@@ -77,14 +72,8 @@
+ 	rm -f $(DESTDIR)$(BINDIR)/sslscan
+ 	rm -f $(DESTDIR)$(MAN1DIR)/sslscan.1
+ 
+-.openssl.is.fresh: opensslpull
+-	true
+ opensslpull:
+-	if [ -d openssl -a -d openssl/.git ]; then \
+-		cd ./openssl && git checkout OpenSSL_1_0_2-stable && git pull | grep -q "Already up-to-date." && [ -e ../.openssl.is.fresh ] || touch ../.openssl.is.fresh ; \
+-	else \
+-		git clone --depth 1 -b OpenSSL_1_0_2-stable https://github.com/openssl/openssl ./openssl && cd ./openssl && touch ../.openssl.is.fresh ; \
+-	fi
++
+ 	# Re-enable SSLv2 EXPORT ciphers
+ 	sed -i.bak 's/# if 0/# if 1/g' openssl/ssl/s2_lib.c
+ 	rm openssl/ssl/s2_lib.c.bak
+@@ -95,22 +84,7 @@
+ 	sed -i.bak 's/dhe512/zzz/g' openssl/test/testssl
+ 	rm openssl/test/testssl.bak
+ 
+-# Need to build OpenSSL differently on OSX
+-ifeq ($(OS), Darwin)
+-openssl/Makefile: .openssl.is.fresh
+-	cd ./openssl; ./Configure enable-ssl2 enable-weak-ssl-ciphers zlib darwin64-x86_64-cc
+-# Any other *NIX platform
+-else
+-openssl/Makefile: .openssl.is.fresh
+-	cd ./openssl; ./config no-shares enable-weak-ssl-ciphers enable-ssl2 zlib
+-endif
 -
 -openssl/libcrypto.a: openssl/Makefile
-+openssl/libcrypto.a:
- 	cd ./openssl; ./config no-shares
- 	$(MAKE) -C openssl depend
- 	$(MAKE) -C openssl all
+-	$(MAKE) -C openssl depend
+-	$(MAKE) -C openssl all
+-	$(MAKE) -C openssl test
+-
+-static: openssl/libcrypto.a
++static: opensslpull
+ 	$(MAKE) sslscan STATIC_BUILD=TRUE
+ 
+ clean:
