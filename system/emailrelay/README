@@ -5,4 +5,11 @@ messages as they pass through. When running as a store-and-forward MTA incoming
 messages are stored in a local spool directory, and then forwarded to the next
 SMTP server on request.
 
+The slackbuild can patch the source to support TLS 1.1 and TLS 1.2 It can
+additionally also disable SSLv2 and SSLv3 support. By default, both of these
+options are enabled. You can change the behaviour with these flags:
+
+DISABLE_LEGACY_SSL=no
+ENABLE_TLS_11_12=no
+
 http://emailrelay.sourceforge.net/

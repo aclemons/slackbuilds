@@ -1,0 +1,19 @@
+diff --git a/src/gssl/gssl_openssl.cpp b/src/gssl/gssl_openssl.cpp
+index 34af44f..4cd432f 100644
+--- a/src/gssl/gssl_openssl.cpp
++++ b/src/gssl/gssl_openssl.cpp
+@@ -294,8 +294,13 @@ GSsl::Context::Context( const std::string & pem_file , unsigned int flags )
+ 		m_ssl_ctx = SSL_CTX_new(SSLv23_method()) ;
+ 	else if( (flags&3U) == 3U )
+ 		m_ssl_ctx = SSL_CTX_new(SSLv3_method()) ;
+-	else
++	else {
++		#if OPENSSL_VERSION_NUMBER >= 0x10001000L
++		m_ssl_ctx = SSL_CTX_new(TLSv1_2_method()) ;
++		#else
+ 		m_ssl_ctx = SSL_CTX_new(TLSv1_method()) ;
++		#endif
++	}
+ 
+ 	if( m_ssl_ctx == NULL )
+ 		throw Error( "SSL_CTX_new" , ERR_get_error() ) ;
