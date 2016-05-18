@@ -26,7 +26,7 @@
 PRGNAM=open-airplay-java
 BASENAME=$(echo "$PRGNAM" | sed 's/-java//')
 VERSION=${VERSION:-0.1.1}
-BUILD=${BUILD:-2}
+BUILD=${BUILD:-3}
 TAG=${TAG:-_acl}
 
 ARCH=noarch
@@ -50,6 +50,9 @@ patch -p1 < $CWD/npe.diff
 
 # patch to disable scaling
 patch -p1 < $CWD/option_noscaling.diff
+
+# patch remove duplicates
+patch -p1 < $CWD/duplicate_services.diff
 
 chown -R root:root .
 find -L . \

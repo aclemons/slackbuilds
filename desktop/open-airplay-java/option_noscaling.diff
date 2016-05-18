@@ -1,20 +1,3 @@
-diff --git a/Java/.project b/Java/.project
-deleted file mode 100644
-index 8d56b90..0000000
---- a/Java/.project
-+++ /dev/null
-@@ -1,11 +0,0 @@
--<?xml version="1.0" encoding="UTF-8"?>
--<projectDescription>
--	<name>OpenAirPlay</name>
--	<comment></comment>
--	<projects>
--	</projects>
--	<buildSpec>
--	</buildSpec>
--	<natures>
--	</natures>
--</projectDescription>
 diff --git a/Java/src/com/jameslow/AirPlay.java b/Java/src/com/jameslow/AirPlay.java
 index d1cbd31..4c122fc 100755
 --- a/Java/src/com/jameslow/AirPlay.java
