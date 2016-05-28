@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.
+# Line up the first '|' above the ':' following the base package name, and
+# the '|' on the right side marks the last column you can put a character in.
+# You must make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+                  |-----handy-ruler------------------------------------------------------|
+linux-vt-setcolors: linux-vt-setcolors (Utility tool to set the linux VT color palette)
+linux-vt-setcolors:
+linux-vt-setcolors: This little utility can be used to change the default color
+linux-vt-setcolors: palette of the Linux VT101 virtual console. The program
+linux-vt-setcolors: accepts a configuration file containing the colors in
+linux-vt-setcolors: hexadecimal form to use.
+linux-vt-setcolors:
+linux-vt-setcolors:
+linux-vt-setcolors: https://github.com/EvanPurkhiser/linux-vt-setcolors
+linux-vt-setcolors:
+linux-vt-setcolors:
