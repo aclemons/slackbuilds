@@ -6,7 +6,7 @@ diff -Naur kitchen_sync-0.52/src/ks.cpp kitchen_sync-0.52/src/ks.cpp
  		if (options.set_from_variables.empty()) options.set_from_variables = "-";
  
 -		const char *from_args[] = { ssh_binary.c_str(), "-C", "-c", "blowfish", options.via.c_str(),
-+		const char *from_args[] = { ssh_binary.c_str(), "-C", options.via.c_str(),
++		const char *from_args[] = { ssh_binary.c_str(), "-C", "-c", "blowfish-cbc", options.via.c_str(),
  									from_binary.c_str(), "from", options.from.host.c_str(), options.from.port.c_str(), options.from.database.c_str(), options.from.username.c_str(), options.from.password.c_str(), options.set_from_variables.c_str(), options.filters.c_str(), nullptr };
  		const char **applicable_from_args = (options.via.empty() ? from_args + 5 : from_args);
  
