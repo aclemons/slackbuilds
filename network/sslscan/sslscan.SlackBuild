@@ -33,7 +33,7 @@
 # 2014-10-23 - changed to build rbsec's fork from github
 
 PRGNAM=sslscan
-VERSION=${VERSION:-1.11.6_rbsec}
+VERSION=${VERSION:-1.11.7_rbsec}
 SRCVERS=$(printf $VERSION | tr _ -)
 BASEVERS=$(printf $VERSION | perl -pe 's/_.*$//' )
 BUILD=${BUILD:-2}
