@@ -36,7 +36,7 @@ PRGNAM=sslscan
 VERSION=${VERSION:-1.11.7_rbsec}
 SRCVERS=$(printf $VERSION | tr _ -)
 BASEVERS=$(printf $VERSION | sed 's/_.*$//' )
-BUILD=${BUILD:-2}
+BUILD=${BUILD:-3}
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
@@ -96,6 +96,15 @@ if [ "$STATIC" = "yes" ] ; then
     # Build with -march=i686 -mtune=i686:
     sed -i "/linux-elf/s/fomit-frame-pointer/fomit-frame-pointer -march=i686 -mtune=i686/g" openssl/Configure
   fi
+
+  # Re-enable SSLv2 EXPORT ciphers
+  sed -i 's/# if 0/# if 1/g' openssl/ssl/s2_lib.c
+
+  # Re-enable weak (<1024 bit) DH keys
+  sed -i 's/dh_size < [0-9]\+/dh_size < 512/g' openssl/ssl/s3_clnt.c
+
+  # Break the weak DH key test so OpenSSL compiles
+  sed -i 's/dhe512/zzz/g' openssl/test/testssl
 fi
 
 chown -R root:root .
@@ -107,17 +116,17 @@ find -L . \
 
 mkdir -p $PKG/usr/bin $PKG/usr/man/man1
 
-perl -i -pe "s/^(CFLAGS.*$)/\1 $SLKCFLAGS/" Makefile
+sed -i "s/^\(CFLAGS.*$\)/\1 $SLKCFLAGS/" Makefile
 
-perl -i -pe "s|^(PREFIX).*$|\1 = $PKG/usr|" Makefile
-perl -i -pe "s|^(MANDIR).*$|\1 = $PKG/usr/man|" Makefile
+sed -i "s|^\(PREFIX\).*$|\1 = $PKG/usr|" Makefile
+sed -i "s|^\(MANDIR\).*$|\1 = $PKG/usr/man|" Makefile
 
 if [ "$STATIC" = "yes" ] ; then
   if [ "$ARCH" = "i486" ] || [ "$ARCH" = "i686" ] ; then
     # force 32bit
-    ( cd ./openssl; MACHINE="$ARCH" ./config enable-weak-ssl-ciphers enable-ssl2 zlib )
+    ( cd ./openssl; MACHINE="$ARCH" ./config no-shares enable-weak-ssl-ciphers enable-ssl2 zlib )
   else
-    ( cd ./openssl; ./config enable-weak-ssl-ciphers enable-ssl2 zlib )
+    ( cd ./openssl; ./config no-shares enable-weak-ssl-ciphers enable-ssl2 zlib )
   fi
 
   ( cd ./openssl; make -j1 depend )
