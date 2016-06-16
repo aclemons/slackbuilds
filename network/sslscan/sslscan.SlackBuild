@@ -35,7 +35,7 @@
 PRGNAM=sslscan
 VERSION=${VERSION:-1.11.7_rbsec}
 SRCVERS=$(printf $VERSION | tr _ -)
-BASEVERS=$(printf $VERSION | perl -pe 's/_.*$//' )
+BASEVERS=$(printf $VERSION | sed 's/_.*$//' )
 BUILD=${BUILD:-2}
 TAG=${TAG:-_acl}
 
