@@ -86,7 +86,7 @@ mv bin completions libexec rbenv.d $PKG/opt/rbenv/
 mkdir -p $PKG/usr/bin
 ln -s /opt/rbenv/libexec/rbenv $PKG/usr/bin/
 
-# add oracle jdbc driver to classpath
+# add rbenv to path
 mkdir -p $PKG/etc/profile.d/
 cat << "EOF" > $PKG/etc/profile.d/rbenv.csh
 #!/bin/csh
