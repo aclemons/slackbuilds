@@ -1,57 +1,15 @@
-diff -Naur sslscan-1.11.6-rbsec.orig/Makefile sslscan-1.11.6-rbsec/Makefile
---- sslscan-1.11.6-rbsec.orig/Makefile	2016-04-10 09:47:32.000000000 +1200
-+++ sslscan-1.11.6-rbsec/Makefile	2016-04-12 09:01:31.936119084 +1200
-@@ -3,12 +3,7 @@
-   CC=gcc
- endif
- 
--GIT_VERSION = $(shell git describe --tags --always --dirty=-wip)
--
--# Ugly hack to get version if git isn't installed
--ifeq ($(GIT_VERSION),)
--  GIT_VERSION = $(shell grep -E -o -m 1 "[0-9]+\.[0-9]+\.[0-9]+" Changelog)
--endif
-+GIT_VERSION = @GIT_VERSION@
- 
- # Detect OS
- OS := $(shell uname)
-@@ -77,14 +72,8 @@
- 	rm -f $(DESTDIR)$(BINDIR)/sslscan
- 	rm -f $(DESTDIR)$(MAN1DIR)/sslscan.1
- 
--.openssl.is.fresh: opensslpull
--	true
+diff -Naur sslscan-1.11.7-rbsec.orig/Makefile sslscan-1.11.7-rbsec/Makefile
+--- sslscan-1.11.7-rbsec.orig/Makefile	2016-06-14 00:42:11.000000000 +1200
++++ sslscan-1.11.7-rbsec/Makefile	2016-06-28 08:35:03.817568419 +1200
+@@ -80,11 +80,6 @@
+ .openssl.is.fresh: opensslpull
+ 	true
  opensslpull:
 -	if [ -d openssl -a -d openssl/.git ]; then \
 -		cd ./openssl && git checkout OpenSSL_1_0_2-stable && git pull | grep -q "Already up-to-date." && [ -e ../.openssl.is.fresh ] || touch ../.openssl.is.fresh ; \
 -	else \
 -		git clone --depth 1 -b OpenSSL_1_0_2-stable https://github.com/openssl/openssl ./openssl && cd ./openssl && touch ../.openssl.is.fresh ; \
 -	fi
-+
  	# Re-enable SSLv2 EXPORT ciphers
  	sed -i.bak 's/# if 0/# if 1/g' openssl/ssl/s2_lib.c
  	rm openssl/ssl/s2_lib.c.bak
-@@ -95,22 +84,7 @@
- 	sed -i.bak 's/dhe512/zzz/g' openssl/test/testssl
- 	rm openssl/test/testssl.bak
- 
--# Need to build OpenSSL differently on OSX
--ifeq ($(OS), Darwin)
--openssl/Makefile: .openssl.is.fresh
--	cd ./openssl; ./Configure enable-ssl2 enable-weak-ssl-ciphers zlib darwin64-x86_64-cc
--# Any other *NIX platform
--else
--openssl/Makefile: .openssl.is.fresh
--	cd ./openssl; ./config no-shares enable-weak-ssl-ciphers enable-ssl2 zlib
--endif
--
--openssl/libcrypto.a: openssl/Makefile
--	$(MAKE) -C openssl depend
--	$(MAKE) -C openssl all
--	$(MAKE) -C openssl test
--
--static: openssl/libcrypto.a
-+static: opensslpull
- 	$(MAKE) sslscan STATIC_BUILD=TRUE
- 
- clean:
