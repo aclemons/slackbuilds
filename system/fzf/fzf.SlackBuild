@@ -24,7 +24,7 @@
 
 PRGNAM=fzf
 VERSION=${VERSION:-0.13.2}
-BUILD=${BUILD:-2}
+BUILD=${BUILD:-3}
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
@@ -62,12 +62,6 @@ cd $TMP
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$VERSION.tar.gz
 cd $PRGNAM-$VERSION
-chown -R root:root .
-find -L . \
- \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
-  -o -perm 511 \) -exec chmod 755 {} \; -o \
- \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
-  -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
 sed -i 's/cd \$(SRCDIR) && go get/cd \$(SRCDIR)/' src/Makefile
 
@@ -79,8 +73,15 @@ mv junegunn-go-runewidth-63c378b gopath/src/github.com/junegunn/go-runewidth
 tar xf $CWD/35d512af 2> /dev/null || tar xf $CWD/junegunn-go-shellwords-35d512a.tar.gz
 mv junegunn-go-shellwords-35d512a gopath/src/github.com/junegunn/go-shellwords
 
+chown -R root:root .
+find -L . \
+ \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
+  -o -perm 511 \) -exec chmod 755 {} \; -o \
+ \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
+  -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
+
 (
-  cd src 
+  cd src
   make
 
   mkdir -p $PKG/usr/bin
