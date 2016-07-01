@@ -24,7 +24,7 @@
 
 PRGNAM=fzf
 VERSION=${VERSION:-0.13.2}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
@@ -106,7 +106,7 @@ install -m 0644 shell/completion.zsh $PKG/usr/share/zsh/site-functions/_fzf
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION/go
 cp -a \
-  CHANGELOG.md LICENSE README.md shell/key-bindings.zsh shell/key-bindings.bash\
+  CHANGELOG.md LICENSE README.md shell/key-bindings.zsh shell/key-bindings.bash plugin/fzf.vim \
   $PKG/usr/doc/$PRGNAM-$VERSION
 
 chmod 0755 $PKG/usr/doc/$PRGNAM-$VERSION/key-bindings.*
