@@ -2,4 +2,7 @@ fzf - A command-line fuzzy finder written in Go
 
 https://github.com/junegunn/fzf
 
+Vim Users: A fzf.vim plugin is included in /usr/share/fzf/vim/.
+
 NOTE: google-go-lang is only needed at compile time - not needed for runtime.
+
