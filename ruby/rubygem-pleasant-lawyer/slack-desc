@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.
+# Line up the first '|' above the ':' following the base package name, and
+# the '|' on the right side marks the last column you can put a character in.
+# You must make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+                       |-----handy-ruler------------------------------------------------------|
+rubygem-pleasant-lawyer: rubygem-pleasant-lawyer (Generate a code phrase from a string)
+rubygem-pleasant-lawyer:
+rubygem-pleasant-lawyer: Generate a code phrase from a string integer, and
+rubygem-pleasant-lawyer: convert it back again.
+rubygem-pleasant-lawyer:
+rubygem-pleasant-lawyer:
+rubygem-pleasant-lawyer:
+rubygem-pleasant-lawyer:
+rubygem-pleasant-lawyer: https://rubygems.org/gems/pleasant-lawyer
+rubygem-pleasant-lawyer:
+rubygem-pleasant-lawyer:
