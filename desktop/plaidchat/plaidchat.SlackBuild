@@ -24,7 +24,7 @@
 
 PRGNAM=plaidchat
 VERSION=${VERSION:-2.15.1}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
@@ -67,7 +67,7 @@ else
   exit 2
 fi
 
-DESTDIR=$PKG npm install --force --unsafe-perm -g $CWD/$SRCNAM
+DESTDIR=$PKG npm install --force --unsafe-perm -g $CWD/$SRCNAM --production
 
 mkdir -p $PKG/usr/share/applications/
 cat $CWD/$PRGNAM.desktop | sed "s/@LIBDIRSUFFIX@/$LIBDIRSUFFIX/" > $PKG/usr/share/applications/$PRGNAM.desktop
