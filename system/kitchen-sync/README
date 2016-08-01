@@ -1,0 +1,4 @@
+kitchen_sync - Fast unidirectional synchronization - make or efficiently
+update a copy of a database, without slow dumping & reloading
+
+https://github.com/willbryant/kitchen_sync
