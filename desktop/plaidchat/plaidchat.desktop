@@ -1,8 +1,0 @@
-[Desktop Entry]
-Version=1.0
-Name=plaidchat
-Exec=/usr/bin/plaidchat
-Terminal=false
-Icon=/usr/lib@LIBDIRSUFFIX@/node_modules/plaidchat/app/images/app-256.png
-Type=Application
-Categories=Network
