@@ -1,0 +1,42 @@
+#!/bin/sh
+
+PORT=${PORT:-3404}
+LISTEN=${LISTEN:-localhost}
+PIDFILE=/var/run/verm.pid
+
+verm_start() {
+  echo "Starting verm..."
+
+  verm -port "$PORT" -listen "$LISTEN" >> /var/log/verm.log 2>> /var/log/verm.err &
+  echo $! > "$PIDFILE"
+}
+
+verm_stop() {
+  echo "Stopping verm"
+
+  if [ -e "$PIDFILE" ] ; then
+    kill "$(cat "$PIDFILE")" > /dev/null 2> /dev/null
+    rm -rf "$PIDFILE"
+  fi
+}
+
+verm_restart() {
+  verm_stop
+  sleep 1
+  verm_start
+}
+
+case "$1" in
+'start')
+  verm_start
+  ;;
+'stop')
+  verm_stop
+  ;;
+'restart')
+  verm_restart
+  ;;
+*)
+  echo "usage $0 start|stop|restart"
+esac
+

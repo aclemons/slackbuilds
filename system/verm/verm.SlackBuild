@@ -24,7 +24,7 @@
 
 PRGNAM=verm
 VERSION=${VERSION:-0.52}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
@@ -73,7 +73,7 @@ export GOPATH="$(pwd)"
 mkdir -p src/github.com/willbryant
 ( cd src/github.com/willbryant && ln -s "$GOPATH" verm)
 
-go build -ldflags "-X main.compiled_version=$VERSION -X main.compiled_root_data_directory /var/verm" "github.com/willbryant/verm"
+go build -ldflags "-X main.compiled_version=$VERSION -X main.compiled_root_data_directory=/var/verm" "github.com/willbryant/verm"
 
 mkdir -p $PKG/usr/bin
 install -m0755 -oroot -groot verm $PKG/usr/bin
@@ -88,7 +88,11 @@ cp -a \
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
+mkdir -p $PKG/etc/rc.d
+
 cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/rc.verm > $PKG/etc/rc.d/rc.verm.new
+chmod 0755 $PKG/etc/rc.d/rc.verm.new
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}

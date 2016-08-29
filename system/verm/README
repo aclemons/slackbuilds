@@ -1,11 +1,5 @@
 Verm is a WORM (write-once, read-many) file store to make it easy to reliably
 store and replicate files.
 
-Currently there is no rc.* script in this package.
-
-You can start the service in rc.local with something like:
-
-verm -listen localhost >> /var/log/verm.log 2>> /var/log/verm.err
-
 NOTE: google-go-lang is only needed at compile time - not needed for runtime.
 
