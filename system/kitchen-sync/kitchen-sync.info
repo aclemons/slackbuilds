@@ -1,7 +1,7 @@
 PRGNAM="kitchen-sync"
 VERSION="0.54"
 HOMEPAGE="https://github.com/willbryant/kitchen_sync"
-DOWNLOAD="https://github.com/willbryant/kitchen_sync/archive/0.53.tar.gz"
+DOWNLOAD="https://github.com/willbryant/kitchen_sync/archive/0.54.tar.gz"
 MD5SUM="74b3462fa0ffe20624fc0ee63de91e28"
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""
