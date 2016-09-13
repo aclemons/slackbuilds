@@ -24,7 +24,7 @@
 
 
 PRGNAM=rtl8192eu
-VERSION=${VERSION:-gita322c84}
+VERSION=${VERSION:-git0c80da7}
 GITREV="$(echo $VERSION | sed -e 's/^git//' )"
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
@@ -77,11 +77,8 @@ sed -i 's/^install:/install:\n\tinstall -d $(MODDESTDIR)/' Makefile
 sed -i 's/$(MODDESTDIR)/$(DESTDIR)$(MODDESTDIR)/g' Makefile
 sed -i 's/KVER  := $(shell uname -r)/KVER  := '$KERNEL'/g' Makefile
 
-make #KVER=$KERNEL
+make
 make DESTDIR=$PKG install
-
-#mkdir -p $PKG/lib/modules/$KERNEL/kernel/drivers/net/wireless/
-#install -p -m 644 8192eu.ko $PKG/lib/modules/$KERNEL/kernel/drivers/net/wireless/
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a README.md $PKG/usr/doc/$PRGNAM-$VERSION
