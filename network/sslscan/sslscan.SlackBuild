@@ -36,7 +36,7 @@ PRGNAM=sslscan
 VERSION=${VERSION:-1.11.7_rbsec}
 SRCVERS=$(printf $VERSION | tr _ -)
 BASEVERS=$(printf $VERSION | sed 's/_.*$//' )
-BUILD=${BUILD:-4}
+BUILD=${BUILD:-5}
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
@@ -82,7 +82,7 @@ sed -i "s/^GIT_VERSION = .*$/GIT_VERSION = $BASEVERS/" Makefile
 STATIC=${STATIC:-yes}
 
 if [ "$STATIC" = "yes" ] ; then
-  OPENSSLVERSION=${OPENSSLVERSION:-1.0.2h}
+  OPENSSLVERSION=${OPENSSLVERSION:-1.0.2i}
 
   tar xf $CWD/OpenSSL_"$(echo "$OPENSSLVERSION" | tr '.' '_')".tar.gz 2> /dev/null || tar xf $CWD/OpenSSL_"$(echo "$OPENSSLVERSION" | tr '.' '_')"
   mv openssl-OpenSSL_"$(echo "$OPENSSLVERSION" | tr '.' '_')" openssl
