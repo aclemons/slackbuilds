@@ -24,7 +24,7 @@
 
 
 PRGNAM=rtl8192eu
-VERSION=${VERSION:-git0c80da7}
+VERSION=${VERSION:-git6254369}
 GITREV="$(echo $VERSION | sed -e 's/^git//' )"
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
