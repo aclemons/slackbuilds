@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.
+# Line up the first '|' above the ':' following the base package name, and
+# the '|' on the right side marks the last column you can put a character in.
+# You must make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+            |-----handy-ruler------------------------------------------------------|
+kde1-kdebase: kde1-kdebase (KDE base package)
+kde1-kdebase:
+kde1-kdebase: KDE is a network transparent contemporary desktop environment for
+kde1-kdebase: UNIX workstations.  It was written by a world-wide network of
+kde1-kdebase: software engineers committed to free software development.  KDE
+kde1-kdebase: seeks to fill the need for an easy to use desktop for Unix
+kde1-kdebase: workstations, similar to the desktop environments found under the
+kde1-kdebase: MacOS or Windows98/NT.
+kde1-kdebase:
+kde1-kdebase: https://github.com/KDE/kde1-kdebase
+kde1-kdebase:
