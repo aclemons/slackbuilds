@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.
+# Line up the first '|' above the ':' following the base package name, and
+# the '|' on the right side marks the last column you can put a character in.
+# You must make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+            |-----handy-ruler------------------------------------------------------|
+kde1-kdelibs: kde1-kdelibs (Libraries for KDE)
+kde1-kdelibs:
+kde1-kdelibs: System libraries required by KDE:
+kde1-kdelibs:   jscript  (KDE javascript library)
+kde1-kdelibs:   kdecore  (KDE core library)
+kde1-kdelibs:   kdeui    (KDE user interface library)
+kde1-kdelibs:   kfmlib   (KDE file manager library)
+kde1-kdelibs:   khtmlw   (KDE HTML widget)
+kde1-kdelibs:   mediatool  (KDE mediatool library)
+kde1-kdelibs:
+kde1-kdelibs: https://github.com/KDE/kde1-kdelibs
