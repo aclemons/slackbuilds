@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.
+# Line up the first '|' above the ':' following the base package name, and
+# the '|' on the right side marks the last column you can put a character in.
+# You must make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+   |-----handy-ruler------------------------------------------------------|
+qt1: qt1 (Library for C++ GUI development)
+qt1:
+qt1: Qt is a complete and well-developed object-oriented framework for
+qt1: developing graphical user interface (GUI) applications using C++.
+qt1: This release, Qt 1.45, is free only for development of free software
+qt1: for the X Window System.  If you use Qt for developing commercial
+qt1: or other non-free software, you must have a professional license.
+qt1: Please see http://www.troll.no/pricing.html for information on how
+qt1: to obtain a professional license.
+qt1:
+qt1: https://github.com/KDE/qt1
