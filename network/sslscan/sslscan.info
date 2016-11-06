@@ -1,9 +1,9 @@
 PRGNAM="sslscan"
-VERSION="1.11.7_rbsec"
+VERSION="1.11.8_rbsec"
 HOMEPAGE="https://github.com/rbsec/sslscan"
-DOWNLOAD="https://github.com/rbsec/sslscan/archive/1.11.7-rbsec.tar.gz \
+DOWNLOAD="https://github.com/rbsec/sslscan/archive/1.11.8-7rbsec.tar.gz \
           https://github.com/openssl/openssl/archive/OpenSSL_1_0_2j.tar.gz"
-MD5SUM="5eba92ca8fe4bffaec626d4c88fe3284 \
+MD5SUM="2f61a1074d25cdb0467a3900dddad888 \
         56d9169a78f0020d87bf87fd5dea77ca"
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""
