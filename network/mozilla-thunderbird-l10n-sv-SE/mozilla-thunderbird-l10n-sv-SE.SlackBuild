@@ -23,9 +23,9 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=mozilla-thunderbird-l10n-sv-SE
-FFLANG="$(echo "$PRGNAM" | sed "s/^$(echo "$PRGNAM" | cut -d- -f-3)-//")"
+APPLANG="$(echo "$PRGNAM" | sed "s/^$(echo "$PRGNAM" | cut -d- -f-3)-//")"
 VERSION=${VERSION:-45.4.0}
-FFVERSION="$(echo "$VERSION" | sed 's/esr//')"
+BASEVERSION="$(echo "$VERSION" | sed 's/esr//')"
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
@@ -57,11 +57,11 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 
-install -Dm644 $CWD/$FFLANG.xpi $PKG/usr/lib$LIBDIRSUFFIX/thunderbird-$FFVERSION/extensions/langpack-$FFLANG@thunderbird.mozilla.org.xpi
+install -Dm644 $CWD/$APPLANG.xpi $PKG/usr/lib$LIBDIRSUFFIX/thunderbird-$BASEVERSION/extensions/langpack-$APPLANG@thunderbird.mozilla.org.xpi
 
 # thanks to the archlinux maintainer
-mkdir -p $PKG/usr/lib$LIBDIRSUFFIX/thunderbird-$FFVERSION/defaults/preferences
-cat << EOF > $PKG/usr/lib$LIBDIRSUFFIX/thunderbird-$FFVERSION/defaults/preferences/lang.js.new
+mkdir -p $PKG/usr/lib$LIBDIRSUFFIX/thunderbird-$BASEVERSION/defaults/preferences
+cat << EOF > $PKG/usr/lib$LIBDIRSUFFIX/thunderbird-$BASEVERSION/defaults/preferences/lang.js.new
 // Use LANG environment variable to choose locale
 pref("intl.locale.matchOS", true);
 
@@ -75,7 +75,7 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/doinst.sh | sed -e "s/%LIBDIRSUFFIX%/$LIBDIRSUFFIX/" -e "s/%FFVERSION%/$FFVERSION/" > $PKG/install/doinst.sh
+cat $CWD/doinst.sh | sed -e "s/%LIBDIRSUFFIX%/$LIBDIRSUFFIX/" -e "s/%BASEVERSION%/$BASEVERSION/" > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
