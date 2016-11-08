@@ -11,4 +11,4 @@ config() {
   # Otherwise, we leave the .new copy for the admin to consider...
 }
 
-config usr/lib%LIBDIRSUFFIX%/seamonkey-%BASEVERSION%/defaults/preferences/lang.js.new
+config usr/lib%LIBDIRSUFFIX%/seamonkey-%VERSION%/defaults/preferences/lang.js.new

@@ -25,7 +25,6 @@
 PRGNAM=seamonkey-l10n-be
 APPLANG="$(echo "$PRGNAM" | sed "s/^$(echo "$PRGNAM" | cut -d- -f-2)-//")"
 VERSION=${VERSION:-2.40}
-BASEVERSION="$(echo "$VERSION" | sed 's/esr//')"
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
@@ -57,11 +56,11 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 
-install -Dm644 $CWD/$APPLANG.xpi $PKG/usr/lib$LIBDIRSUFFIX/seamonkey-$BASEVERSION/extensions/langpack-$APPLANG@seamonkey.mozilla.org.xpi
+install -Dm644 $CWD/$APPLANG.xpi $PKG/usr/lib$LIBDIRSUFFIX/seamonkey-$VERSION/extensions/langpack-$APPLANG@seamonkey.mozilla.org.xpi
 
 # thanks to the archlinux maintainer
-mkdir -p $PKG/usr/lib$LIBDIRSUFFIX/seamonkey-$BASEVERSION/defaults/preferences
-cat << EOF > $PKG/usr/lib$LIBDIRSUFFIX/seamonkey-$BASEVERSION/defaults/preferences/lang.js.new
+mkdir -p $PKG/usr/lib$LIBDIRSUFFIX/seamonkey-$VERSION/defaults/preferences
+cat << EOF > $PKG/usr/lib$LIBDIRSUFFIX/seamonkey-$VERSION/defaults/preferences/lang.js.new
 // Use LANG environment variable to choose locale
 pref("intl.locale.matchOS", true);
 
@@ -75,7 +74,7 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/doinst.sh | sed -e "s/%LIBDIRSUFFIX%/$LIBDIRSUFFIX/" -e "s/%BASEVERSION%/$BASEVERSION/" > $PKG/install/doinst.sh
+cat $CWD/doinst.sh | sed -e "s/%LIBDIRSUFFIX%/$LIBDIRSUFFIX/" -e "s/%VERSION%/$VERSION/" > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
