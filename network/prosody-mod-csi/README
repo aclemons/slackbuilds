@@ -1,8 +1,7 @@
-prosody-mod-cloud-notify (XEP-0357: Push Notifications for Prosody)
+prosody-mod-csi (XEP-0352: Client State Indication)
 
-This is an implementation of the server bits of XEP-0357: Push
-Notifications.
-
-Implementation of the "app server" is not included.
-
-https://modules.prosody.im/mod_cloud_notify.html
+This module implements Client State Indication, a way for mobile
+clients to tell the server that they are sitting in someones pocket
+and would rather not get some less urgent things pushed to it.
+ 
+https://modules.prosody.im/mod_csi.html
