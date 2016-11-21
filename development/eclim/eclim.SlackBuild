@@ -24,7 +24,7 @@
 
 PRGNAM=eclim
 VERSION=${VERSION:-2.6.0}
-BUILD=${BUILD:-3}
+BUILD=${BUILD:-4}
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
@@ -101,20 +101,23 @@ cp $CWD/gant_groovy2.2-1.9.11.jar ant/lib
 sed -i '/useCache=/d' build.xml
 sed -i '/cacheDir=/d' build.xml
 
-ant build -Declipse.home=/opt/eclipse-java -Dvim.files=/usr/share/vim/vimfiles
+ECLIPSE_HOME=${ECLIPSE_HOME:-/opt/eclipse-java}
+ECLIPSE_HOME=${ECLIPSE_HOME%/}
+
+ant build -Declipse.home=$ECLIPSE_HOME -Dvim.files=/usr/share/vim/vimfiles
 
 mkdir -p $PKG/usr/share/vim/vimfiles
 
-ant docs vimdocs -Declipse.home=/opt/eclipse-java -Dvim.files=$PKG/usr/share/vim/vimfiles
+ant docs vimdocs -Declipse.home=$ECLIPSE_HOME -Dvim.files=$PKG/usr/share/vim/vimfiles
 
-mkdir -p $PKG/opt/eclipse-java
+mkdir -p $PKG$ECLIPSE_HOME
 
-ant deploy.eclipse -Declipse.home=$PKG/opt/eclipse-java -Dvim.files=$PKG/usr/share/vim/vimfiles
+ant deploy.eclipse -Declipse.home=$PKG$ECLIPSE_HOME -Dvim.files=$PKG/usr/share/vim/vimfiles
 
 # tidy up
-sed -i "s#$PKG##" $PKG/opt/eclipse-java/plugins/org.eclim_$VERSION/bin/eclimd $PKG/opt/eclipse-java/plugins/org.eclim_$VERSION/plugin.properties
-sed -i 's#${eclipse.home}#/opt/eclipse-java#' $PKG/opt/eclipse-java/plugins/org.eclim_$VERSION/bin/native/linux/eclimd $PKG/opt/eclipse-java/plugins/org.eclim_$VERSION/bin/native/linux/eclimd.desktop
-find $PKG/opt/eclipse-java/plugins/org.eclim_$VERSION/nailgun \! -name ng -mindepth 1 -print0 | xargs -0 rm -rf
+sed -i "s#$PKG##" $PKG$ECLIPSE_HOME/plugins/org.eclim_$VERSION/bin/eclimd $PKG$ECLIPSE_HOME/plugins/org.eclim_$VERSION/plugin.properties
+sed -i "s#\${eclipse.home}#$ECLIPSE_HOME#" $PKG$ECLIPSE_HOME/plugins/org.eclim_$VERSION/bin/native/linux/eclimd $PKG$ECLIPSE_HOME/plugins/org.eclim_$VERSION/bin/native/linux/eclimd.desktop
+find $PKG$ECLIPSE_HOME/plugins/org.eclim_$VERSION/nailgun \! -name ng -mindepth 1 -print0 | xargs -0 rm -rf
 rm -rf build/doc/site/.doctrees
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
