@@ -24,7 +24,7 @@
 
 PRGNAM=eclim
 VERSION=${VERSION:-2.6.0}
-BUILD=${BUILD:-2}
+BUILD=${BUILD:-3}
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
@@ -113,6 +113,7 @@ ant deploy.eclipse -Declipse.home=$PKG/opt/eclipse-java -Dvim.files=$PKG/usr/sha
 
 # tidy up
 sed -i "s#$PKG##" $PKG/opt/eclipse-java/plugins/org.eclim_$VERSION/bin/eclimd $PKG/opt/eclipse-java/plugins/org.eclim_$VERSION/plugin.properties
+sed -i 's#${eclipse.home}#/opt/eclipse-java#' $PKG/opt/eclipse-java/plugins/org.eclim_$VERSION/bin/native/linux/eclimd $PKG/opt/eclipse-java/plugins/org.eclim_$VERSION/bin/native/linux/eclimd.desktop
 find $PKG/opt/eclipse-java/plugins/org.eclim_$VERSION/nailgun \! -name ng -mindepth 1 -print0 | xargs -0 rm -rf
 rm -rf build/doc/site/.doctrees
 
