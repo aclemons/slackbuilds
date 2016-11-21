@@ -24,7 +24,7 @@
 
 PRGNAM=eclim
 VERSION=${VERSION:-2.6.0}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
@@ -93,15 +93,13 @@ chmod +x bin/sphinx
 sed -i "s/'root'/'dummy'/g" ant/build.gant
 
 # eclim fails to build with ant-1.9.7 on slackbuilds.org
-# update groovy and gant to fix
-rm -f ant/lib/groovy-all-2.2.0.jar
+# revert gant jar to fix
+# https://github.com/ervandew/eclim/issues/330
 rm -f ant/lib/gant-1.9.11-patched.jar
+cp $CWD/gant_groovy2.2-1.9.11.jar ant/lib
 
 sed -i '/useCache=/d' build.xml
 sed -i '/cacheDir=/d' build.xml
-
-cp $CWD/gant_groovy2.2-1.9.11.jar ant/lib
-cp $CWD/groovy-all-2.2.2.jar ant/lib
 
 ant build -Declipse.home=/opt/eclipse-java -Dvim.files=/usr/share/vim/vimfiles
 
