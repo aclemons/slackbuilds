@@ -1,0 +1,9 @@
+/var/log/mssql-server {
+    daily
+    rotate 7
+    copytruncate
+    delaycompress
+    compress
+    notifempty
+    missingok
+}

@@ -1,0 +1,37 @@
+#!/bin/sh
+
+mssql_server_start() {
+  echo "Starting mssql-server..."
+
+  mkdir -p /var/run/
+  touch /var/run/mssql-server.pid
+  chown mssql:mssql /var/run/mssql-server.pid
+  su - mssql -c "nohup /opt/mssql/bin/sqlservr start > /var/log/mssql-server 2>&1 & echo \$! > /var/run/mssql-server.pid"
+}
+
+mssql_server_stop() {
+  echo "Stopping mssql-server"
+
+  kill "$(cat /var/run/mssql-server.pid)"
+}
+
+mssql_server_restart() {
+  mssql_server_stop
+  sleep 1
+  mssql_server_start
+}
+
+case "$1" in
+'start')
+  mssql_server_start
+  ;;
+'stop')
+  mssql_server_stop
+  ;;
+'restart')
+  mssql_server_restart
+  ;;
+*)
+  echo "usage $0 start|stop|restart"
+esac
+
