@@ -9,13 +9,11 @@ Something like this will suffice for most systems:
 
 Feel free to use a different uid and gid if desired.
 
-Before running mssql-server, you need to initial the database:
+Before running mssql-server, you need to initialise the database:
 
   # /opt/mssql/bin/sqlservr-setup
 
-To setup starting the database at startup, shutting it down on shutdown:
-
-To setup starting the database at startup, shutting it down on shutdown:
+To setup starting the database at system boot, shutting it down on shutdown:
 
 	/etc/rc.d/rc.local
 	==================
@@ -26,7 +24,7 @@ To setup starting the database at startup, shutting it down on shutdown:
 	
 	/etc/rc.d/rc.local_shutdown
 	===========================
-	# Stop postgres
+	# Stop mssql-server
 	if [ -x /etc/rc.d/rc.mssql-server ]; then
 		/etc/rc.d/rc.mssql-server stop
 	fi

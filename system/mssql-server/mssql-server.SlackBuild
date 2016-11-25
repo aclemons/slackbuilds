@@ -25,7 +25,7 @@
 PRGNAM=mssql-server
 VERSION=${VERSION:-14.0.1.246_6}
 SRCVERSION="$(echo "$VERSION" | tr '_' '-')"
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_acl}
 
 MSSQL_UID=${MSSQL_UID:-471}

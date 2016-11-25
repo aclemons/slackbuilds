@@ -6,14 +6,14 @@
 # customary to leave one space after the ':'.
 
              |-----handy-ruler------------------------------------------------------|
-oracle-xe-11g: oracle-xe-11g (entry-level, small-footprint database)
-oracle-xe-11g:
-oracle-xe-11g: Oracle Database 11g Express Edition (Oracle Database XE)
-oracle-xe-11g: is an entry-level, small-footprint database based on the
-oracle-xe-11g: Oracle Database 11g Release 2 code base.  It's free to
-oracle-xe-11g: develop, deploy, and distribute; fast to download; and
-oracle-xe-11g: simple to administer.
-oracle-xe-11g:
-oracle-xe-11g:
-oracle-xe-11g: Homepage: http://www.oracle.com/technetwork/products/express-edition
-oracle-xe-11g:
+mssql-server: mssql-server (Microsoft SQL Server for Linux)
+mssql-server:
+mssql-server: Microsoft SQL Server is a relational database management system.
+mssql-server:
+mssql-server:
+mssql-server:
+mssql-server:
+mssql-server:
+mssql-server:
+mssql-server: 
+mssql-server:

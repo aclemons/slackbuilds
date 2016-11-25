@@ -22,6 +22,6 @@ preserve_perms() {
 }
 
 config etc/rc.d/rc.mssql-server.new
-config etc/logrotate.d/mssql-server.new
+config etc/logrotate.d/mssql-server.nstartupew
 config var/log/mssql-server.new
 rm -f var/log/mssql-server.new
