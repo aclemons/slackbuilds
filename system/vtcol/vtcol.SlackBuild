@@ -25,7 +25,7 @@
 PRGNAM=vtcol
 GITREV=${GITREV:-3592d70fd18686ca984db32204e6dcccd05731eb}
 VERSION=${VERSION:-git$(echo "$GITREV" | sed -e 's/^\(.\{7\}\).*/\1/')}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
@@ -73,9 +73,9 @@ cargo build --release
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
-mkdir -p $PKG/usr/sbin/
+mkdir -p $PKG/usr/bin/
 
-install -m 755 target/release/vtcol $PKG/usr/sbin
+install -m 755 target/release/vtcol $PKG/usr/bin
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a \
