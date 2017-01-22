@@ -2,7 +2,7 @@
 
 # Slackware build script for python-axolotl-curve25519
 
-# Copyright <year> <you> <where you live>
+# Copyright 2016-2017 Andrew Clemons, Wellington New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -25,7 +25,7 @@
 PRGNAM=python-axolotl-curve25519
 GITREV=${GITREV:-e4a9c4de0eae27223200579c58d1f8f6d20637e2}
 VERSION=${VERSION:-git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
@@ -70,11 +70,11 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-python setup.py install --root=$PKG
+CFLAGS="$SLKCFLAGS" python setup.py install --root=$PKG
 
 # Python 3 support.
 if $(python3 -c 'import sys' 2>/dev/null); then
-  python3 setup.py install --root=$PKG
+  CFLAGS="$SLKCFLAGS" python3 setup.py install --root=$PKG
 fi
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
