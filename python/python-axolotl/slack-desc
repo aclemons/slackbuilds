@@ -9,9 +9,9 @@
 python-axolotl: python-axolotl (This is a python port of libaxolotl-android)
 python-axolotl:
 python-axolotl: This is a python port of libaxolotl-android originally written
-python-axolotl: by Moxie Marlinspike
-python-axolotl:
-python-axolotl:
+python-axolotl: by Moxie Marlinspike. The libaxolotol library is defined as a
+python-axototl: ratcheting forward secrecy protocol that works in synchronous and
+python-axototl: asynchronous messaging environments.
 python-axolotl:
 python-axolotl:
 python-axolotl:
