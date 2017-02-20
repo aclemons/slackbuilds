@@ -1,6 +1,0 @@
-prosody-mod-mam (XEP-0313 Message Archive Management)
-
-This module will archive all messages that match the simple rules
-setup by the user, and allow the user to access this archive. 
-
-https://modules.prosody.im/mod_mam.html
