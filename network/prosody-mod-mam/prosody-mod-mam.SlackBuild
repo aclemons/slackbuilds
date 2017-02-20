@@ -24,8 +24,8 @@
 
 PRGNAM=prosody-mod-mam
 MDLNAM=$(echo $PRGNAM | sed 's/prosody-//' | tr '-' '_')
-VERSION=${VERSION:-hg2463}
-REVISION=${REVISION:-e2d955f6167f}
+VERSION=${VERSION:-hg2516}
+REVISION=${REVISION:-248054199d0f}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
