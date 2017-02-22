@@ -1,28 +1,29 @@
-#!/bin/sh
+#!/bin/bash
 
 PORT=${PORT:-3404}
 LISTEN=${LISTEN:-localhost}
-PIDFILE=/var/run/verm.pid
+PIDDIR=/var/run/verm
+LOGDIR=/var/log/verm
+PIDFILE=$PIDDIR/verm.pid
+
+. /etc/rc.d/init.d/functions
+
+runuser() {
+  su "$@"
+}
 
 verm_start() {
-  echo "Starting verm..."
-
-  verm -port "$PORT" -listen "$LISTEN" >> /var/log/verm.log 2>> /var/log/verm.err &
-  echo $! > "$PIDFILE"
+  mkdir -p $PIDDIR $LOGDIR
+  chown -R verm:verm $PIDDIR $LOGDIR
+  action "Starting verm: " daemon --pidfile $PIDFILE --user verm "bash -c 'verm -port \"$PORT\" -listen \"$LISTEN\" >> $LOGDIR/verm.log 2>> $LOGDIR/verm_err.log & echo \$! > $PIDFILE'"
 }
 
 verm_stop() {
-  echo "Stopping verm"
-
-  if [ -e "$PIDFILE" ] ; then
-    kill "$(cat "$PIDFILE")" > /dev/null 2> /dev/null
-    rm -rf "$PIDFILE"
-  fi
+  action "Stopping verm: " killproc -p $PIDFILE "verm"
 }
 
 verm_restart() {
   verm_stop
-  sleep 1
   verm_start
 }
 
@@ -39,4 +40,3 @@ case "$1" in
 *)
   echo "usage $0 start|stop|restart"
 esac
-

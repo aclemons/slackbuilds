@@ -2,7 +2,7 @@
 
 # Slackware build script for verm
 
-# Copyright 2016 Andrew Clemons, Wellington New Zealand
+# Copyright 2016-2017 Andrew Clemons, Wellington New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,13 +23,17 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=verm
-VERSION=${VERSION:-0.52}
-BUILD=${BUILD:-2}
+VERSION=${VERSION:-1.2.0}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
+
+VERM_UID=${VERM_UID:-346}
+VERM_GID=${VERM_GID:-346}
+VERM_PORT=${VERM_PORT:-3404}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
-    i?86) ARCH=i486 ;;
+    i?86) ARCH=i586 ;;
     arm*) ARCH=arm ;;
        *) ARCH=$( uname -m ) ;;
   esac
@@ -40,18 +44,17 @@ TMP=${TMP:-/tmp/acl}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
-if [ "$ARCH" = "i486" ]; then
-  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
-  LIBDIRSUFFIX=""
-elif [ "$ARCH" = "i686" ]; then
-  SLKCFLAGS="-O2 -march=i686 -mtune=i686"
-  LIBDIRSUFFIX=""
-elif [ "$ARCH" = "x86_64" ]; then
-  SLKCFLAGS="-O2 -fPIC"
-  LIBDIRSUFFIX="64"
-else
-  SLKCFLAGS="-O2"
-  LIBDIRSUFFIX=""
+# Bail out if user or group isn't valid on your system
+# For slackbuilds.org, assigned verm uid/gid are 346/346
+# See http://slackbuilds.org/uid_gid.txt
+if ! getent group verm > /dev/null 2>&1 ; then
+  echo "  You must have a verm group to run this script."
+  echo "    # groupadd -g $VERM_GID verm"
+  exit 1
+elif ! getent passwd verm > /dev/null 2>&1 ; then
+  echo "  You must have a verm user to run this script."
+  echo "    # useradd -u $VERM_UID -g $VERM_GID -m -d /var/lib/verm verm"
+  exit 1
 fi
 
 set -e
@@ -60,7 +63,7 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$VERSION
-tar xvf $CWD/$VERSION.tar.gz
+tar xvf $CWD/$PRGNAM-$VERSION.tar.gz
 cd $PRGNAM-$VERSION
 chown -R root:root .
 find -L . \
@@ -73,7 +76,7 @@ export GOPATH="$(pwd)"
 mkdir -p src/github.com/willbryant
 ( cd src/github.com/willbryant && ln -s "$GOPATH" verm)
 
-go build -ldflags "-X main.compiled_version=$VERSION -X main.compiled_root_data_directory=/var/verm" "github.com/willbryant/verm"
+go build -ldflags "-X main.compiled_version=$VERSION -X main.compiled_root_data_directory=/var/lib/verm" "github.com/willbryant/verm"
 
 mkdir -p $PKG/usr/bin
 install -m0755 -oroot -groot verm $PKG/usr/bin
@@ -91,9 +94,15 @@ mkdir -p $PKG/install
 mkdir -p $PKG/etc/rc.d
 
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/rc.verm > $PKG/etc/rc.d/rc.verm.new
+cat $CWD/doinst.sh > $PKG/install/doinst.sh
+sed "s/@VERM_PORT/$VERM_PORT/" $CWD/rc.verm > $PKG/etc/rc.d/rc.verm.new
 chmod 0755 $PKG/etc/rc.d/rc.verm.new
+
+mkdir -p $PKG/etc/logrotate.d
+cat $CWD/verm.logrotate > $PKG/etc/logrotate.d/verm.new
+
+mkdir -p $PKG/var/log/verm
+chown -R verm:verm $PKG/var/log/verm
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
-
