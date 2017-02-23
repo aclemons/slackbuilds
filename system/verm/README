@@ -1,5 +1,0 @@
-Verm is a WORM (write-once, read-many) file store to make it easy to reliably
-store and replicate files.
-
-NOTE: google-go-lang is only needed at compile time - not needed for runtime.
-
