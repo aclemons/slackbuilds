@@ -3,7 +3,7 @@
 # Slackware build script for emailrelay
 
 # Copyright 2011,2013 Andrew Clemons, Wellington, New Zealand
-# Copyright 2016 Andrew Clemons, Wellington, New Zealand
+# Copyright 2016-2017 Andrew Clemons, Wellington, New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,7 +23,6 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-
 PRGNAM=emailrelay
 VERSION=${VERSION:-1.9}
 BUILD=${BUILD:-3}
@@ -31,7 +30,7 @@ TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
-    i?86) ARCH=i486 ;;
+    i?86) ARCH=i586 ;;
     arm*) ARCH=arm ;;
        *) ARCH=$( uname -m ) ;;
   esac
@@ -42,8 +41,8 @@ TMP=${TMP:-/tmp/acl}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
-if [ "$ARCH" = "i486" ]; then
-  SLKCFLAGS="-O2 -march=i486 -mtune=i686"
+if [ "$ARCH" = "i586" ]; then
+  SLKCFLAGS="-O2 -march=i586 -mtune=i686"
   LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
   SLKCFLAGS="-O2 -march=i686 -mtune=i686"
@@ -64,23 +63,17 @@ cd $TMP
 rm -rf $PRGNAM-$VERSION
 tar xvf $CWD/$PRGNAM-$VERSION-src.tar.gz
 cd $PRGNAM-$VERSION
+
+for sha1 in b79f2cb7c70d7c311162cb9d38b3921b76ddae3d a9dcd228875a40ef2b475ff6f328332bd6f6e4f6 ; do
+  patch -p1 < "$CWD/patches/$sha1.patch"
+done
+
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
   -o -perm 511 \) -exec chmod 755 {} \; -o \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
-
-DISABLE_LEGACY_SSL=${DISABLE_LEGACY_SSL:-yes}
-ENABLE_TLS_11_12=${ENABLE_TLS_11_12:-yes}
-
-if [ "x$DISABLE_LEGACY_SSL" = "xyes" ] && [ "x$ENABLE_TLS_11_12" = "xyes" ] ; then
-  patch -p1 < $CWD/disable_sslv23_enabletls1_11_12.diff
-elif [ "x$ENABLE_TLS_11_12" = "xyes" ] ; then
-  patch -p1 < $CWD/tls_11_12.diff
-elif [ "x$DISABLE_LEGACY_SSL" = "xyes" ] ; then
-  patch -p1 < $CWD/disable_sslv23.diff
-fi
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \

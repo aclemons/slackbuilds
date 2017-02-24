@@ -1,7 +1,7 @@
 #!/bin/sh
 
-spool="/var/spool/emailrelay"
-submit="/usr/sbin/emailrelay-submit"
+spool="var/spool/emailrelay"
+submit="usr/sbin/emailrelay-submit"
 
 config() {
   NEW="$1"
