@@ -5,7 +5,7 @@
 # Copyright (c) 2010  Markus Reichelt, Aachen, DE
 # Copyright (c) 2014  Andrew Clemons, Wellington, New Zealand
 # Copyright (c) 2015  Andrew Clemons, Leimen, Germany
-# Copyright (c) 2016  Andrew Clemons, Wellington, New Zealand
+# Copyright (c) 2016-2017  Andrew Clemons, Wellington, New Zealand
 # All rights reserved.
 #
 #   Permission to use, copy, modify, and distribute this software for
@@ -36,7 +36,7 @@ PRGNAM=sslscan
 VERSION=${VERSION:-1.11.8_rbsec}
 SRCVERS=$(printf $VERSION | tr _ -)
 BASEVERS=$(printf $VERSION | sed 's/_.*$//' )
-BUILD=${BUILD:-6}
+BUILD=${BUILD:-7}
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
@@ -72,7 +72,7 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 rm -rf $PRGNAM-$SRCVERS
-tar xf $CWD/$SRCVERS.tar.gz 2> /dev/null || tar xf $CWD/$PRGNAM-$SRCVERS.tar.gz 2> /dev/null || tar xf $CWD/$SRCVERS
+tar xf $CWD/$PRGNAM-$SRCVERS.tar.gz
 cd $PRGNAM-$SRCVERS
 
 patch -p1 < $CWD/Makefile.diff
@@ -82,7 +82,7 @@ sed -i "s/^GIT_VERSION = .*$/GIT_VERSION = $BASEVERS/" Makefile
 STATIC=${STATIC:-yes}
 
 if [ "$STATIC" = "yes" ] ; then
-  OPENSSLVERSION=${OPENSSLVERSION:-1.0.2j}
+  OPENSSLVERSION=${OPENSSLVERSION:-1.0.2k}
 
   tar xf $CWD/OpenSSL_"$(echo "$OPENSSLVERSION" | tr '.' '_')".tar.gz 2> /dev/null || tar xf $CWD/OpenSSL_"$(echo "$OPENSSLVERSION" | tr '.' '_')"
   mv openssl-OpenSSL_"$(echo "$OPENSSLVERSION" | tr '.' '_')" openssl
