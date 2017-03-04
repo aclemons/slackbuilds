@@ -70,29 +70,34 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
 python setup.py install --root=$PKG
 
 # Python 3 support.
 if $(python3 -c 'import sys' 2>/dev/null); then
+  BINARIES="fonttools pyftinspect pyftmerge pyftsubset ttx"
   # backup the python2 binaries
-  for f in fonttools pyftinspect pyftmerge pyftsubset ttx ; do
-    mv $PKG/usr/bin/$f $PKG/usr/bin/"$f"2
+  for f in $BINARIES ; do
+    mv "$PKG/usr/bin/$f"{,2}
   done
-  mv $PKG/usr/share/man/man1/ttx.1 $PKG/usr/share/man/man1/ttx2.1
+  mv $PKG/usr/share/man/man1/ttx{,2}.1
 
+  CFLAGS="$SLKCFLAGS" \
+  CXXFLAGS="$SLKCFLAGS" \
   python3 setup.py install --root=$PKG
 
   # rename the python3 binaries
-  for f in fonttools pyftinspect pyftmerge pyftsubset ttx ; do
-    mv $PKG/usr/bin/$f $PKG/usr/bin/"$f"3
+  for f in $BINARIES ; do
+    mv "$PKG/usr/bin/$f"{,3}
   done
-  mv $PKG/usr/share/man/man1/ttx.1 $PKG/usr/share/man/man1/ttx3.1
+  mv $PKG/usr/share/man/man1/ttx{,3}.1
 
   # restore the python2 binaries
-  for f in fonttools pyftinspect pyftmerge pyftsubset ttx ; do
-    mv $PKG/usr/bin/"$f"2 $PKG/usr/bin/$f
+  for f in $BINARIES ; do
+    mv "$PKG/usr/bin/$f"{2,}
   done
-  mv $PKG/usr/share/man/man1/ttx2.1 $PKG/usr/share/man/man1/ttx.1
+  mv $PKG/usr/share/man/man1/ttx{2,}.1
 fi
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
