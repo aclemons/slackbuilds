@@ -72,6 +72,29 @@ find -L . \
 
 python setup.py install --root=$PKG
 
+# Python 3 support.
+if $(python3 -c 'import sys' 2>/dev/null); then
+  # backup the python2 binaries
+  for f in fonttools pyftinspect pyftmerge pyftsubset ttx ; do
+    mv $PKG/usr/bin/$f $PKG/usr/bin/"$f"2
+  done
+  mv $PKG/usr/share/man/man1/ttx.1 $PKG/usr/share/man/man1/ttx2.1
+
+  python3 setup.py install --root=$PKG
+
+  # rename the python3 binaries
+  for f in fonttools pyftinspect pyftmerge pyftsubset ttx ; do
+    mv $PKG/usr/bin/$f $PKG/usr/bin/"$f"3
+  done
+  mv $PKG/usr/share/man/man1/ttx.1 $PKG/usr/share/man/man1/ttx3.1
+
+  # restore the python2 binaries
+  for f in fonttools pyftinspect pyftmerge pyftsubset ttx ; do
+    mv $PKG/usr/bin/"$f"2 $PKG/usr/bin/$f
+  done
+  mv $PKG/usr/share/man/man1/ttx2.1 $PKG/usr/share/man/man1/ttx.1
+fi
+
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
