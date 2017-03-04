@@ -15,5 +15,5 @@ python-fonttools: TTX.
 python-fonttools:
 python-fonttools:
 python-fonttools:
-python-fonttools:  https://github.com/fonttools/fonttools
+python-fonttools: https://github.com/fonttools/fonttools
 python-fonttools:

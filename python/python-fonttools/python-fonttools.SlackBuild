@@ -70,8 +70,6 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCFLAGS" \
 python setup.py install --root=$PKG
 
 # Python 3 support.
@@ -83,8 +81,6 @@ if $(python3 -c 'import sys' 2>/dev/null); then
   done
   mv $PKG/usr/share/man/man1/ttx{,2}.1
 
-  CFLAGS="$SLKCFLAGS" \
-  CXXFLAGS="$SLKCFLAGS" \
   python3 setup.py install --root=$PKG
 
   # rename the python3 binaries
