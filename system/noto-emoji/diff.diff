@@ -1,0 +1,60 @@
+diff --git a/third_party/color_emoji/emoji_builder.py b/third_party/color_emoji/emoji_builder.py
+index c847fdb..2812dbc 100644
+--- a/third_party/color_emoji/emoji_builder.py
++++ b/third_party/color_emoji/emoji_builder.py
+@@ -24,11 +24,40 @@ import os
+ from os import path
+ 
+ from nototools import font_data
++from fontTools.misc.py23 import unichr
++
++def is_surrogate(s,i):
++    if 0xD800 <= ord(s[i]) <= 0xDBFF:
++        try:
++            l = s[i+1]
++        except IndexError:
++            return False
++        if 0xDC00 <= ord(l) <= 0xDFFF:
++            return True
++        else:
++            raise ValueError("Illegal UTF-16 sequence: %r" % s[i:i+2])
++    else:
++        return False
+ 
+ def get_glyph_name_from_gsub (string, font, cmap_dict):
+ 	ligatures = font['GSUB'].table.LookupList.Lookup[0].SubTable[0].ligatures
+-	first_glyph = cmap_dict[ord (string[0])]
+-	rest_of_glyphs = [cmap_dict[ord (ch)] for ch in string[1:]]
++
++	if is_surrogate(string, 0):
++	    first_glyph = cmap_dict[(ord(string[0]) - 0xD800) * 0x400 + (ord(string[1]) - 0xDC00) + 0x10000]
++	    string = string[2:]
++	else:
++	    first_glyph = cmap_dict[ord (string[0])]
++	    string = string[1:]
++
++	rest_of_glyphs = []
++	while (len(string) > 0):
++	    if is_surrogate(string, 0):
++		rest_of_glyphs.append(cmap_dict[(ord(string[0]) - 0xD800) * 0x400 + (ord(string[1]) - 0xDC00) + 0x10000])
++		string = string[2:]
++	    else:
++		rest_of_glyphs.append(cmap_dict[ord (string[0])])
++		string = string[1:]
++
+ 	for ligature in ligatures[first_glyph]:
+ 		if ligature.Component == rest_of_glyphs:
+ 			return ligature.LigGlyph
+@@ -484,6 +513,12 @@ By default they are dropped.
+                                 except:
+                                         print "no cmap entry for %x" % ord(uchars)
+                                         raise ValueError("%x" % ord(uchars))
++			elif len (uchars) == 2 and is_surrogate(uchars, 0):
++                                try:
++                                        glyph_name = unicode_cmap.cmap[(ord(uchars[0]) - 0xD800) * 0x400 + (ord(uchars[1]) - 0xDC00) + 0x10000]
++                                except:
++                                        print "no cmap entry for %x" % ord(uchars)
++                                        raise ValueError("%x" % ord(uchars))
+ 			else:
+ 				glyph_name = get_glyph_name_from_gsub (uchars, font, unicode_cmap.cmap)
+ 			glyph_id = font.getGlyphID (glyph_name)
