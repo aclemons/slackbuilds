@@ -1,5 +1,0 @@
-noto-emoji - Color and Black-and-White Noto emoji fonts
-
-I recommend something like this
-https://gist.github.com/hexchain/47f550472e79d0805060
-in /etc/fonts/conf.avail/ and symlinking it to /etc/fonts/conf.d
