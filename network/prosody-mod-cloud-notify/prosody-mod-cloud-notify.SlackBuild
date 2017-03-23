@@ -24,8 +24,8 @@
 
 PRGNAM=prosody-mod-cloud-notify
 MDLNAM=$(echo $PRGNAM | sed 's/prosody-//' | tr '-' '_')
-VERSION=${VERSION:-hg2625}
-REVISION=${REVISION:-8c6562f16496}
+VERSION=${VERSION:-hg2643}
+REVISION=${REVISION:-777d07e0cd73}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
