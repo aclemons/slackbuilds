@@ -24,7 +24,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=picasa
-VERSION=${VERSION:-3.0.5744}
+VERSION=${VERSION:-3.9.141}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
@@ -116,6 +116,9 @@ rm -rf $PKG/usr/share/gconf
 if [ "$ARCH" = "x86_64" ]; then
   mv $PKG/usr/lib $PKG/usr/lib${LIBDIRSUFFIX}
 fi
+
+# https://wpkg.org/Picasa
+WINEPREFIX=$PKG/opt/google/picasa/3.0/wine/ $PKG/opt/google/picasa/3.0/wine/bin/wine $CWD/picasa39-setup.exe /S /L /L1 /L2
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
