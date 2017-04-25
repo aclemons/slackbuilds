@@ -110,6 +110,153 @@ do \
     $PKG/usr/doc/$PRGNAM-$VERSION/scripts/$i ;
 done
 
+KDE_INTEGRATION=${KDE_INTEGRATION:-no}
+
+if [ "x$KDE_INTEGRATION" = "xyes" ] ; then
+  cat << "EOF" > $PKG/opt/google/picasa/3.0/bin/picasa-hook-filemanager.sh
+#!/bin/sh
+#---------< Hook File >------------------------------------------------------
+#
+#       Picasa 'Hook' file to allow Picasa to be more closely
+#   integrated with your desktop.
+#
+#   Picasa tries to integrate nicely with the Linux desktop where
+#   and when it can.  However, Linux does not have standard or
+#   well defined interfaces for many functions.
+#
+#   These hook files are provided by Google to allow users to
+#   fine tune their integration of Picasa with their particular
+#   Linux desktop environment.
+#
+#---------< hook-filemanager >------------------------------------------------
+#
+#   picasa-hook-filemanager.sh
+#
+#   This script is passed a command line with a single file name
+#
+#   The ideal behavior is for the file manager to open the directory
+#   that contains that file, with that file highlighted.
+#
+#   If this script exits with a status of 0, then Picasa will
+#   assume that you have handled the request, and will not perform
+#   any further processing.
+#
+#   To use this file:
+#       copy the picasa-hook-filemanager.sh.template file to
+#       some place in your path, and name it picasa-hook-filemanager.sh.
+#       Then edit the script to add the functionality you need
+#
+#----------------------------------------------------------------------------
+
+dolphin --select "$1"
+
+exit 0
+EOF
+
+  cat << "EOF" > $PKG/opt/google/picasa/3.0/bin/picasa-hook-urlhandler.sh
+#!/bin/sh
+#---------< Hook File >------------------------------------------------------
+#
+#       Picasa 'Hook' file to allow Picasa to be more closely
+#   integrated with your desktop.
+#
+#   Picasa tries to integrate nicely with the Linux desktop where
+#   and when it can.  However, Linux does not have standard or
+#   well defined interfaces for many functions.
+#
+#   These hook files are provided by Google to allow users to
+#   fine tune their integration of Picasa with their particular
+#   Linux desktop environment.
+#
+#---------< hook-urlhandler >-------------------------------------------------
+#
+#   picasa-hook-urlhandler.sh
+#
+#   This script is passed a command line with a single url
+#
+#   The ideal behavior is to open the preferred browser,
+#   in a new window, at the given url.
+#
+#   If this script exits with a status of 0, then Picasa will
+#   assume that you have handled the request, and will not perform
+#   any further processing.
+#
+#   To use this file:
+#       copy the picasa-hook-urlhandler.sh.template file to
+#       some place in your path, and name it picasa-hook-urlhandler.sh.
+#       Then edit the script to add the functionality you need
+#
+#----------------------------------------------------------------------------
+
+xdg-open "$1"
+
+exit 0
+EOF
+
+  chmod 0755 $PKG/opt/google/picasa/3.0/bin/picasa-hook-filemanager.sh $PKG/opt/google/picasa/3.0/bin/picasa-hook-urlhandler.sh
+  (
+    cd $PKG/usr/bin
+    ln -s /opt/google/picasa/3.0/bin/picasa-hook-filemanager.sh .
+    ln -s /opt/google/picasa/3.0/bin/picasa-hook-urlhandler.sh .
+  )
+fi
+
+TBIRD_INTEGRATION=${TBIRD_INTEGRATION:-no}
+
+if [ "x$TBIRD_INTEGRATION" = "xyes" ] ; then
+  cat << "EOF" > $PKG/opt/google/picasa/3.0/bin/picasa-hook-email.sh
+#!/bin/bash
+#---------< Hook File >------------------------------------------------------
+#
+#       Picasa 'Hook' file to allow Picasa to be more closely
+#   integrated with your desktop.
+#
+#   Picasa tries to integrate nicely with the Linux desktop where
+#   and when it can.  However, Linux does not have standard or
+#   well defined interfaces for many functions.
+#
+#   These hook files are provided by Google to allow users to
+#   fine tune their integration of Picasa with their particular
+#   Linux desktop environment.
+#
+#---------< hook-email >-----------------------------------------------------
+#
+#   picasa-hook-email.sh
+#
+#   This script is passed a command line that looks like this:
+#
+#       <to_address>?subject=<subject>&cc=<ccs>&bcc=<bccs>&body=<body
+#       text>&attach=<path to attachments>
+#
+#   If this script exits with a status of 0, then Picasa will
+#   assume that you have handled the request, and will not perform
+#   any further processing.
+#
+#   To use this file:
+#       copy the picasa-hook-email.sh.template file to
+#       some place in your path, and name it picasa-hook-email.sh.
+#       Then edit the script to add the functionality you need
+#
+#----------------------------------------------------------------------------
+
+IN="$(printf "%s\n" "$1" | sed 's/^[^?]*?//')"
+
+subject="$(printf "%s\n" "$IN" | awk 'BEGIN { RS = "&" ; FS="=" } NR==1 { print $2 }')"
+body="$(printf "%s\n" "$IN" | awk 'BEGIN { RS = "&" ; FS="=" } NR==4 { print $2 }')"
+attachments="$(printf "%s\n" "$IN" | awk 'BEGIN { RS = "&" ; FS="=" } NR>4 { printf "%s,", $2 }' | sed '$d')"
+
+thunderbird -compose "subject='$subject',body='$body',attachment='$attachments'"
+
+exit 0
+EOF
+
+  chmod 0755 $PKG/opt/google/picasa/3.0/bin/picasa-hook-email.sh
+  (
+    cd $PKG/usr/bin
+    ln -s /opt/google/picasa/3.0/bin/picasa-hook-email.sh .
+  )
+fi
+
 # Kill some stuff we don't need/want
 rm -rf $PKG/usr/lib/{xulrunner-addons,mozilla-firefox,iceweasel,firefox}
 rm -rf $PKG/usr/share/gconf
