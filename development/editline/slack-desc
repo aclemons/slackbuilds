@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.
+# Line up the first '|' above the ':' following the base package name, and
+# the '|' on the right side marks the last column you can put a character in.
+# You must make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+        |-----handy-ruler------------------------------------------------------|
+editline: editline (line editing library for UNIX)
+editline:
+editline: This is a line editing library for UNIX. It can be linked into almost
+editline: any program to provide command line editing and history. It is call
+editline: compatible with the FSF readline library, but is a fraction of the
+editline: size (and offers fewer features).
+editline:
+editline:
+editline:
+editline: http://troglobit.com/editline.html
+editline:
