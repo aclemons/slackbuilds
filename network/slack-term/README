@@ -1,0 +1,3 @@
+slack-term - Slack client for your terminal
+
+NOTE: google-go-lang is only needed at compile time - not at runtime.

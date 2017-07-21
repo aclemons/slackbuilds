@@ -1,0 +1,24 @@
+PRGNAM="slack-term"
+VERSION="git313354a"
+HOMEPAGE="https://github.com/jvalduvieco/slack-term"
+DOWNLOAD="https://github.com/jvalduvieco/slack-term/archive/313354ad8a58b81d2dd3133ee5e48622afd642dd/slack-term-313354ad8a58b81d2dd3133ee5e48622afd642dd.tar.gz \
+          https://github.com/gizak/termui/archive/72304ddb9b4e9838426a021aad64a5a860e98324/termui-72304ddb9b4e9838426a021aad64a5a860e98324.tar.gz \
+          https://github.com/mitchellh/go-wordwrap/archive/ad45545899c7b13c020ea92b2072220eefad42b8/go-wordwrap-ad45545899c7b13c020ea92b2072220eefad42b8.tar.gz \
+          https://github.com/maruel/panicparse/archive/868abbf1ebac0fb2760cd9a410a5bd2f5afb2f76/panicparse-868abbf1ebac0fb2760cd9a410a5bd2f5afb2f76.tar.gz \
+          https://github.com/mattn/go-runewidth/archive/97311d9f7767e3d6f422ea06661bc2c7a19e8a5d/go-runewidth-97311d9f7767e3d6f422ea06661bc2c7a19e8a5d.tar.gz \
+          https://github.com/nlopes/slack/archive/ca8436d76f805ec1e682eaae2de3c3a9bc894b0f/slack-ca8436d76f805ec1e682eaae2de3c3a9bc894b0f.tar.gz \
+          https://github.com/nsf/termbox-go/archive/4ed959e0540971545eddb8c75514973d670cf739/termbox-go-4ed959e0540971545eddb8c75514973d670cf739.tar.gz \
+          https://github.com/golang/net/archive/7b7efd8000731a766f6cbfa2c04010627521c66e/net-7b7efd8000731a766f6cbfa2c04010627521c66e.tar.gz"
+MD5SUM="970cae6e2e1bb535b4e64c8c43fdeb07 \
+        3758b310533e62060003bf42a4da727b \
+        123bc1f8f3dc842fc1dfccf65e4ffe6b \
+        0543d913116d288f00bd10f315b34464 \
+        d0af49b671b879466c0e1492fb23fa78 \
+        070e1d9866f9a755727aa1bdaf76c721 \
+        37b797799b750f0d1edb2083f4fe6f50 \
+        e5648d9cbe91e6234bedba46617eae82"
+DOWNLOAD_x86_64=""
+MD5SUM_x86_64=""
+REQUIRES="google-go-lang"
+MAINTAINER="Andrew Clemons"
+EMAIL="andrew.clemons@gmail.com"
