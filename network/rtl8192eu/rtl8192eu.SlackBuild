@@ -2,7 +2,7 @@
 
 # Slackware build script for rtl8192eu
 
-# Copyright 2016 Andrew Clemons, Wellington, New Zealand
+# Copyright 2016-2017 Andrew Clemons, Wellington, New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,8 +24,8 @@
 
 
 PRGNAM=rtl8192eu
-VERSION=${VERSION:-git6254369}
-GITREV="$(echo $VERSION | sed -e 's/^git//' )"
+GITREV=${GITREV:-9e76fa7474a21d1dfae22ee98eea7a9360fa38d6}
+VERSION=${VERSION:-git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
@@ -63,9 +63,9 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf Mange-rtl8192eu-linux-driver-$GITREV
-tar xvf $CWD/Mange-rtl8192eu-linux-driver-$GITREV.tar.gz || tar xvf $CWD/$GITREV
-cd Mange-rtl8192eu-linux-driver-$GITREV
+rm -rf $PRGNAM-linux-driver-$GITREV
+tar xvf $CWD/$PRGNAM-linux-driver-$GITREV.tar.gz
+cd $PRGNAM-linux-driver-$GITREV
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -94,4 +94,3 @@ EOF
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-${VERSION}_$( echo $KERNEL | tr - _ )-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
-
