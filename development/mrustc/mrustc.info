@@ -1,0 +1,14 @@
+PRGNAM="mrustc"
+VERSION="gitde99742"
+HOMEPAGE="https://github.com/thepowersgang/mrustc"
+DOWNLOAD="https://github.com/thepowersgang/mrustc/archive/9d1a660045de5a3cc37315c78a3a75999fef9b9a/mrustc-9d1a660045de5a3cc37315c78a3a75999fef9b9a.tar.gz \
+          https://static.rust-lang.org/dist/2017-01-05/rustc-nightly-src.tar.gz \
+          https://crates-io.s3-us-west-1.amazonaws.com/crates/gcc/gcc-0.3.28.crate"
+MD5SUM="2735950085d6ad1eb71c475bb0cd41c0 \
+        a4e23a3ed1f76ef5c6421bfcee457a72 \
+        9599a9703e510889648520ebc3bd728e"
+DOWNLOAD_x86_64=""
+MD5SUM_x86_64=""
+REQUIRES=""
+MAINTAINER="Andrew Clemons"
+EMAIL="andrew.clemons@gmail.com"
