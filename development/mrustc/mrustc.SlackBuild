@@ -26,7 +26,7 @@ PRGNAM=mrustc
 GITREV=${GITREV:-9d1a660045de5a3cc37315c78a3a75999fef9b9a}
 VERSION=${VERSION:-git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
 RUSTCVERSION=${RUSTCVERSION:-nightly}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
@@ -71,8 +71,6 @@ mv rustc-$RUSTCVERSION-src rustc-nightly
 patch -p0 < rust_src.patch
 cp -a rust-nightly-date rustc-nightly/dl-version
 
-patch -p1 < $CWD/gcc5.3.diff
-
 # pre-download crate
 mkdir crates.io
 cp -a $CWD/gcc-0.3.28.crate crates.io/gcc-0.3.28.tar.gz
@@ -85,6 +83,10 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
+# binary built with gcc segfaults despite the travis build
+# running on ubuntu with gcc 5.4 / 6
+CC=clang \
+CXX=clang++ \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 make
