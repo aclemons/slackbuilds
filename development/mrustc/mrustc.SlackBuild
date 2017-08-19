@@ -23,10 +23,10 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=mrustc
-GITREV=${GITREV:-9d1a660045de5a3cc37315c78a3a75999fef9b9a}
+GITREV=${GITREV:-54eda831fff08ef95f8d2e06b1557b75f90f6f93}
 VERSION=${VERSION:-git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
 RUSTCVERSION=${RUSTCVERSION:-nightly}
-BUILD=${BUILD:-2}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
@@ -89,13 +89,12 @@ CC=clang \
 CXX=clang++ \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-make
+make -j1
 
-# building rustc is currently failing
-# make test
-# echo "make test DONE"
-# make output/rustc
-# echo "make rustc DONE"
+# still failing
+#make -j1 test
+#+make -j1 output/rustc
+
 mkdir -p $PKG/usr/bin
 install -m 0755 bin/mrustc $PKG/usr/bin/mrustc
 
