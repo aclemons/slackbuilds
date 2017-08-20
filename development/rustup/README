@@ -1,0 +1,15 @@
+rustup - The Rust toolchain installer
+
+This package conflicts with rust/cargo. Because rustup itself is written in
+rust, you need rust/cargo built and installed to build rustup. They must then
+be removed and you can then install rustup. Future versions of rustup can then
+be built with a version of cargo installed through rustup itself. Only the
+initial bootstrap will need a system wide install of rust / cargo.
+
+By default, the slackbuild requires all crate dependencies to be downloaded
+individually. Optionally, if you already have cargo-vendor installed, you can
+create a "vendored" tarball which contains all the crate dependencies exploded
+into a single directory and then compressed together as a tarball.
+
+The script rustup-mkvendortarball.sh will generate this for you. The slackbuild
+will automatically use this tarball if found in the current directory.
