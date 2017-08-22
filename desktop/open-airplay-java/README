@@ -1,7 +1,0 @@
-open-airplay-java (A java library for Apple's AirPlay protocol)
-
-A java library for Apple's AirPlay protocol. It also requires JMDNS if you
-want to support searching/bonjour auto discovery.
-
-https://github.com/jamesdlow/open-airplay
-
