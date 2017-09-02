@@ -24,8 +24,8 @@
 
 PRGNAM=prosody-mod-http-upload
 MDLNAM=$(echo $PRGNAM | sed 's/prosody-//' | tr '-' '_')
-VERSION=${VERSION:-hg2732}
-REVISION=${REVISION:-b1c5b0c369c2}
+VERSION=${VERSION:-hg2738}
+REVISION=${REVISION:-46b29a377bdf}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
