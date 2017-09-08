@@ -25,7 +25,7 @@
 set -e
 
 PRGNAM=alacritty
-GITREV=${GITREV:-7bc1691b0f592aeb0ccbe8f9c98cfabf5c6bbca4}
+GITREV=${GITREV:-8990aa4568ea8a7481f827512b7487be4d39332a}
 VERSION=${VERSION:-git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
 
 rm -rf "$PRGNAM-$GITREV" "$PRGNAM-$GITREV-vendor.tar.gz"
