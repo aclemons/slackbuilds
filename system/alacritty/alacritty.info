@@ -153,7 +153,7 @@ DOWNLOAD="https://github.com/jwilm/alacritty/archive/8990aa4568ea8a7481f827512b7
           https://crates-io.s3-us-west-1.amazonaws.com/crates/xml-rs/xml-rs-0.3.6.crate \
           https://crates-io.s3-us-west-1.amazonaws.com/crates/xml-rs/xml-rs-0.6.1.crate \
           https://crates-io.s3-us-west-1.amazonaws.com/crates/yaml-rust/yaml-rust-0.3.5.crate"
-MD5SUM="97aca681a0ec06e3c5628b7af5f3c62d \
+MD5SUM="03a1843445e0ce93756d420c0265f87b \
         196a2eb81627baf71f6677a3c669e6ac \
         1af8116948ced56c372f1ca6c6a8d07d \
         582c9467bc156df82e5f76249a54bc03 \
