@@ -78,10 +78,10 @@ sed -i 's/$(MODDESTDIR)/$(DESTDIR)$(MODDESTDIR)/g' Makefile
 sed -i 's/KVER  := $(shell uname -r)/KVER  := '$KERNEL'/g' Makefile
 
 if case $ARCH in arm*) true ;; *) false ;; esac ; then
- sed -i 's/\(CONFIG_PLATFORM_I386_PC\).*/\1 = n/' Makefile
+ sed -i 's/^\(CONFIG_PLATFORM_I386_PC\).*$/\1 = n/' Makefile
 
  if [ "$BUILD_RPI" = "yes" ] ; then
-   sed -i 's/\(CONFIG_PLATFORM_ARM_RPI\).*/\1 = y/' Makefile
+   sed -i 's/^\(CONFIG_PLATFORM_ARM_RPI\).*$/\1 = y/' Makefile
  fi
 fi
 
