@@ -13,3 +13,15 @@ into a single directory and then compressed together as a tarball.
 
 The script rustup-mkvendortarball.sh will generate this for you. The slackbuild
 will automatically use this tarball if found in the current directory.
+
+To always use rustup instead of the system rust, do this once for each user
+wanting to use rustup:
+
+mkdir $HOME/.rustup/shims
+for lnk in cargo rls rustc rustdoc rust-gdb rust-lldb ; do #   (
+    ln -s /usr/bin/rustup "$lnk"
+  )
+done
+
+Then add the directory to your path (.bashrc for example):
+export PATH="$HOME/.rustup/shims:${PATH}"
