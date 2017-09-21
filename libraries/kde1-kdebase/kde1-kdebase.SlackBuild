@@ -2,7 +2,7 @@
 
 # Slackware build script for kde1-kdebase
 
-# Copyright 2016 Andrew Clemons, Wellington, New Zealand
+# Copyright 2016-2017 Andrew Clemons, Wellington, New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,8 +23,8 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=kde1-kdebase
-VERSION=${VERSION:-1.1.2.git444ba45}
-GITREV="$(echo $VERSION | sed -e 's/^.*\.git//' )"
+GITREV="${GITREV:-444ba45c273384ddbb4257027bdd60ec09fda13e}"
+VERSION=${VERSION:-1.1.2.git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
 RAWVERSION="$(echo $VERSION | sed -e 's/\.git.*//' )"
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
@@ -62,10 +62,10 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 
-rm -rf KDE-$PRGNAM-$GITREV
+rm -rf $PRGNAM-$GITREV
 
-tar xvf $CWD/KDE-$PRGNAM-$GITREV.tar.gz || tar xvf $CWD/$GITREV
-cd KDE-$PRGNAM-$GITREV
+tar xvf $CWD/$PRGNAM-$GITREV.tar.gz
+cd $PRGNAM-$GITREV
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
