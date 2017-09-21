@@ -1,5 +1,5 @@
 PRGNAM="mrustc"
-VERSION="git231bd48c"
+VERSION="git231bd48"
 HOMEPAGE="https://github.com/thepowersgang/mrustc"
 DOWNLOAD="https://github.com/thepowersgang/mrustc/archive/231bd48ccb5a9a94e6289690a7af2d218523a3e7/mrustc-231bd48ccb5a9a94e6289690a7af2d218523a3e7.tar.gz \
           https://static.rust-lang.org/dist/2017-07-14/rustc-nightly-src.tar.gz \
