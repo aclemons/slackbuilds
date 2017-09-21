@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=mrustc
-GITREV=${GITREV:-d901720596a87127b1388288c51354cb2a0966e5}
+GITREV=${GITREV:-231bd48ccb5a9a94e6289690a7af2d218523a3e7}
 VERSION=${VERSION:-git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
 RUSTCVERSION=${RUSTCVERSION:-nightly}
 BUILD=${BUILD:-1}
@@ -76,6 +76,9 @@ mkdir crates.io
 cp -a $CWD/gcc-0.3.28.crate crates.io/gcc-0.3.28.tar.gz
 sed -i '/curl -LsS https:/d' Makefile
 
+# clang in slack 14.2 doesn't support this warning
+sed -i '/no-misleading-indentation/s/^/#/' Makefile
+
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
@@ -89,11 +92,16 @@ CC=clang \
 CXX=clang++ \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-make -j1
+make
+
+CC=clang \
+CXX=clang++ \
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+make test
 
 # still failing
-#make -j1 test
-#+make -j1 output/rustc
+# make output/rustc
 
 mkdir -p $PKG/usr/bin
 install -m 0755 bin/mrustc $PKG/usr/bin/mrustc
