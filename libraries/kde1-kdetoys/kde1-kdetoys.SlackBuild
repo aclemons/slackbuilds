@@ -2,7 +2,7 @@
 
 # Slackware build script for kde1-kdetoys
 
-# Copyright 2016 Andrew Clemons, Wellington, New Zealand
+# Copyright 2016-2017 Andrew Clemons, Wellington, New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,8 +23,8 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=kde1-kdetoys
-VERSION=${VERSION:-1.1.2.git16f863f}
-GITREV="$(echo $VERSION | sed -e 's/^.*\.git//' )"
+GITREV="${GITREV:-16f863f984ead0f72fdbfb05062e3e603b0e674b}"
+VERSION=${VERSION:-1.1.2.git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
 RAWVERSION="$(echo $VERSION | sed -e 's/\.git.*//' )"
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
@@ -62,10 +62,10 @@ rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
 
-rm -rf z3ntu-$PRGNAM-$GITREV
+rm -rf $PRGNAM-$GITREV
 
-tar xvf $CWD/z3ntu-$PRGNAM-$GITREV.tar.gz || tar xvf $CWD/$GITREV
-cd z3ntu-$PRGNAM-$GITREV
+tar xvf $CWD/$PRGNAM-$GITREV.tar.gz
+cd $PRGNAM-$GITREV
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
