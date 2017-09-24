@@ -1,10 +1,10 @@
 PRGNAM="mrustc"
-VERSION="git231bd48"
+VERSION="gitae47593"
 HOMEPAGE="https://github.com/thepowersgang/mrustc"
-DOWNLOAD="https://github.com/thepowersgang/mrustc/archive/231bd48ccb5a9a94e6289690a7af2d218523a3e7/mrustc-231bd48ccb5a9a94e6289690a7af2d218523a3e7.tar.gz \
+DOWNLOAD="https://github.com/thepowersgang/mrustc/archive/ae47593d02752ab6d7a6c768cc168772b5244e22/mrustc-ae47593d02752ab6d7a6c768cc168772b5244e22.tar.gz \
           https://static.rust-lang.org/dist/2017-07-14/rustc-nightly-src.tar.gz \
           https://crates-io.s3-us-west-1.amazonaws.com/crates/gcc/gcc-0.3.28.crate"
-MD5SUM="d2f3e64bc5694adb2482335310d50cf2 \
+MD5SUM="7f60dc4c96d9f992df09f11d0647c081 \
         0e2c33fc35acb9fc6c3eeac2e1fd1085 \
         9599a9703e510889648520ebc3bd728e"
 DOWNLOAD_x86_64=""
