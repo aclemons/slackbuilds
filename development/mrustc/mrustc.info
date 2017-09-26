@@ -1,7 +1,7 @@
 PRGNAM="mrustc"
-VERSION="gitae47593"
+VERSION="git9f272dd"
 HOMEPAGE="https://github.com/thepowersgang/mrustc"
-DOWNLOAD="https://github.com/thepowersgang/mrustc/archive/ae47593d02752ab6d7a6c768cc168772b5244e22/mrustc-ae47593d02752ab6d7a6c768cc168772b5244e22.tar.gz \
+DOWNLOAD="https://github.com/thepowersgang/mrustc/archive/9f272dd25bf8ad69a1bd4611f7342e0d22ac6d9b/mrustc-9f272dd25bf8ad69a1bd4611f7342e0d22ac6d9b.tar.gz \
           https://static.rust-lang.org/dist/2017-07-14/rustc-nightly-src.tar.gz \
           https://crates-io.s3-us-west-1.amazonaws.com/crates/gcc/gcc-0.3.28.crate"
 MD5SUM="7f60dc4c96d9f992df09f11d0647c081 \
