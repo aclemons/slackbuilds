@@ -23,9 +23,9 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=mrustc
-GITREV=${GITREV:-9f272dd25bf8ad69a1bd4611f7342e0d22ac6d9b}
+GITREV=${GITREV:-e7cef04c52b78f82686cbb0556bb123a0d2ea608}
 VERSION=${VERSION:-git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
-RUSTCVERSION=${RUSTCVERSION:-nightly}
+RUSTCVERSION=${RUSTCVERSION:-1.19.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
@@ -65,18 +65,13 @@ rm -rf $PRGNAM-$GITREV
 tar xvf $CWD/$PRGNAM-$GITREV.tar.gz
 cd $PRGNAM-$GITREV
 
-# pre-download rust-nightly (pre 1.19.0)
-cp $CWD/rustc-$RUSTCVERSION-src.tar.gz rustc-nightly-src.tar.gz
-
-# pre-download crate
-mkdir crates.io
-cp -a $CWD/gcc-0.3.28.crate crates.io/gcc-0.3.28.tar.gz
-sed -i '/curl -LsS https:/d' Makefile
+cp $CWD/rustc-$RUSTCVERSION-src.tar.gz .
+sed -i '/curl -sS https:/d' Makefile
 
 # clang in slack 14.2 doesn't support this warning
-sed -i '/no-misleading-indentation/s/^/#/' Makefile
+#sed -i '/no-misleading-indentation/s/^/#/' Makefile
 
-chown -R root:root .
+#chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
   -o -perm 511 \) -exec chmod 755 {} \; -o \
@@ -85,24 +80,29 @@ find -L . \
 
 make RUSTCSRC
 
-# binary built with gcc segfaults despite the travis build
-# running on ubuntu with gcc 5.4 / 6
-RUSTC_CHANNEL=stable \
-CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCFLAGS" \
-make
-
-RUSTC_CHANNEL=stable \
-CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCFLAGS" \
-make -C tools/minicargo
-
+# RUSTC_CHANNEL=stable \
 # CFLAGS="$SLKCFLAGS" \
 # CXXFLAGS="$SLKCFLAGS" \
-# make -f minicargo.mk RUSTC_CHANNEL=stable RUSTC_VERSION=1.19.0 OVERRIDE_SUFFIX=-linux
+# make
+
+# RUSTC_CHANNEL=stable \
+# CFLAGS="$SLKCFLAGS" \
+# CXXFLAGS="$SLKCFLAGS" \
+# make -C tools/minicargo
+# binary built with gcc segfaults despite the travis build
+# running on ubuntu with gcc 5.4 / 6
+CC=clang \
+CXX=clang++
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+RUSTC_CHANNEL=stable \
+RUSTC_VERSION=$RUSTCVERSION \
+OVERRIDE_SUFFIX=-linux \
+make -f minicargo.mk
 
 mkdir -p $PKG/usr/bin
 install -m 0755 bin/mrustc $PKG/usr/bin/mrustc
+install -m 0755 bin/mrustc.debug $PKG/usr/bin/mrustc.debug
 install -m 0755 tools/bin/minicargo $PKG/usr/bin/minicargo
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
