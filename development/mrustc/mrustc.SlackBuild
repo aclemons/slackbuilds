@@ -65,11 +65,8 @@ rm -rf $PRGNAM-$GITREV
 tar xvf $CWD/$PRGNAM-$GITREV.tar.gz
 cd $PRGNAM-$GITREV
 
-# pre-download, unpack, and patch rust-nightly (pre 1.19.0)
-tar xvf $CWD/rustc-$RUSTCVERSION-src.tar.gz
-mv rustc-$RUSTCVERSION-src rustc-nightly
-patch -p0 < rust_src.patch
-cp -a rust-nightly-date rustc-nightly/dl-version
+# pre-download rust-nightly (pre 1.19.0)
+cp $CWD/rustc-$RUSTCVERSION-src.tar.gz rustc-nightly-src.tar.gz
 
 # pre-download crate
 mkdir crates.io
@@ -86,36 +83,27 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
+make RUSTCSRC
+
 # binary built with gcc segfaults despite the travis build
 # running on ubuntu with gcc 5.4 / 6
-CC=clang \
-CXX=clang++ \
+RUSTC_CHANNEL=stable \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 make
 
-CC=clang \
-CXX=clang++ \
+RUSTC_CHANNEL=stable \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 make -C tools/minicargo
 
-CC=clang \
-CXX=clang++ \
-CFLAGS="$SLKCFLAGS" \
-CXXFLAGS="$SLKCFLAGS" \
-make -f minicargo.mk output/libtest.hir
-
-# failing
-# CC=clang \
-# CXX=clang++ \
 # CFLAGS="$SLKCFLAGS" \
 # CXXFLAGS="$SLKCFLAGS" \
-# make -f minicargo.mk output/rustc
+# make -f minicargo.mk RUSTC_CHANNEL=stable RUSTC_VERSION=1.19.0 OVERRIDE_SUFFIX=-linux
 
 mkdir -p $PKG/usr/bin
 install -m 0755 bin/mrustc $PKG/usr/bin/mrustc
-install -m 0755 bin/minicargo $PKG/usr/bin/minicargo
+install -m 0755 tools/bin/minicargo $PKG/usr/bin/minicargo
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a \
