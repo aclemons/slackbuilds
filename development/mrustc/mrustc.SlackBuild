@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=mrustc
-GITREV=${GITREV:-e7cef04c52b78f82686cbb0556bb123a0d2ea608}
+GITREV=${GITREV:-5b5deea5fcc3e76690d20d8cba726f4edf462619}
 VERSION=${VERSION:-git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
 RUSTCVERSION=${RUSTCVERSION:-1.19.0}
 BUILD=${BUILD:-1}
@@ -56,7 +56,7 @@ else
   LIBDIRSUFFIX=""
 fi
 
-set -e # Exit on most errors
+set -e
 
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
@@ -69,7 +69,7 @@ cp $CWD/rustc-$RUSTCVERSION-src.tar.gz .
 sed -i '/curl -sS https:/d' Makefile
 
 # clang in slack 14.2 doesn't support this warning
-#sed -i '/no-misleading-indentation/s/^/#/' Makefile
+sed -i '/no-misleading-indentation/s/^/#/' Makefile
 
 #chown -R root:root .
 find -L . \
@@ -80,17 +80,12 @@ find -L . \
 
 make RUSTCSRC
 
-# RUSTC_CHANNEL=stable \
-# CFLAGS="$SLKCFLAGS" \
-# CXXFLAGS="$SLKCFLAGS" \
-# make
+CC=clang \
+CXX=clang++
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+make
 
-# RUSTC_CHANNEL=stable \
-# CFLAGS="$SLKCFLAGS" \
-# CXXFLAGS="$SLKCFLAGS" \
-# make -C tools/minicargo
-# binary built with gcc segfaults despite the travis build
-# running on ubuntu with gcc 5.4 / 6
 CC=clang \
 CXX=clang++
 CFLAGS="$SLKCFLAGS" \
