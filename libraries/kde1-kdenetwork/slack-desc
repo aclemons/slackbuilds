@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.
+# Line up the first '|' above the ':' following the base package name, and
+# the '|' on the right side marks the last column you can put a character in.
+# You must make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+               |-----handy-ruler------------------------------------------------------|
+kde1-kdenetwork: kde1-kdenetwork (KDE mail and news clients)
+kde1-kdenetwork:
+kde1-kdenetwork: KDE has a mail client (kmail) and a news client (krn) available via
+kde1-kdenetwork: this package.
+kde1-kdenetwork:
+kde1-kdenetwork: https://github.com/KDE/kde1-kdenetwork
+kde1-kdenetwork:
+kde1-kdenetwork:
+kde1-kdenetwork:
+kde1-kdenetwork:
+kde1-kdenetwork:
