@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=alacritty
-GITREV=${GITREV:-5ac42bb13bc68c5cbc44869dc9fc9ac19402a6e6}
+GITREV=${GITREV:-8af4a4b55b4eaa2df78be24e19200a524dc3da4c}
 VERSION=${VERSION:-git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
@@ -68,9 +68,12 @@ rm -rf $PRGNAM-$GITREV
 tar xvf $CWD/$PRGNAM-$GITREV.tar.gz
 cd $PRGNAM-$GITREV
 
+# force offline for git crate dependencies
+patch -p1 < $CWD/patch_crate_deps.diff
+
 # build offline
 # configuration tells cargo to use the configured directory
-# for dependencies intead of downloading from crates.io
+# for dependencies instead of downloading from crates.io
 mkdir .cargo
 cat << EOF >> .cargo/config
 [source.crates-io]
@@ -245,11 +248,35 @@ mkdir vendor
                     xdg=2.1.0 \
                     xml-rs=0.3.6 \
                     xml-rs=0.6.1 \
-                    yaml-rust=0.3.5; do
+                    yaml-rust=0.3.5 \
+                    servo-fontconfig=0.4.0 \
+                    servo-fontconfig-sys=4.0.3 ; do
     dep="$(echo "$dependency" | cut -d= -f1)"
     ver="$(echo "$dependency" | cut -d= -f2)"
 
-    tar xvf $CWD/$dep-$ver.crate
+    if [ "$dep" = "servo-fontconfig" ] || [ "$dep" = "servo-fontconfig-sys" ] ; then
+      if [ "$dep" = "servo-fontconfig" ] ; then
+        srcnam="rust-fontconfig"
+        sha1="be2b94de833ec69cf767186262a5fb8360fa5b45"
+      else
+        srcnam="libfontconfig"
+        sha1="5c1845e1bffa11cf4d3e6fb27f456bf5c814ce1b"
+      fi
+
+      crate="$CWD/$srcnam-$sha1.tar.gz"
+      tar xvf "$crate"
+      mv "$srcnam-$sha1" "$dep-$ver"
+
+      if [ "$dep" = "servo-fontconfig" ] ; then
+        (
+          cd "$dep-$ver"
+          sed -i 's/^servo-fontconfig-sys =.*/servo-fontconfig-sys = "4.0.3"/' Cargo.toml
+        )
+      fi
+    else
+      crate="$CWD/$dep-$ver.crate"
+      tar xvf "$crate"
+    fi
 
     touch $dep-$ver/.cargo-ok
 
@@ -266,7 +293,14 @@ mkdir vendor
       printf "    },\n"
       printf '    "package": "'
 
-      sha256sum "$CWD/$dep-$ver.crate" | cut -f1 -d' ' | sed 's/$/"/'
+      if [ "$dep" = "servo-fontconfig" ] || [ "$dep" = "servo-fontconfig-sys" ] ; then
+        checksum="$(tar cz $dep-$ver | sha256sum | cut -f1 -d' ')"
+        sed -i "s/^\(\"checksum $dep [^=]*\)= \".*$/\1= \"$checksum\"/" ../Cargo.lock
+
+        printf "%s\"\n" "$checksum"
+      else
+        sha256sum "$crate" | cut -f1 -d' ' | sed 's/$/"/'
+      fi
 
       printf "}\n"
     } | python -c "import sys, json; data = sys.stdin.read(); print json.dumps(json.loads(data), sort_keys=True, indent=4, separators=(',', ' : '))" > $dep-$ver/.cargo-checksum.json
@@ -286,10 +320,13 @@ cargo build --release $CARGOTARGET
 
 mkdir -p $PKG/usr/bin/
 
-find target/release -name alacritty -exec install -m 755 {} $PKG/usr/bin \;
+find target -name $PRGNAM -exec install -m 755 {} $PKG/usr/bin/$PRGNAM \;
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
+
+mkdir -p $PKG/usr/share/terminfo
+tic -o $PKG/usr/share/terminfo alacritty.info
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a LICENSE-APACHE README.md TASKS.md alacritty.yml $PKG/usr/doc/$PRGNAM-$VERSION

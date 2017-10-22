@@ -1,7 +1,7 @@
 PRGNAM="alacritty"
-VERSION="git5ac42bb"
+VERSION="git8af4a4b"
 HOMEPAGE="https://github.com/jwilm/alacritty"
-DOWNLOAD="https://github.com/jwilm/alacritty/archive/5ac42bb13bc68c5cbc44869dc9fc9ac19402a6e6/alacritty-5ac42bb13bc68c5cbc44869dc9fc9ac19402a6e6.tar.gz \
+DOWNLOAD="https://github.com/jwilm/alacritty/archive/8af4a4b55b4eaa2df78be24e19200a524dc3da4c/alacritty-8af4a4b55b4eaa2df78be24e19200a524dc3da4c.tar.gz \
           https://crates-io.s3-us-west-1.amazonaws.com/crates/aho-corasick/aho-corasick-0.6.3.crate \
           https://crates-io.s3-us-west-1.amazonaws.com/crates/android_glue/android_glue-0.2.3.crate \
           https://crates-io.s3-us-west-1.amazonaws.com/crates/ansi_term/ansi_term-0.9.0.crate \
@@ -160,8 +160,10 @@ DOWNLOAD="https://github.com/jwilm/alacritty/archive/5ac42bb13bc68c5cbc44869dc9f
           https://crates-io.s3-us-west-1.amazonaws.com/crates/xdg/xdg-2.1.0.crate \
           https://crates-io.s3-us-west-1.amazonaws.com/crates/xml-rs/xml-rs-0.3.6.crate \
           https://crates-io.s3-us-west-1.amazonaws.com/crates/xml-rs/xml-rs-0.6.1.crate \
-          https://crates-io.s3-us-west-1.amazonaws.com/crates/yaml-rust/yaml-rust-0.3.5.crate"
-MD5SUM="d9da3cbad21466afce3d781a9112a2ba \
+          https://crates-io.s3-us-west-1.amazonaws.com/crates/yaml-rust/yaml-rust-0.3.5.crate \
+          https://github.com/jwilm/rust-fontconfig/archive/be2b94de833ec69cf767186262a5fb8360fa5b45/rust-fontconfig-be2b94de833ec69cf767186262a5fb8360fa5b45.tar.gz \
+          https://github.com/jwilm/libfontconfig/archive/5c1845e1bffa11cf4d3e6fb27f456bf5c814ce1b/libfontconfig-5c1845e1bffa11cf4d3e6fb27f456bf5c814ce1b.tar.gz"
+MD5SUM="9012ae7772640abd8f2b7806aaec3889 \
         f2904b4b227389e7453f14b769bdbe5b \
         196a2eb81627baf71f6677a3c669e6ac \
         1af8116948ced56c372f1ca6c6a8d07d \
@@ -320,7 +322,9 @@ MD5SUM="d9da3cbad21466afce3d781a9112a2ba \
         6492ecb377ffc18c649cbca93e3b18c3 \
         7c263a6564b0039cc354ec2682e4462f \
         9d27dcc8f554a964b7d821e83c004001 \
-        e48a7707cb9b998685328dbbc54d17ae"
+        e48a7707cb9b998685328dbbc54d17ae \
+        3c9934f89d41f1da7f24671807901d57 \
+        89096560654f357de70d1f36c0b47614"
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""
 REQUIRES="rust xclip"
