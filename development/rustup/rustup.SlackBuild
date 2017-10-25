@@ -63,7 +63,7 @@ rm -rf $PRGNAM.rs-$VERSION
 tar xvf $CWD/$PRGNAM.rs-$VERSION.tar.gz
 cd $PRGNAM.rs-$VERSION
 
-# cargo can't use vendored git depenencies so force zoneinfo_compiled git
+# cargo can't use vendored git depenencies so force mio git
 # snapshot to act like any other crate dependency.
 # tar.gz of the git commit is manipulated below in the dependecy loop to match
 # the patched Cargo.lock
@@ -84,203 +84,199 @@ replace-with = 'vendored-sources'
 directory = '$(pwd)/vendor'
 EOF
 
-if [ -e $CWD/$PRGNAM-$VERSION-vendor.tar.gz ] ; then
-  tar xvf $CWD/$PRGNAM-$VERSION-vendor.tar.gz
-else
-  # deps and versions come from Cargo.lock
-  mkdir vendor
-  (
-    cd vendor
+# deps and versions come from Cargo.lock
+mkdir vendor
+(
+  cd vendor
 
-    for dependency in adler32=1.0.2 \
-                      advapi32-sys=0.2.0 \
-                      aho-corasick=0.5.3 \
-                      aho-corasick=0.6.3 \
-                      ansi_term=0.9.0 \
-                      atty=0.2.2 \
-                      backtrace=0.3.2 \
-                      backtrace-sys=0.1.12 \
-                      base64=0.6.0 \
-                      bitflags=0.7.0 \
-                      bitflags=0.9.1 \
-                      block-buffer=0.2.0 \
-                      byte-tools=0.2.0 \
-                      byteorder=1.1.0 \
-                      bytes=0.4.5 \
-                      cfg-if=0.1.2 \
-                      clap=2.26.0 \
-                      conv=0.3.3 \
-                      core-foundation=0.2.3 \
-                      core-foundation-sys=0.2.3 \
-                      crypt32-sys=0.2.0 \
-                      curl=0.4.8 \
-                      curl-sys=0.3.14 \
-                      custom_derive=0.1.7 \
-                      dbghelp-sys=0.2.0 \
-                      digest=0.6.2 \
-                      dtoa=0.4.2 \
-                      either=1.1.0 \
-                      env_proxy=0.1.1 \
-                      error-chain=0.10.0 \
-                      fake-simd=0.1.2 \
-                      filetime=0.1.10 \
-                      flate2=0.2.19 \
-                      foreign-types=0.2.0 \
-                      futures=0.1.15 \
-                      futures-cpupool=0.1.5 \
-                      gcc=0.3.53 \
-                      generic-array=0.8.2 \
-                      httparse=1.2.3 \
-                      hyper=0.11.2 \
-                      hyper-tls=0.1.2 \
-                      idna=0.1.4 \
-                      iovec=0.1.0 \
-                      itertools=0.6.2 \
-                      itoa=0.3.3 \
-                      kernel32-sys=0.2.2 \
-                      ktmw32-sys=0.1.0 \
-                      language-tags=0.2.2 \
-                      lazy_static=0.1.16 \
-                      lazy_static=0.2.8 \
-                      lazycell=0.5.1 \
-                      libc=0.2.30 \
-                      libflate=0.1.11 \
-                      libz-sys=1.0.16 \
-                      log=0.3.8 \
-                      lzma-sys=0.1.8 \
-                      magenta=0.1.1 \
-                      magenta=0.2.0 \
-                      magenta-sys=0.1.1 \
-                      magenta-sys=0.2.0 \
-                      markdown=0.2.0 \
-                      matches=0.1.6 \
-                      memchr=0.1.11 \
-                      memchr=1.0.1 \
-                      mime=0.3.3 \
-                      miniz-sys=0.1.9 \
-                      mio=0.6.10 \
-                      miow=0.2.1 \
-                      native-tls=0.1.4 \
-                      net2=0.2.31 \
-                      nodrop=0.1.9 \
-                      num-traits=0.1.40 \
-                      num_cpus=1.6.2 \
-                      odds=0.2.25 \
-                      ole32-sys=0.2.0 \
-                      openssl=0.9.17 \
-                      openssl-probe=0.1.1 \
-                      openssl-sys=0.9.17 \
-                      percent-encoding=1.0.0 \
-                      pipeline=0.5.0 \
-                      pkg-config=0.3.9 \
-                      psapi-sys=0.1.0 \
-                      rand=0.3.16 \
-                      redox_syscall=0.1.31 \
-                      regex=0.1.80 \
-                      regex=0.2.2 \
-                      regex-syntax=0.3.9 \
-                      regex-syntax=0.4.1 \
-                      remove_dir_all=0.2.0 \
-                      reqwest=0.7.3 \
-                      rustc-demangle=0.1.5 \
-                      rustc-serialize=0.3.24 \
-                      rustc_version=0.1.7 \
-                      safemem=0.2.0 \
-                      same-file=0.1.3 \
-                      schannel=0.1.7 \
-                      scoped-tls=0.1.0 \
-                      scopeguard=0.3.2 \
-                      secur32-sys=0.2.0 \
-                      security-framework=0.1.16 \
-                      security-framework-sys=0.1.16 \
-                      semver=0.1.20 \
-                      semver=0.7.0 \
-                      semver-parser=0.7.0 \
-                      serde=1.0.11 \
-                      serde_json=1.0.2 \
-                      serde_urlencoded=0.5.1 \
-                      sha2=0.6.0 \
-                      shell32-sys=0.1.1 \
-                      slab=0.3.0 \
-                      smallvec=0.2.1 \
-                      socket2=0.2.2 \
-                      strsim=0.6.0 \
-                      take=0.1.0 \
-                      tar=0.4.13 \
-                      tempdir=0.3.5 \
-                      tempfile=2.1.6 \
-                      term=0.4.6 \
-                      term_size=0.3.0 \
-                      textwrap=0.7.0 \
-                      thread-id=2.0.0 \
-                      thread_local=0.2.7 \
-                      thread_local=0.3.4 \
-                      time=0.1.38 \
-                      tokio-core=0.1.9 \
-                      tokio-io=0.1.3 \
-                      tokio-proto=0.1.1 \
-                      tokio-service=0.1.0 \
-                      tokio-tls=0.1.3 \
-                      toml=0.1.30 \
-                      typenum=1.9.0 \
-                      unicase=2.0.0 \
-                      unicode-bidi=0.3.4 \
-                      unicode-normalization=0.1.5 \
-                      unicode-segmentation=1.2.0 \
-                      unicode-width=0.1.4 \
-                      unreachable=1.0.0 \
-                      url=1.5.1 \
-                      user32-sys=0.2.0 \
-                      userenv-sys=0.2.0 \
-                      utf8-ranges=0.1.3 \
-                      utf8-ranges=1.0.0 \
-                      vcpkg=0.2.2 \
-                      vec_map=0.8.0 \
-                      void=1.0.2 \
-                      wait-timeout=0.1.5 \
-                      walkdir=1.0.7 \
-                      winapi=0.2.8 \
-                      winapi-build=0.1.1 \
-                      winreg=0.4.0 \
-                      ws2_32-sys=0.2.1 \
-                      xattr=0.1.11 \
-                      xz2=0.1.3; do
-      dep="$(echo "$dependency" | cut -d= -f1)"
-      ver="$(echo "$dependency" | cut -d= -f2)"
+  for dependency in adler32=1.0.2 \
+                    advapi32-sys=0.2.0 \
+                    aho-corasick=0.5.3 \
+                    aho-corasick=0.6.3 \
+                    ansi_term=0.9.0 \
+                    atty=0.2.2 \
+                    backtrace=0.3.2 \
+                    backtrace-sys=0.1.12 \
+                    base64=0.6.0 \
+                    bitflags=0.7.0 \
+                    bitflags=0.9.1 \
+                    block-buffer=0.2.0 \
+                    byte-tools=0.2.0 \
+                    byteorder=1.1.0 \
+                    bytes=0.4.5 \
+                    cfg-if=0.1.2 \
+                    clap=2.26.0 \
+                    conv=0.3.3 \
+                    core-foundation=0.2.3 \
+                    core-foundation-sys=0.2.3 \
+                    crypt32-sys=0.2.0 \
+                    curl=0.4.8 \
+                    curl-sys=0.3.14 \
+                    custom_derive=0.1.7 \
+                    dbghelp-sys=0.2.0 \
+                    digest=0.6.2 \
+                    dtoa=0.4.2 \
+                    either=1.1.0 \
+                    env_proxy=0.1.1 \
+                    error-chain=0.10.0 \
+                    fake-simd=0.1.2 \
+                    filetime=0.1.10 \
+                    flate2=0.2.19 \
+                    foreign-types=0.2.0 \
+                    futures=0.1.15 \
+                    futures-cpupool=0.1.5 \
+                    gcc=0.3.53 \
+                    generic-array=0.8.2 \
+                    httparse=1.2.3 \
+                    hyper=0.11.2 \
+                    hyper-tls=0.1.2 \
+                    idna=0.1.4 \
+                    iovec=0.1.0 \
+                    itertools=0.6.2 \
+                    itoa=0.3.3 \
+                    kernel32-sys=0.2.2 \
+                    ktmw32-sys=0.1.0 \
+                    language-tags=0.2.2 \
+                    lazy_static=0.1.16 \
+                    lazy_static=0.2.8 \
+                    lazycell=0.5.1 \
+                    libc=0.2.30 \
+                    libflate=0.1.11 \
+                    libz-sys=1.0.16 \
+                    log=0.3.8 \
+                    lzma-sys=0.1.8 \
+                    magenta=0.1.1 \
+                    magenta=0.2.0 \
+                    magenta-sys=0.1.1 \
+                    magenta-sys=0.2.0 \
+                    markdown=0.2.0 \
+                    matches=0.1.6 \
+                    memchr=0.1.11 \
+                    memchr=1.0.1 \
+                    mime=0.3.3 \
+                    miniz-sys=0.1.9 \
+                    mio=0.6.10 \
+                    miow=0.2.1 \
+                    native-tls=0.1.4 \
+                    net2=0.2.31 \
+                    nodrop=0.1.9 \
+                    num-traits=0.1.40 \
+                    num_cpus=1.6.2 \
+                    odds=0.2.25 \
+                    ole32-sys=0.2.0 \
+                    openssl=0.9.17 \
+                    openssl-probe=0.1.1 \
+                    openssl-sys=0.9.17 \
+                    percent-encoding=1.0.0 \
+                    pipeline=0.5.0 \
+                    pkg-config=0.3.9 \
+                    psapi-sys=0.1.0 \
+                    rand=0.3.16 \
+                    redox_syscall=0.1.31 \
+                    regex=0.1.80 \
+                    regex=0.2.2 \
+                    regex-syntax=0.3.9 \
+                    regex-syntax=0.4.1 \
+                    remove_dir_all=0.2.0 \
+                    reqwest=0.7.3 \
+                    rustc-demangle=0.1.5 \
+                    rustc-serialize=0.3.24 \
+                    rustc_version=0.1.7 \
+                    safemem=0.2.0 \
+                    same-file=0.1.3 \
+                    schannel=0.1.7 \
+                    scoped-tls=0.1.0 \
+                    scopeguard=0.3.2 \
+                    secur32-sys=0.2.0 \
+                    security-framework=0.1.16 \
+                    security-framework-sys=0.1.16 \
+                    semver=0.1.20 \
+                    semver=0.7.0 \
+                    semver-parser=0.7.0 \
+                    serde=1.0.11 \
+                    serde_json=1.0.2 \
+                    serde_urlencoded=0.5.1 \
+                    sha2=0.6.0 \
+                    shell32-sys=0.1.1 \
+                    slab=0.3.0 \
+                    smallvec=0.2.1 \
+                    socket2=0.2.2 \
+                    strsim=0.6.0 \
+                    take=0.1.0 \
+                    tar=0.4.13 \
+                    tempdir=0.3.5 \
+                    tempfile=2.1.6 \
+                    term=0.4.6 \
+                    term_size=0.3.0 \
+                    textwrap=0.7.0 \
+                    thread-id=2.0.0 \
+                    thread_local=0.2.7 \
+                    thread_local=0.3.4 \
+                    time=0.1.38 \
+                    tokio-core=0.1.9 \
+                    tokio-io=0.1.3 \
+                    tokio-proto=0.1.1 \
+                    tokio-service=0.1.0 \
+                    tokio-tls=0.1.3 \
+                    toml=0.1.30 \
+                    typenum=1.9.0 \
+                    unicase=2.0.0 \
+                    unicode-bidi=0.3.4 \
+                    unicode-normalization=0.1.5 \
+                    unicode-segmentation=1.2.0 \
+                    unicode-width=0.1.4 \
+                    unreachable=1.0.0 \
+                    url=1.5.1 \
+                    user32-sys=0.2.0 \
+                    userenv-sys=0.2.0 \
+                    utf8-ranges=0.1.3 \
+                    utf8-ranges=1.0.0 \
+                    vcpkg=0.2.2 \
+                    vec_map=0.8.0 \
+                    void=1.0.2 \
+                    wait-timeout=0.1.5 \
+                    walkdir=1.0.7 \
+                    winapi=0.2.8 \
+                    winapi-build=0.1.1 \
+                    winreg=0.4.0 \
+                    ws2_32-sys=0.2.1 \
+                    xattr=0.1.11 \
+                    xz2=0.1.3; do
+    dep="$(echo "$dependency" | cut -d= -f1)"
+    ver="$(echo "$dependency" | cut -d= -f2)"
 
-      if [ "$dep" = "mio" ] ; then
-        mio_sha1="6871f83ad98937df80d729d1934c25d9208a9074"
-        crate="$CWD/mio-$mio_sha1.tar.gz"
-        tar xvf "$crate"
-        mv "mio-$mio_sha1" "$dep-$ver"
-      else
-        crate="$CWD/$dep-$ver.crate"
-        tar xvf "$crate"
-      fi
+    if [ "$dep" = "mio" ] ; then
+      mio_sha1="6871f83ad98937df80d729d1934c25d9208a9074"
+      crate="$CWD/mio-$mio_sha1.tar.gz"
+      tar xvf "$crate"
+      mv "mio-$mio_sha1" "$dep-$ver"
+    else
+      crate="$CWD/$dep-$ver.crate"
+      tar xvf "$crate"
+    fi
 
 
-      touch $dep-$ver/.cargo-ok
+    touch $dep-$ver/.cargo-ok
 
-      # generate checksum
-      {
-        printf "{\n"
-        printf '    "files": {\n'
+    # generate checksum
+    {
+      printf "{\n"
+      printf '    "files": {\n'
 
-        (
-          cd $dep-$ver
-          find . -type f -print0 | xargs -0 sha256sum | sed -n '/\.cargo-checksum\.json/!p' | sed 's/\.\///;s/^\([^ ]*\)[[:space:]][[:space:]]*\(.*\)$/"\2":"\1",/'
-        ) | sed '$ s/,$//'
+      (
+        cd $dep-$ver
+        find . -type f -print0 | xargs -0 sha256sum | sed -n '/\.cargo-checksum\.json/!p' | sed 's/\.\///;s/^\([^ ]*\)[[:space:]][[:space:]]*\(.*\)$/"\2":"\1",/'
+      ) | sed '$ s/,$//'
 
-        printf "    },\n"
-        printf '    "package": "'
+      printf "    },\n"
+      printf '    "package": "'
 
-        sha256sum "$crate" | cut -f1 -d' ' | sed 's/$/"/'
+      sha256sum "$crate" | cut -f1 -d' ' | sed 's/$/"/'
 
-        printf "}\n"
-      } | python -c "import sys, json; data = sys.stdin.read(); print json.dumps(json.loads(data), sort_keys=True, indent=4, separators=(',', ' : '))" > $dep-$ver/.cargo-checksum.json
-    done
-  )
-fi
+      printf "}\n"
+    } | python -c "import sys, json; data = sys.stdin.read(); print json.dumps(json.loads(data), sort_keys=True, indent=4, separators=(',', ' : '))" > $dep-$ver/.cargo-checksum.json
+  done
+)
 
 chown -R root:root .
 find -L . \
