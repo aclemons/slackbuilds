@@ -1,7 +1,7 @@
 PRGNAM="alacritty"
-VERSION="git7c4e84c"
+VERSION="git5b44437"
 HOMEPAGE="https://github.com/jwilm/alacritty"
-DOWNLOAD="https://github.com/jwilm/alacritty/archive/7c4e84c695cc54ca1d7089a91a97ce2617010205/alacritty-7c4e84c695cc54ca1d7089a91a97ce2617010205.tar.gz \
+DOWNLOAD="https://github.com/jwilm/alacritty/archive/5b444375f22927c3661c331f3f37519940204bc0/alacritty-5b444375f22927c3661c331f3f37519940204bc0.tar.gz \
           https://crates-io.s3-us-west-1.amazonaws.com/crates/aho-corasick/aho-corasick-0.6.3.crate \
           https://crates-io.s3-us-west-1.amazonaws.com/crates/android_glue/android_glue-0.2.3.crate \
           https://crates-io.s3-us-west-1.amazonaws.com/crates/ansi_term/ansi_term-0.9.0.crate \
@@ -163,7 +163,7 @@ DOWNLOAD="https://github.com/jwilm/alacritty/archive/7c4e84c695cc54ca1d7089a91a9
           https://crates-io.s3-us-west-1.amazonaws.com/crates/yaml-rust/yaml-rust-0.3.5.crate \
           https://github.com/jwilm/rust-fontconfig/archive/be2b94de833ec69cf767186262a5fb8360fa5b45/rust-fontconfig-be2b94de833ec69cf767186262a5fb8360fa5b45.tar.gz \
           https://github.com/jwilm/libfontconfig/archive/5c1845e1bffa11cf4d3e6fb27f456bf5c814ce1b/libfontconfig-5c1845e1bffa11cf4d3e6fb27f456bf5c814ce1b.tar.gz"
-MD5SUM="e20e7bca8b0f4ba5f6e457474e54f534 \
+MD5SUM="bfc916e2a833ae8ca35e9d6a6f3fdc39 \
         f2904b4b227389e7453f14b769bdbe5b \
         196a2eb81627baf71f6677a3c669e6ac \
         1af8116948ced56c372f1ca6c6a8d07d \
