@@ -1,14 +1,16 @@
 rustup - The Rust toolchain installer
 
-To always use rustup instead of the system rust, do this once for each user
-wanting to use rustup:
+To use the versions of rust installed through rustup, you'll need to add links
+to the rustup binary on your path before the system rust.
 
-mkdir $HOME/.rustup/shims
+You are free to choose where, but here is an example:
+
+mkdir -p $HOME/.rustup/shims
 for lnk in cargo rls rustc rustdoc rust-gdb rust-lldb ; do
   (
-    ln -s /usr/bin/rustup "$lnk"
+    ln -s /usr/bin/rustup $lnk
   )
 done
 
 Then add the directory to your path (.bashrc for example):
-export PATH="$HOME/.rustup/shims:${PATH}"
+export PATH="$HOME/.rustup/shims:$PATH"
