@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=remacs
-GITREV=${GITREV:-c807b3eea0c98284b38cd6cafb3be2516d682c13}
+GITREV=${GITREV:-155ba898e0f09aa66eda2a2218eff1b61feabe91}
 VERSION=${VERSION:-git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
@@ -95,7 +95,7 @@ mkdir vendor
                     lazy_static=0.2.5 \
                     libc=0.2.21 \
                     md5=0.3.5 \
-                    mock_derive=0.6.1 \
+                    mock_derive=0.7.0 \
                     nodrop=0.1.9 \
                     odds=0.2.25 \
                     quote=0.3.15 \
