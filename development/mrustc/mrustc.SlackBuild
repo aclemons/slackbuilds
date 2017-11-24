@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=mrustc
-GITREV=${GITREV:-19031a8e7290f0d911f1f85366342f4fcc66261c}
+GITREV=${GITREV:-854ffd1878578cdd4431c6335d41ee16a4a505c7}
 VERSION=${VERSION:-git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
 RUSTCVERSION=${RUSTCVERSION:-1.19.0}
 BUILD=${BUILD:-1}
@@ -80,10 +80,12 @@ find -L . \
 
 make RUSTCSRC
 
+CC=clang \
+CXX=clang++
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
 make
 
-# CC=clang \
-# CXX=clang++
 # CFLAGS="$SLKCFLAGS" \
 # CXXFLAGS="$SLKCFLAGS" \
 # make -C tools/minicargo
@@ -97,7 +99,7 @@ make
 mkdir -p $PKG/usr/bin
 install -m 0755 bin/mrustc $PKG/usr/bin/mrustc
 install -m 0755 bin/mrustc.debug $PKG/usr/bin/mrustc.debug
-install -m 0755 tools/bin/minicargo $PKG/usr/bin/minicargo
+# install -m 0755 tools/bin/minicargo $PKG/usr/bin/minicargo
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a \
