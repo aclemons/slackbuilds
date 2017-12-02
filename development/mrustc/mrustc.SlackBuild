@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=mrustc
-GITREV=${GITREV:-1a379700e5c5d9c248ec661f651a5a8e8c6d895a}
+GITREV=${GITREV:-1f9ac6f17a96d023c3d9cef16fca030593ffa49f}
 VERSION=${VERSION:-git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
 RUSTCVERSION=${RUSTCVERSION:-1.19.0}
 BUILD=${BUILD:-1}
@@ -69,7 +69,9 @@ cp $CWD/rustc-$RUSTCVERSION-src.tar.gz .
 sed -i '/curl -sS https:/d' Makefile
 
 # clang in slack 14.2 doesn't support this warning
-sed -i '/no-misleading-indentation/s/^/#/' Makefile
+if [ "$(llvm-config --version | cut -d. -f1)" = "3" ] ; then
+  sed -i '/no-misleading-indentation/s/^/#/' Makefile
+fi
 
 chown -R root:root .
 find -L . \
@@ -80,26 +82,26 @@ find -L . \
 
 make RUSTCSRC
 
-CC=clang \
-CXX=clang++
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 make
 
-# CFLAGS="$SLKCFLAGS" \
-# CXXFLAGS="$SLKCFLAGS" \
-# make -C tools/minicargo
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+make -C tools/minicargo
 
-# CC=clang \
-# CXX=clang++
-# CFLAGS="$SLKCFLAGS" \
-# CXXFLAGS="$SLKCFLAGS" \
-# make -f minicargo.mk
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+make -f minicargo.mk output/libtest.hir
+
+CFLAGS="$SLKCFLAGS" \
+CXXFLAGS="$SLKCFLAGS" \
+make -f minicargo.mk output/cargo
 
 mkdir -p $PKG/usr/bin
 install -m 0755 bin/mrustc $PKG/usr/bin/mrustc
 install -m 0755 bin/mrustc.debug $PKG/usr/bin/mrustc.debug
-# install -m 0755 tools/bin/minicargo $PKG/usr/bin/minicargo
+install -m 0755 tools/bin/minicargo $PKG/usr/bin/minicargo
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a \
