@@ -1,5 +1,5 @@
 PRGNAM="mozilla-firefox-l10n-mk"
-VERSION="52.5.0esr"
+VERSION="52.5.1esr"
 HOMEPAGE="http://www.mozilla.com/"
 DOWNLOAD="https://ftp.mozilla.org/pub/firefox/releases/52.5.0esr/linux-i686/xpi/mk.xpi"
 MD5SUM="5324f1acc78556580ad43f26a890b8c2"
