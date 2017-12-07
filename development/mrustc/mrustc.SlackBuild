@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=mrustc
-GITREV=${GITREV:-1f9ac6f17a96d023c3d9cef16fca030593ffa49f}
+GITREV=${GITREV:-f35465d57b2dc39c4e88a21528cc543daa5d4795}
 VERSION=${VERSION:-git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
 RUSTCVERSION=${RUSTCVERSION:-1.19.0}
 BUILD=${BUILD:-1}
@@ -82,18 +82,26 @@ find -L . \
 
 make RUSTCSRC
 
+CC=clang \
+CXX=clang++ \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 make
 
+CC=clang \
+CXX=clang++ \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 make -C tools/minicargo
 
+CC=clang \
+CXX=clang++ \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 make -f minicargo.mk output/libtest.hir
 
+CC=clang \
+CXX=clang++ \
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
 make -f minicargo.mk output/cargo
