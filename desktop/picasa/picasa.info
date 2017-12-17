@@ -1,14 +1,14 @@
 PRGNAM="picasa"
-VERSION="3.0.5744"
+VERSION="3.9.141"
 HOMEPAGE="http://picasa.google.com/"
 DOWNLOAD="https://sourceforge.net/projects/salix-sbo/files/13.37/picasa/picasa_3.0-current_i386.deb \
-          https://dl.google.com/picasa/picasa39-setup.exe"
+          http://s01.mydiv-downloads.net/download/aHR0cDovL3NvZnQubXlkaXYub3JnL3dpbi9kb3dubG9hZC1QaWNhc2EuaHRtbA==/5468b/5a35e22f6ef9f/soft/dfiles/en/win/Picasa/291422/picasa39-setup.exe"
 MD5SUM="4350390a4c2a0fadea9320221a8f9bb9 \
         f5e535745f0e2140c31623df8f9ad746"
 DOWNLOAD_x86_64="https://sourceforge.net/projects/salix-sbo/files/13.37/picasa/picasa_3.0-current_amd64.deb \
-                 https://dl.google.com/picasa/picasa39-setup.exe"
+                 http://s01.mydiv-downloads.net/download/aHR0cDovL3NvZnQubXlkaXYub3JnL3dpbi9kb3dubG9hZC1QaWNhc2EuaHRtbA==/5468b/5a35e22f6ef9f/soft/dfiles/en/win/Picasa/291422/picasa39-setup.exe"
 MD5SUM_x86_64="6accd6c633ece16acd177ffda0688572 \
                f5e535745f0e2140c31623df8f9ad746"
-REQUIRES="jdk"
+REQUIRES=""
 MAINTAINER="Andrew Clemons"
 EMAIL="andrew.clemons@gmail.com"
