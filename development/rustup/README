@@ -6,7 +6,7 @@ to the rustup binary on your path before the system rust.
 You are free to choose where, but here is an example:
 
 mkdir -p $HOME/.rustup/shims
-for lnk in cargo rls rustc rustdoc rust-gdb rust-lldb ; do
+for lnk in cargo cargo-fmt rls rustc rustdoc rustfmt rust-gdb rust-lldb ; do
   (
     ln -s /usr/bin/rustup $lnk
   )
