@@ -8,6 +8,7 @@ You are free to choose where, but here is an example:
 mkdir -p $HOME/.rustup/shims
 for lnk in cargo cargo-fmt rls rustc rustdoc rustfmt rust-gdb rust-lldb ; do
   (
+    cd $HOME/.rustup/shims
     ln -s /usr/bin/rustup $lnk
   )
 done
