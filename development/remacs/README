@@ -6,6 +6,7 @@ remacs unfortunately requires a nightly version of rust at the moment. You
 need to install rustup and then:
 
     rustup install nightly-2017-11-12
+    rustup default nightly-2017-11-12
 
 Make sure the rustup wrapper for cargo/rust is on your path before the system
 rust for the build to succeed.

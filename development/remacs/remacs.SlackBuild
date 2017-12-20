@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=remacs
-GITREV=${GITREV:-155ba898e0f09aa66eda2a2218eff1b61feabe91}
+GITREV=${GITREV:-7690329e94b9b8150d943c7c2ff0944b444e50d5}
 VERSION=${VERSION:-git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
@@ -83,32 +83,42 @@ mkdir vendor
 (
   cd vendor
 
-  for dependency in base64=0.6.0 \
+  for dependency in base64=0.8.0 \
+                    bitflags=0.7.0 \
                     byte-tools=0.1.3 \
-                    byteorder=1.0.0 \
-                    digest=0.4.0 \
+                    byteorder=1.1.0 \
+                    darling=0.2.0 \
+                    darling_core=0.2.0 \
+                    darling_macro=0.2.0 \
                     digest-buffer=0.2.0 \
+                    digest=0.4.0 \
                     errno=0.2.3 \
                     fake-simd=0.1.2 \
+                    fuchsia-zircon-sys=0.2.0 \
+                    fuchsia-zircon=0.2.1 \
                     generic-array=0.6.0 \
+                    ident_case=1.0.0 \
                     kernel32-sys=0.2.2 \
-                    lazy_static=0.2.5 \
+                    lazy_static=0.2.10 \
+                    lazy_static=0.2.11 \
                     libc=0.2.21 \
-                    md5=0.3.5 \
+                    libc=0.2.23 \
+                    libc=0.2.33 \
+                    md5=0.3.6 \
                     mock_derive=0.7.0 \
-                    nodrop=0.1.9 \
-                    odds=0.2.25 \
+                    nodrop=0.1.12 \
                     quote=0.3.15 \
                     rand=0.3.15 \
+                    rand=0.3.18 \
                     safemem=0.2.0 \
                     sha1=0.2.0 \
                     sha2=0.4.2 \
                     syn=0.11.11 \
                     synom=0.11.3 \
-                    typenum=1.7.0 \
+                    typenum=1.9.0 \
                     unicode-xid=0.0.4 \
-                    winapi=0.2.8 \
-                    winapi-build=0.1.1; do
+                    winapi-build=0.1.1 \
+                    winapi=0.2.8; do
     dep="$(echo "$dependency" | cut -d= -f1)"
     ver="$(echo "$dependency" | cut -d= -f2)"
 
@@ -134,7 +144,7 @@ mkdir vendor
       printf "}\n"
     } | python -c "import sys, json; data = sys.stdin.read(); print json.dumps(json.loads(data), sort_keys=True, indent=4, separators=(',', ' : '))" > $dep-$ver/.cargo-checksum.json
   done
-)
+  )
 
 chown -R root:root .
 find -L . \
