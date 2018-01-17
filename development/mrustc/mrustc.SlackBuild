@@ -83,7 +83,6 @@ make -C tools/minicargo
 
 mkdir -p $PKG/usr/bin
 install -m 0755 bin/mrustc $PKG/usr/bin/mrustc
-install -m 0755 bin/mrustc.debug $PKG/usr/bin/mrustc.debug
 install -m 0755 tools/bin/minicargo $PKG/usr/bin/minicargo
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
