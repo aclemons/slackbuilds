@@ -1,9 +1,9 @@
 PRGNAM="mrustc"
-VERSION="git17b582e"
+VERSION="git7932cf7"
 HOMEPAGE="https://github.com/thepowersgang/mrustc"
-DOWNLOAD="https://github.com/thepowersgang/mrustc/archive/17b582e6c5ffc40185d33fa1a8114a6f94cd86cd/mrustc-17b582e6c5ffc40185d33fa1a8114a6f94cd86cd.tar.gz \
+DOWNLOAD="https://github.com/thepowersgang/mrustc/archive/7932cf76d7e783ea76a9b117f33ca45d07db26af/mrustc-7932cf76d7e783ea76a9b117f33ca45d07db26af.tar.gz \
           https://static.rust-lang.org/dist/rustc-1.19.0-src.tar.gz"
-MD5SUM="ed6f01c4cb0c760d40711d1651a794a8 \
+MD5SUM="ba90e4961a58e5877aa3426d24eae6f5 \
         75e779670ac79edf023497a9c37eb35d"
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""
