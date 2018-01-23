@@ -2,7 +2,7 @@
 
 # Slackware build script for rtl8192eu
 
-# Copyright 2016-2017 Andrew Clemons, Wellington, New Zealand
+# Copyright 2016-2018 Andrew Clemons, Wellington, New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +24,7 @@
 
 
 PRGNAM=rtl8192eu
-GITREV=${GITREV:-c50f3f80b97a5ab2d2582021ae93e0a5f07118b7}
+GITREV=${GITREV:-409400432038394358ddb7395ccf4910f09bf054}
 VERSION=${VERSION:-git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
