@@ -26,7 +26,7 @@ PRGNAM=mrustc
 GITREV=${GITREV:-fdd7f1974bfccd9831ea273529866a57433750ee}
 VERSION=${VERSION:-git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
 RUSTCVERSION=${RUSTCVERSION:-1.19.0}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
@@ -98,6 +98,7 @@ cp -a run_rustc/prefix/lib/rustlib/$ARCH-unknown-linux-gnu/lib/* $PKG/usr/lib$LI
 
 install -m 0755 output/rustc $PKG/usr/bin/rustc
 install -m 0755 output/cargo $PKG/usr/bin/cargo
+install -m 0755 output/rustc-build/rustdoc $PKG/usr/bin/rustdoc
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
