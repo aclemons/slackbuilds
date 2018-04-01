@@ -84,7 +84,7 @@ make -f minicargo.mk
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
-make -C run_rustc
+make -j1 -C run_rustc
 
 mkdir -p $PKG/usr/bin
 install -m 0755 bin/mrustc $PKG/usr/bin/mrustc
