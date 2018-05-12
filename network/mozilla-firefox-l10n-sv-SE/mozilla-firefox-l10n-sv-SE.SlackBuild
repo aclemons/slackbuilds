@@ -24,7 +24,7 @@
 
 PRGNAM=mozilla-firefox-l10n-sv-SE
 APPLANG="$(echo "$PRGNAM" | sed "s/^$(echo "$PRGNAM" | cut -d- -f-3)-//")"
-VERSION=${VERSION:-52.7.4esr}
+VERSION=${VERSION:-52.8.0esr}
 BASEVERSION="$(echo "$VERSION" | sed 's/esr//')"
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
