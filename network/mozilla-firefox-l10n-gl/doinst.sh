@@ -11,4 +11,4 @@ config() {
   # Otherwise, we leave the .new copy for the admin to consider...
 }
 
-config usr/lib%LIBDIRSUFFIX%/firefox-%BASEVERSION%/browser/defaults/preferences/lang.js.new
+config usr/lib%LIBDIRSUFFIX%/firefox/browser/defaults/preferences/lang.js.new
