@@ -24,7 +24,7 @@
 
 
 PRGNAM=rtl8192eu
-GITREV=${GITREV:-76718a8c212b6f9aac4fcec225882841e06dcadd}
+GITREV=${GITREV:-63154169085566f879085678b5447bae12f8d69c}
 VERSION=${VERSION:-git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
