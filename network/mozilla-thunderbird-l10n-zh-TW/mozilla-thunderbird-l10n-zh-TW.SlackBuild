@@ -24,7 +24,7 @@
 
 PRGNAM=mozilla-thunderbird-l10n-zh-TW
 APPLANG="$(echo "$PRGNAM" | sed "s/^$(echo "$PRGNAM" | cut -d- -f-3)-//")"
-VERSION=${VERSION:-52.9.1}
+VERSION=${VERSION:-60.4.0}
 BASEVERSION="$(echo "$VERSION" | sed 's/esr//')"
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
@@ -57,13 +57,13 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 
-install -Dm644 $CWD/$APPLANG.xpi $PKG/usr/lib$LIBDIRSUFFIX/thunderbird-$BASEVERSION/extensions/langpack-$APPLANG@thunderbird.mozilla.org.xpi
+install -Dm644 $CWD/$APPLANG.xpi $PKG/usr/lib$LIBDIRSUFFIX/thunderbird/extensions/langpack-$APPLANG@thunderbird.mozilla.org.xpi
 
 # thanks to the archlinux maintainer
-mkdir -p $PKG/usr/lib$LIBDIRSUFFIX/thunderbird-$BASEVERSION/defaults/preferences
-cat << EOF > $PKG/usr/lib$LIBDIRSUFFIX/thunderbird-$BASEVERSION/defaults/preferences/lang.js.new
+mkdir -p $PKG/usr/lib$LIBDIRSUFFIX/thunderbird/defaults/preferences
+cat << EOF > $PKG/usr/lib$LIBDIRSUFFIX/thunderbird/defaults/preferences/lang.js.new
 // Use LANG environment variable to choose locale
-pref("intl.locale.matchOS", true);
+pref("intl.locale.requested", "");
 
 // Don't disable our bundled extensions in the application directory
 pref("extensions.autoDisableScopes", 11);
@@ -75,7 +75,7 @@ cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/doinst.sh | sed -e "s/%LIBDIRSUFFIX%/$LIBDIRSUFFIX/" -e "s/%BASEVERSION%/$BASEVERSION/" > $PKG/install/doinst.sh
+cat $CWD/doinst.sh | sed -e "s/%LIBDIRSUFFIX%/$LIBDIRSUFFIX/" > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
