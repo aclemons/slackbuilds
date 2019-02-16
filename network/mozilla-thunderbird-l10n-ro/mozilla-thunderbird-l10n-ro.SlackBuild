@@ -24,7 +24,7 @@
 
 PRGNAM=mozilla-thunderbird-l10n-ro
 APPLANG="$(echo "$PRGNAM" | sed "s/^$(echo "$PRGNAM" | cut -d- -f-3)-//")"
-VERSION=${VERSION:-60.5.0}
+VERSION=${VERSION:-60.5.1}
 BASEVERSION="$(echo "$VERSION" | sed 's/esr//')"
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
