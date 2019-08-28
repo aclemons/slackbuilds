@@ -2,7 +2,7 @@
 
 # Slackware build script for iscan
 
-# Copyright 2018 Andrew Clemons, Wellington New Zealand
+# Copyright 2018-2019 Andrew Clemons, Wellington New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=iscan
-VERSION=${VERSION:-2.30.3_1}
+VERSION=${VERSION:-2.30.4_2}
 SRCVERSION="$(echo "$VERSION" | tr _ -)"
 SRCDIR=$PRGNAM-"$(echo "$VERSION" | cut -d_ -f1)"
 BUILD=${BUILD:-1}
@@ -90,7 +90,7 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-autoreconf -vif
+autoreconf -if
 
 CFLAGS="$SLKCFLAGS" \
 CXXFLAGS="$SLKCFLAGS" \
@@ -137,7 +137,7 @@ cp -a \
   AUTHORS COPYING ChangeLog INSTALL NEWS NEWS.ja README README.ja \
   $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a \
-  non-free/AVASYSPL.* \
+  non-free/COPYING.* \
   $PKG/usr/doc/$PRGNAM-$VERSION/non-free
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
