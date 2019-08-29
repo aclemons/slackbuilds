@@ -2,7 +2,7 @@
 
 # Slackware build script for iscan-plugin-gt-x770
 
-# Copyright 2018 Andrew Clemons, Wellington New Zealand
+# Copyright 2018-2019 Andrew Clemons, Wellington New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,8 +23,10 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=iscan-plugin-gt-x770
-VERSION=${VERSION:-2.1.2_1}
+BUNDLE_PRGNAM=iscan-gt-x770-bundle
+VERSION=${VERSION:-2.1.3_1}
 SRCVERSION="$(echo "$VERSION" | tr _ -)"
+BUNDLE_VERSION=${BUNDLE_VERSION:-2.30.4}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
@@ -57,8 +59,10 @@ fi
 
 if case "$ARCH" in i?86) true ;; *) false ;; esac ; then
   SRCARCH=i386
+  BUNDLE_SRCARCH=x86
 else
   SRCARCH=x86_64
+  BUNDLE_SRCARCH=x64
 fi
 
 set -e
@@ -66,9 +70,10 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
+rm -rf $BUNDLE_PRGNAM-$BUNDLE_VERSION.$BUNDLE_SRCARCH.rpm
+tar xvf $CWD/$BUNDLE_PRGNAM-$BUNDLE_VERSION.$BUNDLE_SRCARCH.rpm.tar.gz
 cd $PKG
-
-rpm2cpio $CWD/$PRGNAM-$SRCVERSION.$SRCARCH.rpm | cpio -mvid
+rpm2cpio ../$BUNDLE_PRGNAM-$BUNDLE_VERSION.$BUNDLE_SRCARCH.rpm/plugins/$PRGNAM-$SRCVERSION.$SRCARCH.rpm | cpio -mvid
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
