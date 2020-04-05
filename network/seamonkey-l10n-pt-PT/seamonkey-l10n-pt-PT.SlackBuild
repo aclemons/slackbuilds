@@ -24,7 +24,7 @@
 
 PRGNAM=seamonkey-l10n-pt-PT
 APPLANG="$(echo "$PRGNAM" | sed "s/^$(echo "$PRGNAM" | cut -d- -f-2)-//")"
-VERSION=${VERSION:-2.49.4}
+VERSION=${VERSION:-2.53.1}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
@@ -56,7 +56,7 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 
-install -Dm644 $CWD/$APPLANG.xpi $PKG/usr/lib$LIBDIRSUFFIX/seamonkey-$VERSION/extensions/langpack-$APPLANG@seamonkey.mozilla.org.xpi
+install -Dm644 $CWD/seamonkey-$VERSION.$APPLANG.langpack.xpi $PKG/usr/lib$LIBDIRSUFFIX/seamonkey-$VERSION/extensions/langpack-$APPLANG@seamonkey.mozilla.org.xpi
 
 # thanks to the archlinux maintainer
 mkdir -p $PKG/usr/lib$LIBDIRSUFFIX/seamonkey-$VERSION/defaults/preferences
