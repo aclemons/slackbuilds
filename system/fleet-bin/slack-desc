@@ -1,0 +1,19 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.
+# Line up the first '|' above the ':' following the base package name, and
+# the '|' on the right side marks the last column you can put a character in.
+# You must make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+         |-----handy-ruler------------------------------------------------------|
+fleet-bin: fleet-bin (A flexible control server for osquery fleets)
+fleet-bin:
+fleet-bin: Fleet is the most widely used open-source osquery Fleet manager.
+fleet-bin: Deploying osquery with Fleet enables live queries, and effective
+fleet-bin: management of osquery infrastructure.
+fleet-bin:
+fleet-bin: https://github.com/kolide/fleet
+fleet-bin:
+fleet-bin:
+fleet-bin:
+fleet-bin:
