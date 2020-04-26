@@ -1,0 +1,5 @@
+slack-osquery - osquery extensions for Slackware
+
+This extension provides extra tables for osquery on slackware.
+
+NOTE: google-go-lang is only needed at compile time - not at runtime.
