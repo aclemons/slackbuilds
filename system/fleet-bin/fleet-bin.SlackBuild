@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# Slackware build script for osquery-bin
+# Slackware build script for fleet-bin
 
-# Copyright 2019-2020 Andrew Clemons, Wellington New Zealand
+# Copyright 2020 Andrew Clemons, Wellington New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -22,9 +22,9 @@
 #  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-PRGNAM=osquery-bin
+PRGNAM=fleet-bin
 SRCNAM=${PRGNAM%-bin}
-VERSION=${VERSION:-4.3.0}
+VERSION=${VERSION:-2.6.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
@@ -62,7 +62,7 @@ mkdir -p $TMP $PKG $OUTPUT
 cd $PKG
 
 if [ "$ARCH" = "x86_64" ]; then
-  tar xvf $CWD/$SRCNAM-$VERSION"_1.linux_x86_64.tar.gz"
+  unzip -q $CWD/$SRCNAM.zip
 else
   printf "$ARCH is not supported...\n"
   exit 1
@@ -75,21 +75,16 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-rm -rf .scripts
+install -D -p -m 755 linux/fleet $PKG/usr/bin/fleet
+install -D -p -m 755 linux/fleetctl $PKG/usr/bin/fleetctl
 
-mkdir etc/rc.d
-mv etc/init.d/osqueryd etc/rc.d/rc.osqueryd.new
-rm -rf etc/init.d
-
-mv usr/local/* usr/
-rm -rf usr/lib usr/local
+rm -rf darwin linux windows
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
-cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
 /sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
