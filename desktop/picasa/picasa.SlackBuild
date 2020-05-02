@@ -267,6 +267,24 @@ fi
 # https://wpkg.org/Picasa
 WINEPREFIX=$PKG/opt/google/picasa/3.0/wine/ $PKG/opt/google/picasa/3.0/wine/bin/wine $CWD/picasa39-setup.exe /S /L /L1 /L2
 
+# use system wine
+(
+  cd $PKG
+  mkdir -p usr/lib/wine/
+  mv opt/google/picasa/3.0/wine/lib/wine/license.exe.so usr/lib/wine
+
+  cd opt/google/picasa/3.0/wine
+  rm -rf bin
+  ln -s ../../../../../usr/bin
+
+  rm -rf lib
+  ln -s ../../../../../usr/lib
+
+  cd share
+  rm -rf wine
+  ln -s ../../../../../../usr/share/wine
+)
+
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh

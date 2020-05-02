@@ -9,6 +9,6 @@ DOWNLOAD_x86_64="https://sourceforge.net/projects/salix-sbo/files/13.37/picasa/p
                  https://web.archive.org/web/20160228082206/http://dl.google.com/picasa/picasa39-setup.exe"
 MD5SUM_x86_64="6accd6c633ece16acd177ffda0688572 \
                f5e535745f0e2140c31623df8f9ad746"
-REQUIRES=""
+REQUIRES="wine"
 MAINTAINER="Andrew Clemons"
 EMAIL="andrew.clemons@gmail.com"
