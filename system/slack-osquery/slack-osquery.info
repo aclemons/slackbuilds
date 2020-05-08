@@ -1,7 +1,7 @@
 PRGNAM="slack-osquery"
-VERSION="gite494d7b"
+VERSION="1.0"
 HOMEPAGE="https://github.com/aclemosn/slack-osquery"
-DOWNLOAD="https://github.com/aclemons/slack-osquery/archive/e494d7b3717cb7fba6f2ce28f13e22fe11582402/slack-osquery-e494d7b3717cb7fba6f2ce28f13e22fe11582402.tar.gz \
+DOWNLOAD="https://github.com/aclemons/slack-osquery/archive/v1.0/slack-osquery-1.0.tar.gz \
           https://github.com/Microsoft/go-winio/archive/v0.4.9/go-winio-0.4.9.tar.gz \
           https://github.com/apache/thrift/archive/v0.12.0/thrift-0.12.0.tar.gz \
           https://github.com/davecgh/go-spew/archive/v1.1.0/go-spew-1.1.0.tar.gz \
@@ -10,7 +10,7 @@ DOWNLOAD="https://github.com/aclemons/slack-osquery/archive/e494d7b3717cb7fba6f2
           https://github.com/pmezard/go-difflib/archive/v1.0.0/go-difflib-1.0.0.tar.gz \
           https://github.com/stretchr/testify/archive/v1.2.2/testify-1.2.2.tar.gz \
           https://github.com/golang/sys/archive/14742f9018cd6651ec7364dc6ee08af0baaa1031/sys-14742f9018cd6651ec7364dc6ee08af0baaa1031.tar.gz"
-MD5SUM="48bae6775fbfcbe65e096f6ef97cea43 \
+MD5SUM="6f9cdd4f0f8e2d5e5a41568f1c80eb7e \
         8696fc61920c07d8591b5f5c6920cf82 \
         ff9af01fec424b5a279fa8a3c9e95c0c \
         89875fb674e0ea72a189e5048186206c \
