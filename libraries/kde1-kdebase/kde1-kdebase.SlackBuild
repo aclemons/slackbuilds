@@ -2,7 +2,7 @@
 
 # Slackware build script for kde1-kdebase
 
-# Copyright 2016-2018 Andrew Clemons, Wellington, New Zealand
+# Copyright 2016-2018,2020 Andrew Clemons, Wellington, New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,9 +23,8 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=kde1-kdebase
-GITREV="${GITREV:-a40a9a0de966d1831688bb9371a3c165b825bc7e}"
+GITREV="${GITREV:-757f1fb59058ecf212d6879305b14f0ea7234c34}"
 VERSION=${VERSION:-1.1.2.git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
-RAWVERSION="$(echo $VERSION | sed -e 's/\.git.*//' )"
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
@@ -78,7 +77,6 @@ cd build
 cmake \
     -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
-    -DCMAKE_LIBRARY_PATH="/opt/kde1/lib${LIBDIRSUFFIX}" \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_SUFFIX=${LIBDIRSUFFIX} \
     -DMAN_INSTALL_DIR=/usr/man \
