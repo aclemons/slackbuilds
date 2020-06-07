@@ -2,7 +2,7 @@
 
 # Slackware build script for kde1-kdelibs
 
-# Copyright 2016-2017 Andrew Clemons, Wellington, New Zealand
+# Copyright 2016-2017,2020 Andrew Clemons, Wellington, New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,9 +23,8 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=kde1-kdelibs
-GITREV="${GITREV:-ca9e8f0f2806ca5879ca3dccac1ca2cb5feab6fa}"
+GITREV="${GITREV:-d60a93a11539af898e845c68f590232af7257253}"
 VERSION=${VERSION:-1.1.2.git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
-RAWVERSION="$(echo $VERSION | sed -e 's/\.git.*//' )"
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
@@ -81,7 +80,7 @@ cmake \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_SUFFIX=${LIBDIRSUFFIX} \
     -DMAN_INSTALL_DIR=/usr/man \
-    .. #-DCMAKE_BUILD_TYPE=Release this breaks the build?
+    .. #-DCMAKE_BUILD_TYPE=Release this breaks the build
 make
 make install DESTDIR=$PKG
 cd ..

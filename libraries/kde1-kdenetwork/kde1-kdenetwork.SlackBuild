@@ -2,7 +2,7 @@
 
 # Slackware build script for kde1-kdenetwork
 
-# Copyright 2016-2017 Andrew Clemons, Wellington, New Zealand
+# Copyright 2016-2017,2020 Andrew Clemons, Wellington, New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,9 +23,8 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=kde1-kdenetwork
-GITREV="${GITREV:-1029167fdfe0bb9e0d49cb3508b86e332ccebaaf}"
+GITREV="${GITREV:-2cae390428ed6d795b2694f97f1b9d5c1a707424}"
 VERSION=${VERSION:-1.1.2.git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
-RAWVERSION="$(echo $VERSION | sed -e 's/\.git.*//' )"
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
@@ -79,11 +78,10 @@ cd build
 cmake \
     -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
-    -DCMAKE_LIBRARY_PATH="/opt/kde1/lib${LIBDIRSUFFIX}" \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_SUFFIX=${LIBDIRSUFFIX} \
     -DMAN_INSTALL_DIR=/usr/man \
-    -DCMAKE_BUILD_TYPE=Release .. # this breaks the build?
+    -DCMAKE_BUILD_TYPE=Release ..
 make
 make install DESTDIR=$PKG
 cd ..

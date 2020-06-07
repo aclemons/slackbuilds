@@ -2,7 +2,7 @@
 
 # Slackware build script for qt1
 
-# Copyright 2016-2017 Andrew Clemons, Wellington, New Zealand
+# Copyright 2016-2017,2020 Andrew Clemons, Wellington, New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,9 +23,8 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=qt1
-GITREV="${GITREV:-78811a56cc111d17f42221566e7e4430d5de8d40}"
+GITREV="${GITREV:-dc8a8d6431f40e2b3f9144ff44a5707eb54db978}"
 VERSION=${VERSION:-1.45.git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
-RAWVERSION="$(echo $VERSION | sed -e 's/\.git.*//' )"
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
@@ -61,7 +60,9 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $TMP
-rm -rf KDE-$PRGNAM-$GITREV
+
+rm -rf $PRGNAM-$GITREV
+
 tar xvf $CWD/$PRGNAM-$GITREV.tar.gz
 cd $PRGNAM-$GITREV
 chown -R root:root .
@@ -71,46 +72,24 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-# this is based on spec/fedora/qt1.spec
-mkdir -p lib
-export QTDIR="$(pwd)"
-make linux-g++-shared
+mkdir -p build
+cd build
+cmake \
+    -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLIB_SUFFIX=${LIBDIRSUFFIX} \
+    -DCMAKE_INSTALL_MANDIR=/usr/man \
+    -DCMAKE_BUILD_TYPE=Release ..
 make
-
-_qt1_prefix=$PKG/opt/qt1
-_qt1_libdir=$_qt1_prefix/lib$LIBDIRSUFFIX
-_qt1_bindir=$_qt1_prefix/bin
-_qt1_includedir=$_qt1_prefix/include
-
-mkdir -p $_qt1_bindir
-mkdir -p $_qt1_libdir
-install -s -m 755 bin/moc $_qt1_bindir/moc
-cp lib/libqt.so.$RAWVERSION $_qt1_libdir
-ln -sf libqt.so.$RAWVERSION $_qt1_libdir/libqt.so.1
-ln -sf libqt.so.1 $_qt1_libdir/libqt.so
-mkdir -p $_qt1_libdir/qt $_qt1_includedir/qt
-mkdir -p $_qt1_libdir/qt/html $_qt1_libdir/qt/tutorial
-mkdir -p $_qt1_libdir/qt/examples
-cp -fR html $_qt1_libdir/qt
-strip tutorial/*/* || :
-strip examples/*/* || :
-cp -fR tutorial $_qt1_libdir/qt
-cp -fR examples $_qt1_libdir/qt
-cp -fR include/. $_qt1_includedir/qt
-for a in $_qt1_libdir/qt/*/*/Makefile ; do
-  sed 's-^SYSCONF_MOC.*-SYSCONF_MOC		= $_qt1_bindir/moc-' < $a > $a.2
-  mv -v $a.2 $a
-done
-rm $_qt1_libdir/qt/*/*/*.o
-chmod -R a+r $_qt1_libdir/libqt.so* $_qt1_libdir/qt
+make install DESTDIR=$PKG
+cd ..
 
 find $PKG -print0 | xargs -0 file | grep -e "executable" -e "shared object" | grep ELF \
   | cut -f 1 -d : | xargs strip --strip-unneeded 2> /dev/null || true
 
-#mkdir -p $PKG/etc/profile.d/
-#cat $CWD/profile.d/qt1.csh > $PKG/etc/profile.d/qt1.csh
-#cat $CWD/profile.d/qt1.sh > $PKG/etc/profile.d/qt1.sh
-#chmod 0755 $PKG/etc/profile.d/*
+find $PKG/usr/man -type f -exec gzip -9 {} \;
+for i in $( find $PKG/usr/man -type l ) ; do ln -s $( readlink $i ).gz $i.gz ; rm $i ; done
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a \

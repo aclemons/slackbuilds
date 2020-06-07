@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Slackware build script for kde1-kdetoys
+# Slackware build script for kde1-kdemultimedia
 
 # Copyright 2016-2017,2020 Andrew Clemons, Wellington, New Zealand
 # All rights reserved.
@@ -22,8 +22,8 @@
 #  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-PRGNAM=kde1-kdetoys
-GITREV="${GITREV:-2fdce629a6ba7d006d8843b611fbe412565f3b5e}"
+PRGNAM=kde1-kdemultimedia
+GITREV="${GITREV:-a246d049c13f337d69b6e7dd72d1d4149d3b2833}"
 VERSION=${VERSION:-1.1.2.git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
@@ -71,6 +71,8 @@ find -L . \
   -o -perm 511 \) -exec chmod 755 {} \; -o \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
+
+sed -i 's/kmedia.kdelnk/KMedia.kdelnk/' kmedia/CMakeLists.txt
 
 mkdir -p build
 cd build
