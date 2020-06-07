@@ -2,7 +2,7 @@
 
 # Slackware build script for kde1-kdeutils
 
-# Copyright 2016-2017 Andrew Clemons, Wellington, New Zealand
+# Copyright 2016-2017,2020 Andrew Clemons, Wellington, New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -23,9 +23,8 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=kde1-kdeutils
-GITREV="${GITREV:-1c14d5cdf59803a8f41165e296f37837e102696d}"
+GITREV="${GITREV:-cc60f0d65da59a4c2d9e860160abf52eb339b9d1}"
 VERSION=${VERSION:-1.1.2.git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
-RAWVERSION="$(echo $VERSION | sed -e 's/\.git.*//' )"
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
@@ -78,7 +77,6 @@ cd build
 cmake \
     -DCMAKE_C_FLAGS:STRING="$SLKCFLAGS" \
     -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
-    -DCMAKE_LIBRARY_PATH="/opt/kde1/lib${LIBDIRSUFFIX}" \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIB_SUFFIX=${LIBDIRSUFFIX} \
     -DMAN_INSTALL_DIR=/usr/man \
