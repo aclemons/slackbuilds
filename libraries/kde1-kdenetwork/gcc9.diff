@@ -1,0 +1,12 @@
+diff -Naur kde1-kdenetwork-2cae390428ed6d795b2694f97f1b9d5c1a707424.orig/kmail/kbusyptr.cpp kde1-kdenetwork-2cae390428ed6d795b2694f97f1b9d5c1a707424/kmail/kbusyptr.cpp
+--- kde1-kdenetwork-2cae390428ed6d795b2694f97f1b9d5c1a707424.orig/kmail/kbusyptr.cpp	2020-06-03 11:33:17.000000000 +1200
++++ kde1-kdenetwork-2cae390428ed6d795b2694f97f1b9d5c1a707424/kmail/kbusyptr.cpp	2020-06-07 20:35:23.488193803 +1200
+@@ -142,7 +142,7 @@
+ 
+   if (bitmapList) delete[] bitmapList;
+   QSize size(16,16);
+-  bitmapList = new QBitmap[numCursors](size);
++  bitmapList = new QBitmap[numCursors];
+   if (cursorList) delete[] cursorList;
+   cursorList = new QCursor[numCursors];
+ 
