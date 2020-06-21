@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=kde1-kdeutils
-GITREV="${GITREV:-cc60f0d65da59a4c2d9e860160abf52eb339b9d1}"
+GITREV="${GITREV:-0d9f27de23358da5c694b6706b7d0f3f50f5334f}"
 VERSION=${VERSION:-1.1.2.git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
@@ -71,6 +71,8 @@ find -L . \
   -o -perm 511 \) -exec chmod 755 {} \; -o \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
+
+sed -i 's/kedit.kdelnk/KEdit.kdelnk/' kedit/CMakeLists.txt
 
 mkdir -p build
 cd build

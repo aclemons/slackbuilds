@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=kde1-kdemultimedia
-GITREV="${GITREV:-a246d049c13f337d69b6e7dd72d1d4149d3b2833}"
+GITREV="${GITREV:-8bcc29f9d70e70917f97345cb9a94a2176f66f93}"
 VERSION=${VERSION:-1.1.2.git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
@@ -71,8 +71,6 @@ find -L . \
   -o -perm 511 \) -exec chmod 755 {} \; -o \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
-
-sed -i 's/kmedia.kdelnk/KMedia.kdelnk/' kmedia/CMakeLists.txt
 
 mkdir -p build
 cd build
