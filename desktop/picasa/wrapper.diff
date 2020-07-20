@@ -1,0 +1,17 @@
+--- wrapper.original	2020-07-20 14:51:55.641209538 +1200
++++ wrapper	2020-07-20 14:51:41.225403267 +1200
+@@ -430,11 +429,11 @@
+       if [ ! -f "$exe" ] ; then
+         exe=`find "$WINEPREFIX/drive_c/Program Files/" -follow -iname "$1.exe"`
+         if [ ! -f "$exe" ] ; then
+-          exe=`find "$parentdir/wine/lib/" -iname "$1"`
++          exe=`find "$parentdir/wine/lib/" -follow -iname "$1"`
+           if [ ! -f "$exe" ] ; then
+-            exe=`find "$parentdir/wine/lib/" -iname "$1.so"`
++            exe=`find "$parentdir/wine/lib/" -follow -iname "$1.so"`
+             if [ ! -f "$exe" ] ; then
+-              exe=`find "$parentdir/wine/lib/" -iname "$1.exe.so"`
++              exe=`find "$parentdir/wine/lib/" -follow -iname "$1.exe.so"`
+             fi
+           fi
+         fi

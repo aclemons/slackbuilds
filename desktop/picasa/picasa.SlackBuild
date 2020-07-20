@@ -3,7 +3,7 @@
 # Slackware build script of picasa (binary repackaging)
 
 # Copyright 2006-2011  Robby Workman, Northport, Alabama, USA
-# Copyright 2017 Andrew Clemons, Wellington, New Zealand
+# Copyright 2017,2020 Andrew Clemons, Wellington, New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -271,18 +271,35 @@ WINEPREFIX=$PKG/opt/google/picasa/3.0/wine/ $PKG/opt/google/picasa/3.0/wine/bin/
 (
   cd $PKG
   mkdir -p usr/lib/wine/
-  mv opt/google/picasa/3.0/wine/lib/wine/license.exe.so usr/lib/wine
+  mv opt/google/picasa/3.0/wine/lib/wine/license.exe.so usr/lib/wine/
+)
 
-  cd opt/google/picasa/3.0/wine
-  rm -rf bin
-  ln -s ../../../../../usr/bin
+(
+  cd $PKG/opt/google/picasa/3.0/wine/bin
+  find . -type f -printf '%f\n' | while read -r prog ; do
+    rm "$prog"
+    ln -s /usr/bin/"$prog" "$prog"
+  done
+)
 
-  rm -rf lib
-  ln -s ../../../../../usr/lib
-
-  cd share
+(
+  cd $PKG/opt/google/picasa/3.0/wine/lib
+  unlink libwine.so.1
+  rm libwine.so.1.0
+  ln -s /usr/lib/libwine.so.1 .
   rm -rf wine
-  ln -s ../../../../../../usr/share/wine
+  ln -s /usr/lib/wine .
+)
+
+(
+  cd $PKG/opt/google/picasa/3.0/wine/share
+  rm -rf wine
+  ln -s /usr/share/wine .
+)
+
+(
+  cd $PKG/opt/google/picasa/3.0/bin
+  patch -p0 $CWD/wrapper.diff
 )
 
 mkdir -p $PKG/install
