@@ -299,7 +299,7 @@ WINEPREFIX=$PKG/opt/google/picasa/3.0/wine/ $PKG/opt/google/picasa/3.0/wine/bin/
 
 (
   cd $PKG/opt/google/picasa/3.0/bin
-  patch -p0 $CWD/wrapper.diff
+  patch -p0 < $CWD/wrapper.diff
 )
 
 mkdir -p $PKG/install
