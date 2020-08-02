@@ -278,7 +278,7 @@ WINEPREFIX=$PKG/opt/google/picasa/3.0/wine/ $PKG/opt/google/picasa/3.0/wine/bin/
   cd $PKG/opt/google/picasa/3.0/wine/bin
   find . -type f -printf '%f\n' | while read -r prog ; do
     rm "$prog"
-    ln -s /usr/bin/"$prog" "$prog"
+    ln -s ../../../../../../usr/bin/"$prog" "$prog"
   done
 )
 
@@ -286,15 +286,15 @@ WINEPREFIX=$PKG/opt/google/picasa/3.0/wine/ $PKG/opt/google/picasa/3.0/wine/bin/
   cd $PKG/opt/google/picasa/3.0/wine/lib
   unlink libwine.so.1
   rm libwine.so.1.0
-  ln -s /usr/lib/libwine.so.1 .
+  ln -s ../../../../../../usr/lib/libwine.so.1 .
   rm -rf wine
-  ln -s /usr/lib/wine .
+  ln -s ../../../../../../usr/lib/wine .
 )
 
 (
   cd $PKG/opt/google/picasa/3.0/wine/share
   rm -rf wine
-  ln -s /usr/share/wine .
+  ln -s ../../../../../../usr/share/wine .
 )
 
 (
