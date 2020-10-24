@@ -1,7 +1,7 @@
 PRGNAM="mozilla-thunderbird-l10n-cak"
 VERSION="78.4.0"
 HOMEPAGE="http://www.mozilla.com/"
-DOWNLOAD="https://ftp.mozilla.org/pub/thunderbird/releases/78.4.0/linux-i686/xpi/cak.xpi"
+DOWNLOAD="https://ftp.mozilla.org/pub/thunderbird/releases/78.4.0/linux-x86_64/xpi/cak.xpi"
 MD5SUM="1653020782caa134949e1fe66f2cccaa"
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""

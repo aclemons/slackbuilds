@@ -1,7 +1,7 @@
 PRGNAM="mozilla-thunderbird-l10n-be"
 VERSION="78.4.0"
 HOMEPAGE="http://www.mozilla.com/"
-DOWNLOAD="https://ftp.mozilla.org/pub/thunderbird/releases/78.4.0/linux-i686/xpi/be.xpi"
+DOWNLOAD="https://ftp.mozilla.org/pub/thunderbird/releases/78.4.0/linux-x86_64/xpi/be.xpi"
 MD5SUM="e8d69bc9d91b3946f6c2e7c8ec6d3556"
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""

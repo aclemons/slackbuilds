@@ -1,7 +1,7 @@
 PRGNAM="mozilla-thunderbird-l10n-ga-IE"
 VERSION="78.4.0"
 HOMEPAGE="http://www.mozilla.com/"
-DOWNLOAD="https://ftp.mozilla.org/pub/thunderbird/releases/78.4.0/linux-i686/xpi/ga-IE.xpi"
+DOWNLOAD="https://ftp.mozilla.org/pub/thunderbird/releases/78.4.0/linux-x86_64/xpi/ga-IE.xpi"
 MD5SUM="5600a21f526fd1fafa56d054a3f0bc30"
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""
