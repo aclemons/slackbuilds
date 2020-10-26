@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=kde1-kdegames
-GITREV="${GITREV:-c4b13e658a840046bcd62687897bd8130f5227ea}"
+GITREV="${GITREV:-b2b0d3aefc92ed9150babfad7e30a0c0054dc250}"
 VERSION=${VERSION:-1.1.2.git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}

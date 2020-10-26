@@ -23,7 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=kde1-kdeutils
-GITREV="${GITREV:-0d9f27de23358da5c694b6706b7d0f3f50f5334f}"
+GITREV="${GITREV:-195b259a76809274ddb9fadc6193eb64e2887989}"
 VERSION=${VERSION:-1.1.2.git$(echo "$GITREV" | sed 's/^\(.\{7\}\).*$/\1/')}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
@@ -65,6 +65,7 @@ rm -rf $PRGNAM-$GITREV
 
 tar xvf $CWD/$PRGNAM-$GITREV.tar.gz
 cd $PRGNAM-$GITREV
+zcat "$CWD/compat.diff.gz" | patch -p1
 chown -R root:root .
 find -L . \
  \( -perm 777 -o -perm 775 -o -perm 750 -o -perm 711 -o -perm 555 \
