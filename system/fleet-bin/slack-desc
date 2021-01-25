@@ -12,7 +12,7 @@ fleet-bin: Fleet is the most widely used open-source osquery Fleet manager.
 fleet-bin: Deploying osquery with Fleet enables live queries, and effective
 fleet-bin: management of osquery infrastructure.
 fleet-bin:
-fleet-bin: https://github.com/kolide/fleet
+fleet-bin: https://github.com/fleetdm/fleet
 fleet-bin:
 fleet-bin:
 fleet-bin:
