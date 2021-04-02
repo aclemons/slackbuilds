@@ -2,7 +2,7 @@
 
 # Slackware build script for mozilla-thunderbird-l10n-he
 
-# Copyright 2016-2020 Andrew Clemons, Wellington, New Zealand
+# Copyright 2016-2021 Andrew Clemons, Wellington, New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -57,17 +57,13 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 
-install -Dm644 $CWD/$APPLANG.xpi $PKG/usr/lib$LIBDIRSUFFIX/thunderbird/extensions/langpack-$APPLANG@thunderbird.mozilla.org.xpi
+install -Dm644 $CWD/$APPLANG.xpi $PKG/usr/lib$LIBDIRSUFFIX/thunderbird/distribution/extensions/langpack-$APPLANG@thunderbird.mozilla.org.xpi
 
 # thanks to the archlinux maintainer
 mkdir -p $PKG/usr/lib$LIBDIRSUFFIX/thunderbird/defaults/preferences
 cat << EOF > $PKG/usr/lib$LIBDIRSUFFIX/thunderbird/defaults/preferences/lang.js.new
 // Use LANG environment variable to choose locale
 pref("intl.locale.requested", "");
-
-// Don't disable our bundled extensions in the application directory
-pref("extensions.autoDisableScopes", 11);
-pref("extensions.shownSelectionUI", true);
 EOF
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
