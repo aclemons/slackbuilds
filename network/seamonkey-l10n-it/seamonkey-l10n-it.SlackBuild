@@ -2,7 +2,7 @@
 
 # Slackware build script for seamonkey-l10n-it
 
-# Copyright 2016-2020 Andrew Clemons, Wellington, New Zealand
+# Copyright 2016-2021 Andrew Clemons, Wellington, New Zealand
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -56,17 +56,14 @@ set -e
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 
-install -Dm644 $CWD/seamonkey-$VERSION.$APPLANG.langpack.xpi $PKG/usr/lib$LIBDIRSUFFIX/seamonkey-$VERSION/extensions/langpack-$APPLANG@seamonkey.mozilla.org.xpi
+install -Dm644 $CWD/seamonkey-$VERSION.$APPLANG.langpack.xpi $PKG/usr/lib$LIBDIRSUFFIX/seamonkey/extensions/langpack-$APPLANG@seamonkey.mozilla.org.xpi
 
 # thanks to the archlinux maintainer
-mkdir -p $PKG/usr/lib$LIBDIRSUFFIX/seamonkey-$VERSION/defaults/preferences
-cat << EOF > $PKG/usr/lib$LIBDIRSUFFIX/seamonkey-$VERSION/defaults/preferences/lang.js.new
+mkdir -p $PKG/usr/lib$LIBDIRSUFFIX/seamonkey/defaults/preferences
+cat << EOF > $PKG/usr/lib$LIBDIRSUFFIX/seamonkey/defaults/preferences/lang.js.new
 // Use LANG environment variable to choose locale
 pref("intl.locale.matchOS", true);
-
-// Don't disable our bundled extensions in the application directory
-pref("extensions.autoDisableScopes", 11);
-pref("extensions.shownSelectionUI", true);
+pref("extensions.autoDisableScopes", 3);
 EOF
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
