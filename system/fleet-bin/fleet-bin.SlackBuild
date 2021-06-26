@@ -24,7 +24,7 @@
 
 PRGNAM=fleet-bin
 SRCNAM=${PRGNAM%-bin}
-VERSION=${VERSION:-3.9.0}
+VERSION=${VERSION:-3.13.0}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
