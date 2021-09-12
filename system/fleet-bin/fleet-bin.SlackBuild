@@ -23,8 +23,7 @@
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 PRGNAM=fleet-bin
-SRCNAM=${PRGNAM%-bin}
-VERSION=${VERSION:-3.13.0}
+VERSION=${VERSION:-4.2.4}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
@@ -62,7 +61,8 @@ mkdir -p $TMP $PKG $OUTPUT
 cd $PKG
 
 if [ "$ARCH" = "x86_64" ]; then
-  unzip -q $CWD/$SRCNAM.zip
+  tar -xf $CWD/fleetctl_v"$VERSION"_linux.tar.gz
+  tar -xf $CWD/fleet_v"$VERSION"_linux.tar.gz
 else
   printf "$ARCH is not supported...\n"
   exit 1
@@ -75,12 +75,24 @@ find -L . \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
 
-install -D -p -m 755 linux/fleet $PKG/usr/bin/fleet
-install -D -p -m 755 linux/fleetctl $PKG/usr/bin/fleetctl
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION/fleetctl
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION/fleet
 
-rm -rf darwin linux windows
+(
+  cd fleetctl_v"$VERSION"_linux/
+  install -D -p -m 755 fleetctl $PKG/usr/bin/fleetctl
+  mv CHANGELOG.md LICENSE README.md $PKG/usr/doc/$PRGNAM-$VERSION/fleetctl
+)
 
-mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+(
+  cd fleet_v"$VERSION"_linux/
+  install -D -p -m 755 fleet $PKG/usr/bin/fleet
+  mv CHANGELOG.md LICENSE README.md $PKG/usr/doc/$PRGNAM-$VERSION/fleet
+)
+
+rm -rf fleetctl_v"$VERSION"_linux/
+rm -rf fleet_v"$VERSION"_linux/
+
 cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
 
 mkdir -p $PKG/install
