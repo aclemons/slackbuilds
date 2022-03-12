@@ -27,7 +27,7 @@ BUNDLE_PRGNAM=iscan-gt-x770-bundle
 VERSION=${VERSION:-2.1.3_1}
 SRCVERSION="$(echo "$VERSION" | tr _ -)"
 BUNDLE_VERSION=${BUNDLE_VERSION:-2.30.4}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_acl}
 
 if [ -z "$ARCH" ]; then
