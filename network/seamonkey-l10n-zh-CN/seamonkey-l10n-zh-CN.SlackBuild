@@ -24,7 +24,7 @@
 
 PRGNAM=seamonkey-l10n-zh-CN
 APPLANG="$(echo "$PRGNAM" | sed "s/^$(echo "$PRGNAM" | cut -d- -f-2)-//")"
-VERSION=${VERSION:-2.53.11.1}
+VERSION=${VERSION:-2.53.12}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 
