@@ -25,8 +25,8 @@
 cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=rtw88
-VERSION=${VERSION:-gita709929}
-GITREV=${GITREV:-a709929243d8ab1369e7dcfe9aca7db9dd022735}
+VERSION=${VERSION:-gitdbcc43c}
+GITREV=${GITREV:-dbcc43c31a4576f90e1e468d3a85c2dfdb25ec42}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 PKGTYPE=${PKGTYPE:-tgz}
