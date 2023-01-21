@@ -26,7 +26,7 @@ cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=seamonkey-l10n-pl
 APPLANG="$(echo "$PRGNAM" | sed "s/^$(echo "$PRGNAM" | cut -d- -f-2)-//")"
-VERSION=${VERSION:-2.53.14}
+VERSION=${VERSION:-2.53.15}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
 PKGTYPE=${PKGTYPE:-tgz}
