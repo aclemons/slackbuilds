@@ -3,6 +3,14 @@
     "extends": [
         "config:base"
     ],
+    "packageRules": [
+        {
+            "matchPackageNames": [
+                "awslabs/dynamodb-shell"
+            ],
+            "extractVersion": "^v(?<version>.*)$"
+        }
+    ],
     "regexManagers": [
         {
             "fileMatch": [
@@ -15,6 +23,19 @@
                 "aws/aws-sdk-cpp/archive/.*?/aws-sdk-cpp-(?<currentValue>.*?)\\.tar\\.gz"
             ],
             "depNameTemplate": "aws/aws-sdk-cpp",
+            "datasourceTemplate": "github-tags"
+        },
+        {
+            "fileMatch": [
+                "^development/ddbsh/ddbsh\\.SlackBuild$",
+                "^development/ddbsh/ddbsh\\.info$"
+            ],
+            "matchStrings": [
+                "VERSION=\\${VERSION:-(?<currentValue>.*?)}",
+                "VERSION=\"(?<currentValue>.*?)\"",
+                "awslabs/dynamodb-shell/archive/refs/tags/v(?<currentValue>.*?)\\.tar\\.gz"
+            ],
+            "depNameTemplate": "awslabs/dynamodb-shell",
             "datasourceTemplate": "github-tags"
         }
     ]
