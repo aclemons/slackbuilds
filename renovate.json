@@ -1,6 +1,21 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:base"
-  ]
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "config:base"
+    ],
+    "regexManagers": [
+        {
+            "fileMatch": [
+                "^development/ddbsh/ddbsh\\.SlackBuild$",
+                "^development/ddbsh/ddbsh\\.info$"
+            ],
+            "matchStrings": [
+                "AWS_SDK_VERSION=\\${AWS_SDK_VERSION:-(?<currentValue>.*?)}",
+                "aws/aws-sdk-cpp/archive/(?<currentValue>.*?)/aws-sdk-cpp-.*?\\.tar\\.gz",
+                "aws/aws-sdk-cpp/archive/.*?/aws-sdk-cpp-(?<currentValue>.*?)\\.tar\\.gz"
+            ],
+            "depNameTemplate": "aws/aws-sdk-cpp",
+            "datasourceTemplate": "github-tags"
+        }
+    ]
 }
