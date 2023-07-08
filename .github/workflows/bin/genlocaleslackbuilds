@@ -1,0 +1,274 @@
+#!/bin/sh
+
+# Copyright 2016-2022 Andrew Clemons, Wellington New Zealand
+# Copyright 2022-2023 Andrew Clemons, Tokyo Japan
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+#  THIS SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND ANY EXPRESS OR IMPLIED
+#  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+#  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO
+#  EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+#  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+#  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+#  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+#  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+#  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+#  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+# Generate slackbuild scripts for supported locales in:
+# thunderbird, firefox, and seamonkey
+
+set -e
+
+DESTDIR="$1"
+
+if [ "$DESTDIR" = "" ] ; then
+  1>&2 printf "Usage: \n\t%s <destdir>\n" "$0"
+  exit 1
+fi
+
+mkdir -p "$DESTDIR"
+
+case $DESTDIR in
+    /*) ;;
+     *) DESTDIR="$(pwd)/$DESTDIR" ;;
+esac
+
+WORKDIR="$(mktemp -d)"
+
+trap 'rm -rf "$WORKDIR"' INT TERM HUP QUIT EXIT
+
+cd "$WORKDIR"
+
+# renovate: datasource=repology depName=slackware_15_0/mozilla-firefox
+FFVERSION=102.12.0esr
+# renovate: datasource=repology depName=slackware_15_0/mozilla-thunderbird
+TBVERSION=102.12.0
+# renovate: datasource=repology depName=slackware_15_0/seamonkey
+SMVERSION=2.53.14
+
+for key_value in "mozilla-firefox:$FFVERSION" "mozilla-thunderbird:$TBVERSION" "seamonkey:$SMVERSION" ; do
+  app="$(echo "$key_value" | cut -d: -f1)"
+  version="$(echo "$key_value" | cut -d: -f2)"
+
+  if [ "$app" = "seamonkey" ] ; then
+    short_app="$app"
+  else
+    short_app="$(echo "$app" | cut -d- -f2)"
+  fi
+
+  rm -rf xpi
+
+  extensions_subdir=""
+  prefs_subdir=""
+  if [ "$short_app" = "firefox" ] ; then
+    extensions_subdir="/distribution"
+    prefs_subdir="/browser"
+  elif [ "$short_app" = "thunderbird" ] ; then
+    extensions_subdir="/distribution"
+  fi
+
+  # assumes we trust our https connection to ftp.mozilla.org
+  if [ "$short_app" = "seamonkey" ] ; then
+    lftp -c "open https://ftp.mozilla.org/pub/$short_app/releases/$version/; mirror langpack/"
+    mv langpack/ xpi
+  elif [ "$short_app" = "thunderbird" ] ; then
+    lftp -c "open https://ftp.mozilla.org/pub/$short_app/releases/$version/linux-x86_64/; mirror xpi/"
+  else
+    lftp -c "open https://ftp.mozilla.org/pub/$short_app/releases/$version/linux-i686/; mirror xpi/"
+  fi
+
+  find xpi -type f -name '*.xpi' | grep -v "en-US" | sed '/-mac.langpack.xpi/d' | while read -r locale_file ; do
+    hash="$(md5sum "$locale_file" | cut -d' ' -f1)"
+    locale="$(basename "$locale_file" | sed 's/\.xpi//')"
+
+    if [ "$app" = "seamonkey" ] ; then
+      locale="$(echo "$locale" | sed 's/\.langpack//' | rev | cut -d. -f1 | rev)"
+      cutcount=2
+    else
+      cutcount=3
+    fi
+
+    rm -rf "$DESTDIR/$app-l10n-$locale"
+    mkdir -p "$DESTDIR/$app-l10n-$locale"
+
+    cat << EOF > "$DESTDIR/$app-l10n-$locale/README"
+$locale localisation files for $app
+EOF
+
+    cat << EOF | sed "s/^%/$(echo "$app-l10n-$locale" | tr '[:digit:]' ' ' | tr '[:alpha:]' ' ' | tr - ' ')/" > "$DESTDIR/$app-l10n-$locale/slack-desc"
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.
+# Line up the first '|' above the ':' following the base package name, and
+# the '|' on the right side marks the last column you can put a character in.
+# You must make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+%|-----handy-ruler------------------------------------------------------|
+$app-l10n-$locale: $app-l10n-$locale ($locale localisation for $short_app)
+$app-l10n-$locale:
+$app-l10n-$locale: $locale language pack for $app
+$app-l10n-$locale:
+$app-l10n-$locale:
+$app-l10n-$locale:
+$app-l10n-$locale:
+$app-l10n-$locale:
+$app-l10n-$locale:
+$app-l10n-$locale: http://mozilla.org/
+$app-l10n-$locale:
+EOF
+
+    cat << EOF > "$DESTDIR/$app-l10n-$locale/$app-l10n-$locale.info"
+PRGNAM="$app-l10n-$locale"
+VERSION="$version"
+HOMEPAGE="http://www.mozilla.com/"
+DOWNLOAD="https://ftp.mozilla.org/pub/$short_app/releases/$version/linux-i686/xpi/$locale.xpi"
+MD5SUM="$hash"
+DOWNLOAD_x86_64=""
+MD5SUM_x86_64=""
+REQUIRES=""
+MAINTAINER="Andrew Clemons"
+EMAIL="andrew.clemons@gmail.com"
+EOF
+
+    if [ "$app" = "seamonkey" ] ; then
+      sed -i "s,DOWNLOAD=.*,DOWNLOAD=\"https://ftp.mozilla.org/pub/$short_app/releases/$version/langpack/seamonkey-$version.$locale.langpack.xpi\"," "$DESTDIR/$app-l10n-$locale/$app-l10n-$locale.info"
+    elif [ "$short_app" = "thunderbird" ] ; then
+      sed -i "s/i686/x86_64/" "$DESTDIR/$app-l10n-$locale/$app-l10n-$locale.info"
+    fi
+
+    cat << "OUTEREOF" | sed "s/%cutcount%/$cutcount/" | sed "s,%prefs_subdir%,$prefs_subdir,g" | sed "s,%extensions_subdir%,$extensions_subdir,g" | sed "s/%app%/$app/g" | sed "s/%short_app%/$short_app/g" | sed "s/%VERSION%/$version/g" | sed "s/en-GB/$locale/g" > "$DESTDIR/$app-l10n-$locale/$app-l10n-$locale.SlackBuild"
+#!/bin/bash
+
+# Slackware build script for %app%-l10n-en-GB
+
+# Copyright 2016-2022 Andrew Clemons, Wellington, New Zealand
+# Copyright 2022-2023 Andrew Clemons, Tokyo, Japan
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+#  THIS SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND ANY EXPRESS OR IMPLIED
+#  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+#  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO
+#  EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+#  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+#  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+#  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+#  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+#  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+#  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+cd $(dirname $0) ; CWD=$(pwd)
+
+PRGNAM=%app%-l10n-en-GB
+APPLANG="$(echo "$PRGNAM" | sed "s/^$(echo "$PRGNAM" | cut -d- -f-%cutcount%)-//")"
+VERSION=${VERSION:-%VERSION%}
+BASEVERSION="$(echo "$VERSION" | sed 's/esr//')"
+BUILD=${BUILD:-1}
+TAG=${TAG:-_acl}
+PKGTYPE=${PKGTYPE:-tgz}
+
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) ARCH=i586 ;;
+    arm*) ARCH=arm ;;
+       *) ARCH=$( uname -m ) ;;
+  esac
+fi
+
+if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
+  echo "$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE"
+  exit 0
+fi
+
+TMP=${TMP:-/tmp/acl}
+PKG=$TMP/package-$PRGNAM
+OUTPUT=${OUTPUT:-/tmp}
+
+if [ "$ARCH" = "i586" ]; then
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "i686" ]; then
+  LIBDIRSUFFIX=""
+elif [ "$ARCH" = "x86_64" ]; then
+  LIBDIRSUFFIX="64"
+elif [ "$ARCH" = "aarch64" ]; then
+  LIBDIRSUFFIX="64"
+else
+  LIBDIRSUFFIX=""
+fi
+
+set -e
+
+rm -rf $PKG
+mkdir -p $TMP $PKG $OUTPUT
+
+install -Dm644 $CWD/$APPLANG.xpi $PKG/usr/lib$LIBDIRSUFFIX/%short_app%%extensions_subdir%/extensions/langpack-$APPLANG@%short_app%.mozilla.org.xpi
+
+# thanks to the archlinux maintainer
+mkdir -p $PKG/usr/lib$LIBDIRSUFFIX/%short_app%%prefs_subdir%/defaults/preferences
+cat << EOF > $PKG/usr/lib$LIBDIRSUFFIX/%short_app%%prefs_subdir%/defaults/preferences/lang.js.new
+// Use LANG environment variable to choose locale
+pref("intl.locale.requested", "");
+EOF
+
+mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
+cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+cat $CWD/doinst.sh | sed -e "s/%LIBDIRSUFFIX%/$LIBDIRSUFFIX/" > $PKG/install/doinst.sh
+
+cd $PKG
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE
+OUTEREOF
+
+    cat << EOF > "$DESTDIR/$app-l10n-$locale/doinst.sh"
+config() {
+  NEW="\$1"
+  OLD="\$(dirname \$NEW)/\$(basename \$NEW .new)"
+  # If there's no config file by that name, mv it over:
+  if [ ! -r \$OLD ]; then
+    mv \$NEW \$OLD
+  elif [ "\$(cat \$OLD | md5sum)" = "\$(cat \$NEW | md5sum)" ]; then
+    # toss the redundant copy
+    rm \$NEW
+  fi
+  # Otherwise, we leave the .new copy for the admin to consider...
+}
+
+config usr/lib%LIBDIRSUFFIX%/$short_app-%BASEVERSION%$prefs_subdir/defaults/preferences/lang.js.new
+EOF
+
+    if [ "$app" = "seamonkey" ] ; then
+      sed -i -e 's/BASEVERSION/VERSION/g' "$DESTDIR/$app-l10n-$locale/doinst.sh"
+      # shellcheck disable=SC2016
+      sed -i -e 's/%VERSION%-$VERSION/%VERSION%/' "$DESTDIR/$app-l10n-$locale/doinst.sh"
+      sed -i -e '/BASEVERSION/d' "$DESTDIR/$app-l10n-$locale/$app-l10n-$locale.SlackBuild"
+      # shellcheck disable=SC2016
+      sed -i -e 's,$CWD/$APPLANG.xpi,$CWD/seamonkey-$VERSION.$APPLANG.langpack.xpi,' "$DESTDIR/$app-l10n-$locale/$app-l10n-$locale.SlackBuild"
+      # shellcheck disable=SC2016
+      sed -i -e 's,cat $CWD/doinst.sh.*,cat $CWD/doinst.sh | sed -e "s/%LIBDIRSUFFIX%/$LIBDIRSUFFIX/" -e "s/%VERSION%/$VERSION/" > $PKG/install/doinst.sh,' "$DESTDIR/$app-l10n-$locale/$app-l10n-$locale.SlackBuild"
+
+      sed -i -e 's/intl.locale.requested", ""/intl.locale.matchOS", true/' "$DESTDIR/$app-l10n-$locale/$app-l10n-$locale.SlackBuild"
+      sed -i -e '/intl.locale.matchOS/a pref("extensions.autoDisableScopes", 3);' "$DESTDIR/$app-l10n-$locale/$app-l10n-$locale.SlackBuild"
+
+      sed -i -e 's/-%VERSION%//' "$DESTDIR/$app-l10n-$locale/doinst.sh"
+    fi
+
+    sed -i -e 's/-%BASEVERSION%//' "$DESTDIR/$app-l10n-$locale/doinst.sh"
+
+    chmod 0644 "$DESTDIR/$app-l10n-$locale/doinst.sh"
+    chmod 0644 "$DESTDIR/$app-l10n-$locale/$app-l10n-$locale.SlackBuild"
+  done
+done

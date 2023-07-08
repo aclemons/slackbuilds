@@ -37,6 +37,15 @@
             ],
             "depNameTemplate": "awslabs/dynamodb-shell",
             "datasourceTemplate": "github-tags"
+        },
+        {
+            "fileMatch": [
+                "^.github/workflows/bin/genlocaleslackbuilds"
+            ],
+            "matchStrings": [
+                "datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s..VERSION=(?<currentValue>.*)\\s"
+            ],
+            "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
         }
     ]
 }
