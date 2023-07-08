@@ -49,7 +49,7 @@ cd "$WORKDIR"
 # renovate: datasource=repology depName=slackware_15_0/mozilla-firefox
 FFVERSION=102.12.0esr
 # renovate: datasource=repology depName=slackware_15_0/mozilla-thunderbird
-TBVERSION=102.12.0
+TBVERSION=102.13.0
 # renovate: datasource=repology depName=slackware_15_0/seamonkey
 SMVERSION=2.53.14
 
