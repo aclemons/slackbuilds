@@ -44,7 +44,7 @@
                 "^.github/workflows/bin/genlocaleslackbuilds"
             ],
             "matchStrings": [
-                "datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s..VERSION=(?<currentValue>.*)(esr)?\\s"
+                "datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s..VERSION=(?<currentValue>.*)?\\s"
             ],
             "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
         },
