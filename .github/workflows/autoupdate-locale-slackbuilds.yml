@@ -1,0 +1,75 @@
+---
+name: Update locale slackbuilds
+"on":
+  push:
+    branches:
+      - master
+  workflow_dispatch: ~
+
+concurrency: locale-pr-generator
+
+jobs:
+  changes:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+    outputs:
+      locales: ${{ steps.filter.outputs.locales }}
+    steps:
+      - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+
+      - uses: dorny/paths-filter@4512585405083f25c027a35db413c2b3b9006d50 # v2.11.1
+        id: filter
+        with:
+          filters: |
+            openapi:
+              - '.github/workflows/bin/genlocaleslackbuilds'
+
+  update-locale-slackbuilds:
+    timeout-minutes: 10
+    name: 'Update locale slackbuilds.'
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+      pull-requests: write
+    needs: [changes]
+    if: ${{ needs.changes.outputs.locales == 'true' || github.event_name == 'workflow_dispatch' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+
+      - name: Set environment variables
+        run: |
+          grep ^..VERSION= .github/workflows/bin/genlocaleslackbuilds >> "$GITHUB_ENV"
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get install lftp
+
+      - name: Generate updates
+        run: |
+          ./.github/workflows/bin/genlocaleslackbuilds network
+
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+
+          git add network/mozilla-firefox-* || true
+          git commit -m 'network/mozilla-firefox-l10n-*: Updated for version ${{ env.FFVERSION }}.' || true
+
+          git add network/mozilla-thunderbird-* || true
+          git commit -m 'network/mozilla-thunderbird-l10n-*: Updated for version ${{ env.TBVERSION }}.' || true
+
+          git add network/seamonkey-* || true
+          git commit -m 'network/seamonkey-l10n-*: Updated for version ${{ env.SMVERSION }}.' || true
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38 # v5.0.2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          title: '[auto] Update locale slackbuilds based on latest ChangeLog.txt.'
+          branch: autoupdate-locale-slackbuilds
+          body: |
+            Locale updates:
+              - Firefox: ${{ env.FFVERSION }}
+              - Thunderbird: ${{ env.TBVERSION }}
+              - Seamonkey: ${{ env.SMVERSION }}
