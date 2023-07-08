@@ -41,7 +41,7 @@
         },
         {
             "fileMatch": [
-                "^.github/workflows/bin/genlocaleslackbuilds"
+                "^.github/scripts/genlocaleslackbuilds"
             ],
             "matchStrings": [
                 "datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s..VERSION=(?<currentValue>.*)?\\s"

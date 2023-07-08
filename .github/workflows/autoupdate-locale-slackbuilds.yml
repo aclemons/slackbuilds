@@ -23,7 +23,7 @@ jobs:
         with:
           filters: |
             locales:
-              - '.github/workflows/bin/genlocaleslackbuilds'
+              - '.github/scripts/genlocaleslackbuilds'
 
   update-locale-slackbuilds:
     timeout-minutes: 10
@@ -40,7 +40,7 @@ jobs:
 
       - name: Set environment variables
         run: |
-          grep ^..VERSION= .github/workflows/bin/genlocaleslackbuilds >> "$GITHUB_ENV"
+          grep ^..VERSION= .github/scripts/genlocaleslackbuilds >> "$GITHUB_ENV"
 
       - name: Install dependencies
         run: |
@@ -48,7 +48,7 @@ jobs:
 
       - name: Generate updates
         run: |
-          ./.github/workflows/bin/genlocaleslackbuilds network
+          ./.github/scripts/genlocaleslackbuilds network
 
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'
