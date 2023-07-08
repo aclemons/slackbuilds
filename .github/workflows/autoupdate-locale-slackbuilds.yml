@@ -22,7 +22,7 @@ jobs:
         id: filter
         with:
           filters: |
-            openapi:
+            locales:
               - '.github/workflows/bin/genlocaleslackbuilds'
 
   update-locale-slackbuilds:
