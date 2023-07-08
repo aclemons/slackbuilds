@@ -6,7 +6,7 @@
 # customary to leave one space after the ':' except on otherwise blank lines.
 
                        |-----handy-ruler------------------------------------------------------|
-mozilla-firefox-l10n-te: mozilla-firefox-l10n-te (te localisation files for firefox)
+mozilla-firefox-l10n-te: mozilla-firefox-l10n-te (te localisation for firefox)
 mozilla-firefox-l10n-te:
 mozilla-firefox-l10n-te: te language pack for mozilla-firefox
 mozilla-firefox-l10n-te:

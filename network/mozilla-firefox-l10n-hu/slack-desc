@@ -6,7 +6,7 @@
 # customary to leave one space after the ':' except on otherwise blank lines.
 
                        |-----handy-ruler------------------------------------------------------|
-mozilla-firefox-l10n-hu: mozilla-firefox-l10n-hu (hu localisation files for firefox)
+mozilla-firefox-l10n-hu: mozilla-firefox-l10n-hu (hu localisation for firefox)
 mozilla-firefox-l10n-hu:
 mozilla-firefox-l10n-hu: hu language pack for mozilla-firefox
 mozilla-firefox-l10n-hu:

@@ -6,7 +6,7 @@
 # customary to leave one space after the ':' except on otherwise blank lines.
 
                        |-----handy-ruler------------------------------------------------------|
-mozilla-firefox-l10n-kn: mozilla-firefox-l10n-kn (kn localisation files for firefox)
+mozilla-firefox-l10n-kn: mozilla-firefox-l10n-kn (kn localisation for firefox)
 mozilla-firefox-l10n-kn:
 mozilla-firefox-l10n-kn: kn language pack for mozilla-firefox
 mozilla-firefox-l10n-kn:

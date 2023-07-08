@@ -6,7 +6,7 @@
 # customary to leave one space after the ':' except on otherwise blank lines.
 
                        |-----handy-ruler------------------------------------------------------|
-mozilla-firefox-l10n-az: mozilla-firefox-l10n-az (az localisation files for firefox)
+mozilla-firefox-l10n-az: mozilla-firefox-l10n-az (az localisation for firefox)
 mozilla-firefox-l10n-az:
 mozilla-firefox-l10n-az: az language pack for mozilla-firefox
 mozilla-firefox-l10n-az:

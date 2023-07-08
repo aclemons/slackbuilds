@@ -6,7 +6,7 @@
 # customary to leave one space after the ':' except on otherwise blank lines.
 
                         |-----handy-ruler------------------------------------------------------|
-mozilla-firefox-l10n-son: mozilla-firefox-l10n-son (son localisation files for firefox)
+mozilla-firefox-l10n-son: mozilla-firefox-l10n-son (son localisation for firefox)
 mozilla-firefox-l10n-son:
 mozilla-firefox-l10n-son: son language pack for mozilla-firefox
 mozilla-firefox-l10n-son:

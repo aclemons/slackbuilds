@@ -6,7 +6,7 @@
 # customary to leave one space after the ':' except on otherwise blank lines.
 
                         |-----handy-ruler------------------------------------------------------|
-mozilla-firefox-l10n-cak: mozilla-firefox-l10n-cak (cak localisation files for firefox)
+mozilla-firefox-l10n-cak: mozilla-firefox-l10n-cak (cak localisation for firefox)
 mozilla-firefox-l10n-cak:
 mozilla-firefox-l10n-cak: cak language pack for mozilla-firefox
 mozilla-firefox-l10n-cak:

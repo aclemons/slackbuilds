@@ -6,7 +6,7 @@
 # customary to leave one space after the ':' except on otherwise blank lines.
 
                         |-----handy-ruler------------------------------------------------------|
-mozilla-firefox-l10n-sco: mozilla-firefox-l10n-sco (sco localisation files for firefox)
+mozilla-firefox-l10n-sco: mozilla-firefox-l10n-sco (sco localisation for firefox)
 mozilla-firefox-l10n-sco:
 mozilla-firefox-l10n-sco: sco language pack for mozilla-firefox
 mozilla-firefox-l10n-sco:

@@ -6,7 +6,7 @@
 # customary to leave one space after the ':' except on otherwise blank lines.
 
                        |-----handy-ruler------------------------------------------------------|
-mozilla-firefox-l10n-eo: mozilla-firefox-l10n-eo (eo localisation files for firefox)
+mozilla-firefox-l10n-eo: mozilla-firefox-l10n-eo (eo localisation for firefox)
 mozilla-firefox-l10n-eo:
 mozilla-firefox-l10n-eo: eo language pack for mozilla-firefox
 mozilla-firefox-l10n-eo:
