@@ -6,7 +6,7 @@
 # customary to leave one space after the ':' except on otherwise blank lines.
 
                             |-----handy-ruler------------------------------------------------------|
-mozilla-thunderbird-l10n-cak: mozilla-thunderbird-l10n-cak (cak localisation files for thunderbird)
+mozilla-thunderbird-l10n-cak: mozilla-thunderbird-l10n-cak (cak localisation for thunderbird)
 mozilla-thunderbird-l10n-cak:
 mozilla-thunderbird-l10n-cak: cak language pack for mozilla-thunderbird
 mozilla-thunderbird-l10n-cak:

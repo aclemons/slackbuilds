@@ -6,7 +6,7 @@
 # customary to leave one space after the ':' except on otherwise blank lines.
 
                            |-----handy-ruler------------------------------------------------------|
-mozilla-thunderbird-l10n-rm: mozilla-thunderbird-l10n-rm (rm localisation files for thunderbird)
+mozilla-thunderbird-l10n-rm: mozilla-thunderbird-l10n-rm (rm localisation for thunderbird)
 mozilla-thunderbird-l10n-rm:
 mozilla-thunderbird-l10n-rm: rm language pack for mozilla-thunderbird
 mozilla-thunderbird-l10n-rm:

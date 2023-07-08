@@ -3,6 +3,7 @@
 # Slackware build script for mozilla-thunderbird-l10n-lt
 
 # Copyright 2016-2022 Andrew Clemons, Wellington, New Zealand
+# Copyright 2022-2023 Andrew Clemons, Tokyo, Japan
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -50,13 +51,15 @@ PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
 if [ "$ARCH" = "i586" ]; then
-    LIBDIRSUFFIX=""
+  LIBDIRSUFFIX=""
 elif [ "$ARCH" = "i686" ]; then
-    LIBDIRSUFFIX=""
+  LIBDIRSUFFIX=""
 elif [ "$ARCH" = "x86_64" ]; then
-    LIBDIRSUFFIX="64"
+  LIBDIRSUFFIX="64"
+elif [ "$ARCH" = "aarch64" ]; then
+  LIBDIRSUFFIX="64"
 else
-    LIBDIRSUFFIX=""
+  LIBDIRSUFFIX=""
 fi
 
 set -e
