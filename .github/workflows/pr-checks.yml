@@ -1,0 +1,38 @@
+---
+name: Pull request checks
+"on": [pull_request]
+
+concurrency:
+  group: pr-check-${{ github.event.number }}
+  cancel-in-progress: true
+
+jobs:
+  update-dep:
+    permissions:
+      contents: write
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Update the md5sum of aws/aws-sdk-cpp.
+        run: |
+          CWD="$(pwd)"
+
+          (
+            cd development/ddbsh/
+            . ddbsh.info
+            wget $DOWNLOAD
+
+            MD5SUM="$(md5sum aws-sdk-cpp*tar* | cut -f1 -d' ')"
+            rm -- *tar*
+
+            sed -i "/MD5SUM/,/DOWNLOAD_x86_64/s/[[:space:]][a-z0-9][a-z0-9]*\"/ $MD5SUM\"/" ddbsh.info
+          )
+
+      - name: Push back updated md5sum.
+        uses: stefanzweifel/git-auto-commit-action@3ea6ae190baf489ba007f7c92608f33ce20ef04a # v4.16.0
+        with:
+          commit_message: Update aws-sdk-cpp MD5SUM.
