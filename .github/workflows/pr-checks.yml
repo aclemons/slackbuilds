@@ -35,7 +35,7 @@ jobs:
           if [[ $(git status --porcelain) ]]; then
             BUILD="$(grep ^BUILD= ddbsh.SlackBuild | cut -d= -f2 | cut -d- -f2 | sed 's/}$//')"
             BUILD=$((BUILD + 1))
-            sed -i "s/^BUILD.*/BUILD=\${BUILD:-$BUILD}/" ddbsh.SlackBuild
+            sed -i "s/^BUILD.*/BUILD=\${BUILD:-$BUILD}/" development/ddbsh/ddbsh.SlackBuild
           fi
 
       - name: Push back updated md5sum.
