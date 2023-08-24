@@ -25,7 +25,7 @@
 
 PRGNAM=picasa
 VERSION=${VERSION:-3.9.141}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_acl}
 
 case "$( uname -m )" in
@@ -286,11 +286,7 @@ WINEPREFIX=$PKG/opt/google/picasa/3.0/wine/ $PKG/opt/google/picasa/3.0/wine/bin/
   cd $PKG/opt/google/picasa/3.0/wine/lib
   unlink libwine.so.1
   rm libwine.so.1.0
-  if [ "$ARCH" = "x86_64" ]; then
-    ln -s ../../../../../../usr/lib/wine/x86_64-unix/libwine.so.1.0 .
-  else
-    ln -s ../../../../../../usr/lib/wine/i386-unix/libwine.so.1.0 .
-  fi
+  ln -s ../../../../../../usr/lib/wine/i386-unix/libwine.so.1.0 .
   rm -rf wine
   ln -s ../../../../../../usr/lib/wine .
 )
