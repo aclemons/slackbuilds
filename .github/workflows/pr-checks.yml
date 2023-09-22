@@ -1,6 +1,6 @@
 ---
 name: Pull request checks
-"on": [pull_request]
+on: [pull_request]
 
 concurrency:
   group: pr-check-${{ github.event.number }}

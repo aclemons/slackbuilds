@@ -1,10 +1,10 @@
 ---
 name: Update locale slackbuilds
-"on":
+on:
   push:
     branches:
       - master
-  workflow_dispatch: ~
+  workflow_dispatch:
 
 concurrency: locale-pr-generator
 
@@ -29,7 +29,7 @@ jobs:
 
   update-locale-slackbuilds:
     timeout-minutes: 10
-    name: 'Update locale slackbuilds.'
+    name: Update locale slackbuilds.
     runs-on: ubuntu-22.04
     permissions:
       contents: write
