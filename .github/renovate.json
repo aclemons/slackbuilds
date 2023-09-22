@@ -24,6 +24,7 @@
   "rangeStrategy": "pin",
   "regexManagers": [
     {
+      "customType": "regex",
       "datasourceTemplate": "github-tags",
       "depNameTemplate": "aws/aws-sdk-cpp",
       "fileMatch": [
@@ -37,6 +38,7 @@
       ]
     },
     {
+      "customType": "regex",
       "datasourceTemplate": "github-tags",
       "depNameTemplate": "awslabs/dynamodb-shell",
       "fileMatch": [
@@ -50,6 +52,7 @@
       ]
     },
     {
+      "customType": "regex",
       "fileMatch": [
         "^.github/scripts/genlocaleslackbuilds"
       ],
