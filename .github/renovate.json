@@ -7,8 +7,7 @@
     ":separateMultipleMajorReleases",
     ":separatePatchReleases",
     "regexManagers:dockerfileVersions",
-    "regexManagers:githubActionsVersions",
-    "schedule:earlyMondays"
+    "regexManagers:githubActionsVersions"
   ],
   "ignoreTests": false,
   "packageRules": [
@@ -17,10 +16,6 @@
       "matchPackageNames": [
         "awslabs/dynamodb-shell"
       ]
-    },
-    {
-      "extractVersion": "^ubuntu(?<version>\\d\\d).*?$",
-      "matchDepNames": "ubuntu gha runner"
     }
   ],
   "pre-commit": {
