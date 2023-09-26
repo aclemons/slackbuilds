@@ -22,7 +22,7 @@
     "enabled": true
   },
   "rangeStrategy": "pin",
-  "regexManagers": [
+  "customManagers": [
     {
       "customType": "regex",
       "datasourceTemplate": "github-tags",
