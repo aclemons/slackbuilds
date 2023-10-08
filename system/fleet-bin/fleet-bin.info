@@ -1,12 +1,12 @@
 PRGNAM="fleet-bin"
-VERSION="4.34.1"
+VERSION="4.38.1"
 HOMEPAGE="https://github.com/fleetdm/fleet"
 DOWNLOAD="UNSUPPORTED"
 MD5SUM=""
-DOWNLOAD_x86_64="https://github.com/fleetdm/fleet/releases/download/fleet-v4.34.1/fleetctl_v4.34.1_linux.tar.gz \
-                 https://github.com/fleetdm/fleet/releases/download/fleet-v4.34.1/fleet_v4.34.1_linux.tar.gz"
-MD5SUM_x86_64="07f36cd7a5d8f7ee3d78beb0d6210e5f \
-               4b770da567da7ef78d088b1393a1f283"
+DOWNLOAD_x86_64="https://github.com/fleetdm/fleet/releases/download/fleet-v4.38.1/fleetctl_v4.38.1_linux.tar.gz \
+                 https://github.com/fleetdm/fleet/releases/download/fleet-v4.38.1/fleet_v4.38.1_linux.tar.gz"
+MD5SUM_x86_64="434b3240d66f47116e75cb3bca6e691b \
+               915f43de3d12fb50d6648a479d73c2b8"
 REQUIRES=""
 MAINTAINER="Andrew Clemons"
 EMAIL="andrew.clemons@gmail.com"
