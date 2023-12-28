@@ -1,6 +1,5 @@
-system/isight-firmware/AppleUSBVideoSupport
-system/jenkins/jenkins.war
-
 *.tar.gz
 *.tar.xz
 *.rpm
+*.deb
+*.exe
