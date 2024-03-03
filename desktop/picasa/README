@@ -13,3 +13,6 @@ work correctly, if at all; patches are welcome.
 Also note that while this should *build* a 64bit package, it requires 32bit
 compatibility libraries to actually be usable.  We don't support those those
 here, so caveat lector.
+
+This currently only works with wine < 9.0. If you can make it work with
+wine 9.0, patches are welcome.
