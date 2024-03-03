@@ -12,7 +12,7 @@
 # 1. Redistributions of this script must retain the above copyright
 #    notice, this list of conditions and the following disclaimer.
 #
-#  THIS SCRIPT IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
+#  THIS SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND ANY EXPRESS OR IMPLIED
 #  WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
 #  MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO
 #  EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
@@ -20,21 +20,30 @@
 #  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
 #  OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
 #  WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
-#  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SCRIPT, EVEN IF
+#  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 #  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=picasa
 VERSION=${VERSION:-3.9.141}
-BUILD=${BUILD:-2}
+BUILD=${BUILD:-3}
 TAG=${TAG:-_acl}
+PKGTYPE=${PKGTYPE:-tgz}
 
-case "$( uname -m )" in
-  i?86) ARCH=i386 ;;
-  arm*) ARCH=arm ;;
-     *) ARCH=$( uname -m ) ;;
-esac
+if [ -z "$ARCH" ]; then
+  case "$( uname -m )" in
+    i?86) ARCH=i586 ;;
+    arm*) ARCH=arm ;;
+       *) ARCH=$( uname -m ) ;;
+  esac
+fi
 
-CWD=$(pwd)
+if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
+  echo "$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE"
+  exit 0
+fi
+
 TMP=${TMP:-/tmp/acl}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
@@ -42,7 +51,7 @@ OUTPUT=${OUTPUT:-/tmp}
 if [ "$ARCH" = "x86_64" ]; then
   SRCARCH=amd64
   LIBDIRSUFFIX="64"
-elif [ "$ARCH" = "i386" ]; then
+elif [ "$ARCH" = "i586" ] || [ "$ARCH" = "i686" ]; then
   SRCARCH=i386
   LIBDIRSUFFIX=""
 else
@@ -54,7 +63,6 @@ set -e
 
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
-
 cd $PKG
 ar -x $CWD/picasa_3.0-current_${SRCARCH}.deb
 tar xvf data.tar.gz
@@ -302,9 +310,14 @@ WINEPREFIX=$PKG/opt/google/picasa/3.0/wine/ $PKG/opt/google/picasa/3.0/wine/bin/
   patch -p0 < $CWD/wrapper.diff
 )
 
+find $PKG/usr/lib -type f -name "*.so" -exec chmod +x {} \; 2> /dev/null || true
+if [ -n "$LIBDIRSUFFIX" ] ; then
+  find $PKG/usr/lib$LIBDIRSUFFIX -type f -name "*.so" -exec chmod +x {} \; 2> /dev/null || true
+fi
+
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
 cat $CWD/doinst.sh > $PKG/install/doinst.sh
 
 cd $PKG
-/sbin/makepkg -c n -l y -p $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.${PKGTYPE:-tgz}
+/sbin/makepkg -l y -c n $OUTPUT/$PRGNAM-$VERSION-$ARCH-$BUILD$TAG.$PKGTYPE
