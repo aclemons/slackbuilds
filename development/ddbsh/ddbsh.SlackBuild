@@ -28,8 +28,8 @@ PRGNAM=ddbsh
 SRCNAM=dynamodb-shell
 VERSION=${VERSION:-0.7}
 AWS_SDK_VERSION=${AWS_SDK_VERSION:-1.11.289}
-BUILD=${BUILD:-1}
-TAG=${TAG:-_SBo}
+BUILD=${BUILD:-2}
+TAG=${TAG:-_acl}
 PKGTYPE=${PKGTYPE:-tgz}
 
 if [ -z "$ARCH" ]; then
@@ -45,7 +45,7 @@ if [ ! -z "${PRINT_PACKAGE_NAME}" ]; then
   exit 0
 fi
 
-TMP=${TMP:-/tmp/SBo}
+TMP=${TMP:-/tmp/acl}
 PKG=$TMP/package-$PRGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
@@ -92,7 +92,7 @@ find -L . \
       -DCMAKE_CXX_FLAGS:STRING="$SLKCFLAGS" \
       -DCMAKE_PREFIX_PATH=/aws-sdk/ \
       -DCMAKE_INSTALL_PREFIX=/aws-sdk/ \
-      -DBUILD_ONLY="dynamodb" \
+      -DBUILD_ONLY="dynamodb;iam;sts" \
       -DBUILD_SHARED_LIBS=OFF \
       -DENABLE_TESTING=OFF \
       -DFORCE_SHARED_CRT=OFF \
