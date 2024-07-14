@@ -27,7 +27,7 @@ cd $(dirname $0) ; CWD=$(pwd)
 
 PRGNAM=mozilla-thunderbird-l10n-lt
 APPLANG="$(echo "$PRGNAM" | sed "s/^$(echo "$PRGNAM" | cut -d- -f-3)-//")"
-VERSION=${VERSION:-115.11.1}
+VERSION=${VERSION:-115.12.2}
 BASEVERSION="$(echo "$VERSION" | sed 's/esr//')"
 BUILD=${BUILD:-1}
 TAG=${TAG:-_acl}
