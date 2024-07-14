@@ -1,0 +1,70 @@
+---
+name: "Update locale slackbuilds"
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 1 * * *'
+
+concurrency: locale-pr-generator
+
+jobs:
+  update-locale-slackbuilds:
+    timeout-minutes: 10
+    name: Update locale slackbuilds.
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        with:
+          show-progress: false
+
+      - name: Set environment variables
+        run: |
+          {
+            curl -s -f https://slackware.osuosl.org/slackware64-current/ChangeLog.txt -o ChangeLog.txt
+            printf 'FFVERSION=%s\n' "$(sed -n '/mozilla-firefox/p' ChangeLog.txt | sed -n 1p | cut -d' ' -f1 | cut -d/ -f2 | sed 's/://' | rev | cut -f3 -d- | rev)"
+            printf 'TBVERSION=%s\n' "$(sed -n '/mozilla-thunderbird/p' ChangeLog.txt | sed -n 1p | cut -d' ' -f1 | cut -d/ -f2 | sed 's/://' | rev | cut -f3 -d- | rev)"
+            grep ^SMVERSION= .github/scripts/genlocaleslackbuilds
+            rm ChangeLog.txt
+          } >> "$GITHUB_ENV"
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get install lftp
+
+      - name: Generate updates
+        run: |
+          sed -i "s/^FFVERSION.*/FFVERSION=${{ env.FFVERSION }}/g" ./.github/scripts/genlocaleslackbuilds
+          sed -i "s/^TBVERSION.*/TBVERSION=${{ env.TBVERSION }}/g" ./.github/scripts/genlocaleslackbuilds
+          sed -i "s/^SMVERSION.*/SMVERSION=${{ env.SMVERSION }}/g" ./.github/scripts/genlocaleslackbuilds
+
+          ./.github/scripts/genlocaleslackbuilds network
+
+          git checkout ./.github/scripts/genlocaleslackbuilds
+
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+
+          git add network/mozilla-firefox-* || true
+          git commit -m 'network/mozilla-firefox-l10n-*: Updated for version ${{ env.FFVERSION }}.' || true
+
+          git add network/mozilla-thunderbird-* || true
+          git commit -m 'network/mozilla-thunderbird-l10n-*: Updated for version ${{ env.TBVERSION }}.' || true
+
+          git add network/seamonkey-* || true
+          git commit -m 'network/seamonkey-l10n-*: Updated for version ${{ env.SMVERSION }}.' || true
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c # v6.1.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          title: "[auto] Update locale slackbuilds based on latest ChangeLog.txt."
+          branch: autoupdate-locale-slackbuilds
+          body: |
+            Locale updates:
+              - Firefox: ${{ env.FFVERSION }}
+              - Thunderbird: ${{ env.TBVERSION }}
+              - Seamonkey: ${{ env.SMVERSION }}
