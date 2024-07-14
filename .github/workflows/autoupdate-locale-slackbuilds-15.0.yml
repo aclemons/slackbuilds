@@ -1,9 +1,9 @@
 ---
-name: Update locale slackbuilds
+name: "Update locale slackbuilds - 15.0"
 on:
   push:
     branches:
-      - '15.0'
+      - "15.0"
   workflow_dispatch:
 
 concurrency: locale-pr-generator
@@ -70,7 +70,7 @@ jobs:
         uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c # v6.1.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          title: '[auto] Update locale slackbuilds based on latest ChangeLog.txt.'
+          title: "[auto] Update locale slackbuilds based on latest ChangeLog.txt."
           branch: autoupdate-locale-slackbuilds
           body: |
             Locale updates:
