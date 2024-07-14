@@ -20,8 +20,6 @@ jobs:
 
       - name: Update the md5sum of aws/aws-sdk-cpp.
         run: |
-          CWD="$(pwd)"
-
           (
             cd development/ddbsh/
             . ddbsh.info
