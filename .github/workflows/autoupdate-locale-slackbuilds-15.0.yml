@@ -1,13 +1,32 @@
 ---
-name: "Update locale slackbuilds"
+name: "Update locale slackbuilds - 15.0"
 on:
+  push:
+    branches:
+      - "15.0"
   workflow_dispatch:
-  schedule:
-    - cron: '0 1 * * *'
 
 concurrency: locale-pr-generator
 
 jobs:
+  changes:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+    outputs:
+      locales: ${{ steps.filter.outputs.locales }}
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        with:
+          show-progress: false
+
+      - uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
+        id: filter
+        with:
+          filters: |
+            locales:
+              - '.github/scripts/genlocaleslackbuilds'
+
   update-locale-slackbuilds:
     timeout-minutes: 10
     name: Update locale slackbuilds.
@@ -15,6 +34,8 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+    needs: [changes]
+    if: ${{ needs.changes.outputs.locales == 'true' || github.event_name == 'workflow_dispatch' }}
     steps:
       - name: Checkout
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
@@ -23,13 +44,7 @@ jobs:
 
       - name: Set environment variables
         run: |
-          {
-            curl -s -f https://slackware.osuosl.org/slackware64-current/ChangeLog.txt -o ChangeLog.txt
-            printf 'FFVERSION=%s\n' "$(sed -n '/mozilla-firefox/p' ChangeLog.txt | sed -n 1p | cut -d' ' -f1 | cut -d/ -f2 | sed 's/://' | rev | cut -f3 -d- | rev)"
-            printf 'TBVERSION=%s\n' "$(sed -n '/mozilla-thunderbird/p' ChangeLog.txt | sed -n 1p | cut -d' ' -f1 | cut -d/ -f2 | sed 's/://' | rev | cut -f3 -d- | rev)"
-            grep ^SMVERSION= .github/scripts/genlocaleslackbuilds
-            rm ChangeLog.txt
-          } >> "$GITHUB_ENV"
+          grep ^..VERSION= .github/scripts/genlocaleslackbuilds >> "$GITHUB_ENV"
 
       - name: Install dependencies
         run: |
@@ -37,13 +52,7 @@ jobs:
 
       - name: Generate updates
         run: |
-          sed -i "s/^FFVERSION.*/FFVERSION=${{ env.FFVERSION }}/g" ./.github/scripts/genlocaleslackbuilds
-          sed -i "s/^TBVERSION.*/TBVERSION=${{ env.TBVERSION }}/g" ./.github/scripts/genlocaleslackbuilds
-          sed -i "s/^SMVERSION.*/SMVERSION=${{ env.SMVERSION }}/g" ./.github/scripts/genlocaleslackbuilds
-
           ./.github/scripts/genlocaleslackbuilds network
-
-          git checkout ./.github/scripts/genlocaleslackbuilds
 
           git config user.name 'github-actions[bot]'
           git config user.email 'github-actions[bot]@users.noreply.github.com'

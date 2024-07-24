@@ -13,9 +13,7 @@
   "packageRules": [
     {
       "extractVersion": "^v(?<version>.*)$",
-      "matchPackageNames": [
-        "awslabs/dynamodb-shell"
-      ]
+      "matchPackageNames": ["awslabs/dynamodb-shell"]
     }
   ],
   "pre-commit": {
@@ -53,9 +51,7 @@
     },
     {
       "customType": "regex",
-      "fileMatch": [
-        "^.github/scripts/genlocaleslackbuilds"
-      ],
+      "fileMatch": ["^.github/scripts/genlocaleslackbuilds"],
       "matchStrings": [
         "datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s..VERSION=(?<currentValue>.*)?\\s"
       ],
