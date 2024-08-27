@@ -23,7 +23,8 @@ jobs:
           (
             cd development/ddbsh/
             . ddbsh.info
-            wget "$DOWNLOAD"
+            # shellcheck disable=SC2086
+            wget --content-disposition $DOWNLOAD
 
             MD5SUM="$(md5sum aws-sdk-cpp*tar* | cut -f1 -d' ')"
             rm -- *tar*
