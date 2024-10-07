@@ -47,11 +47,11 @@ trap 'rm -rf "$WORKDIR"' INT TERM HUP QUIT EXIT
 cd "$WORKDIR"
 
 # renovate: datasource=repology depName=slackware_15_0/mozilla-firefox versioning=loose
-FFVERSION=115.15.0esr
+FFVERSION=115.16.0esr
 # renovate: datasource=repology depName=slackware_15_0/mozilla-thunderbird
 TBVERSION=115.15.0
 # renovate: datasource=repology depName=slackware_15_0/seamonkey
-SMVERSION=2.53.19
+SMVERSION=2.53.18
 
 for key_value in "mozilla-firefox:$FFVERSION" "mozilla-thunderbird:$TBVERSION" "seamonkey:$SMVERSION" ; do
   app="$(echo "$key_value" | cut -d: -f1)"
