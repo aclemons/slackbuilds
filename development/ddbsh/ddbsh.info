@@ -4,7 +4,7 @@ HOMEPAGE="https://github.com/awslabs/dynamodb-shell"
 DOWNLOAD="https://github.com/awslabs/dynamodb-shell/archive/v0.8.1/dynamodb-shell-0.8.1.tar.gz \
           https://github.com/aws/aws-sdk-cpp/archive/1.11.454/aws-sdk-cpp-1.11.454.tar.gz"
 MD5SUM="34e70ed3eb17cf16abc3cbab4b7e6363 \
-        33e8afcdc7760cccf6038cdc044c9420"
+        117f286707bf65da27713391d7aba37c"
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""
 REQUIRES=""
