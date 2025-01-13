@@ -51,9 +51,10 @@ FFVERSION=128.6.0esr
 # renovate: datasource=repology depName=slackware_15_0/mozilla-thunderbird versioning=loose
 TBVERSION=128.6.0esr
 # renovate: datasource=repology depName=slackware_15_0/seamonkey versioning=loose
-SMVERSION=2.53.18
+SMVERSION=2.53.20
 
-for key_value in "mozilla-firefox:$FFVERSION" "mozilla-thunderbird:$TBVERSION" "seamonkey:$SMVERSION" ; do
+#for key_value in "mozilla-firefox:$FFVERSION" "mozilla-thunderbird:$TBVERSION" "seamonkey:$SMVERSION" ; do
+for key_value in "seamonkey:$SMVERSION" ; do
   app="$(echo "$key_value" | cut -d: -f1)"
   version="$(echo "$key_value" | cut -d: -f2)"
 
@@ -76,7 +77,7 @@ for key_value in "mozilla-firefox:$FFVERSION" "mozilla-thunderbird:$TBVERSION" "
 
   # assumes we trust our https connection to ftp.mozilla.org
   if [ "$short_app" = "seamonkey" ] ; then
-    lftp -c "open https://ftp.mozilla.org/pub/$short_app/releases/$version/; mirror langpack/"
+    lftp -c "open https://archive.seamonkey-project.org/releases/$version/; mirror -x '.*checksums' langpack/"
     mv langpack/ xpi
   elif [ "$short_app" = "thunderbird" ] ; then
     lftp -c "open https://ftp.mozilla.org/pub/$short_app/releases/$version/linux-x86_64/; mirror xpi/"
@@ -84,7 +85,7 @@ for key_value in "mozilla-firefox:$FFVERSION" "mozilla-thunderbird:$TBVERSION" "
     lftp -c "open https://ftp.mozilla.org/pub/$short_app/releases/$version/linux-i686/; mirror xpi/"
   fi
 
-  find xpi -type f -name '*.xpi' | grep -v "en-US" | sed '/-mac.langpack.xpi/d' | while read -r locale_file ; do
+  find xpi -type f -name '*.xpi' | grep -v "en-US" | sed '/-mac.langpack.xpi/d' | sort | while read -r locale_file ; do
     hash="$(md5sum "$locale_file" | cut -d' ' -f1)"
     locale="$(basename "$locale_file" | sed 's/\.xpi//')"
 
@@ -138,7 +139,7 @@ EMAIL="andrew.clemons@gmail.com"
 EOF
 
     if [ "$app" = "seamonkey" ] ; then
-      sed -i "s,DOWNLOAD=.*,DOWNLOAD=\"https://ftp.mozilla.org/pub/$short_app/releases/$version/langpack/seamonkey-$version.$locale.langpack.xpi\"," "$DESTDIR/$app-l10n-$locale/$app-l10n-$locale.info"
+      sed -i "s,DOWNLOAD=.*,DOWNLOAD=\"https://archive.seamonkey-project.org/releases/$version/langpack/seamonkey-$version.$locale.langpack.xpi\"," "$DESTDIR/$app-l10n-$locale/$app-l10n-$locale.info"
     elif [ "$short_app" = "thunderbird" ] ; then
       sed -i "s/i686/x86_64/" "$DESTDIR/$app-l10n-$locale/$app-l10n-$locale.info"
     fi
@@ -149,7 +150,7 @@ EOF
 # Slackware build script for %app%-l10n-en-GB
 
 # Copyright 2016-2022 Andrew Clemons, Wellington, New Zealand
-# Copyright 2022-2023 Andrew Clemons, Tokyo, Japan
+# Copyright 2022-2025 Andrew Clemons, Tokyo, Japan
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
