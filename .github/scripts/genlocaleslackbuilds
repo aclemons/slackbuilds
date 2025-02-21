@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Copyright 2016-2022 Andrew Clemons, Wellington New Zealand
-# Copyright 2022-2023 Andrew Clemons, Tokyo Japan
+# Copyright 2022-2025 Andrew Clemons, Tokyo Japan
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -47,9 +47,9 @@ trap 'rm -rf "$WORKDIR"' INT TERM HUP QUIT EXIT
 cd "$WORKDIR"
 
 # renovate: datasource=repology depName=slackware_15_0/mozilla-firefox versioning=loose
-FFVERSION=128.6.0esr
+FFVERSION=128.7.0esr
 # renovate: datasource=repology depName=slackware_15_0/mozilla-thunderbird versioning=loose
-TBVERSION=128.6.1esr
+TBVERSION=128.7.1esr
 # renovate: datasource=repology depName=slackware_15_0/seamonkey versioning=loose
 SMVERSION=2.53.20
 
