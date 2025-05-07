@@ -13,7 +13,9 @@
   "packageRules": [
     {
       "extractVersion": "^v(?<version>.*)$",
-      "matchPackageNames": ["awslabs/dynamodb-shell"]
+      "matchPackageNames": [
+        "awslabs/dynamodb-shell"
+      ]
     }
   ],
   "pre-commit": {
@@ -25,9 +27,9 @@
       "customType": "regex",
       "datasourceTemplate": "github-tags",
       "depNameTemplate": "aws/aws-sdk-cpp",
-      "fileMatch": [
-        "^development/ddbsh/ddbsh\\.SlackBuild$",
-        "^development/ddbsh/ddbsh\\.info$"
+      "managerFilePatterns": [
+        "/^development/ddbsh/ddbsh\\.SlackBuild$/",
+        "/^development/ddbsh/ddbsh\\.info$/"
       ],
       "matchStrings": [
         "AWS_SDK_VERSION=\\${AWS_SDK_VERSION:-(?<currentValue>.*?)}",
@@ -39,9 +41,9 @@
       "customType": "regex",
       "datasourceTemplate": "github-tags",
       "depNameTemplate": "awslabs/dynamodb-shell",
-      "fileMatch": [
-        "^development/ddbsh/ddbsh\\.SlackBuild$",
-        "^development/ddbsh/ddbsh\\.info$"
+      "managerFilePatterns": [
+        "/^development/ddbsh/ddbsh\\.SlackBuild$/",
+        "/^development/ddbsh/ddbsh\\.info$/"
       ],
       "matchStrings": [
         "VERSION=\\${VERSION:-(?<currentValue>.*?)}",
@@ -51,7 +53,9 @@
     },
     {
       "customType": "regex",
-      "fileMatch": ["^.github/scripts/genlocaleslackbuilds"],
+      "managerFilePatterns": [
+        "/^.github/scripts/genlocaleslackbuilds/"
+      ],
       "matchStrings": [
         "datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s..VERSION=(?<currentValue>.*)?\\s"
       ],
