@@ -47,7 +47,7 @@ trap 'rm -rf "$WORKDIR"' INT TERM HUP QUIT EXIT
 cd "$WORKDIR"
 
 # renovate: datasource=repology depName=slackware_15_0/mozilla-firefox versioning=loose
-FFVERSION=128.10.1esr
+FFVERSION=128.11.0esr
 # renovate: datasource=repology depName=slackware_15_0/mozilla-thunderbird versioning=loose
 TBVERSION=128.10.2esr
 # renovate: datasource=repology depName=slackware_15_0/seamonkey versioning=loose
