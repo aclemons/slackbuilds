@@ -25,8 +25,8 @@ jobs:
         run: |
           {
             curl -s -f https://slackware.osuosl.org/slackware64-current/ChangeLog.txt -o ChangeLog.txt
-            printf 'FFVERSION=%s\n' "$(sed -n '/mozilla-firefox/p' ChangeLog.txt | sed -n 1p | cut -d' ' -f1 | cut -d/ -f2 | sed 's/://' | rev | cut -f3 -d- | rev)"
-            printf 'TBVERSION=%s\n' "$(sed -n '/mozilla-thunderbird/p' ChangeLog.txt | sed -n 1p | cut -d' ' -f1 | cut -d/ -f2 | sed 's/://' | rev | cut -f3 -d- | rev)"
+            printf 'FFVERSION=%s\n' "$(sed -n '/mozilla-firefox/p' ChangeLog.txt | sed '/^testing/d' | sed -n 1p | cut -d' ' -f1 | cut -d/ -f2 | sed 's/://' | rev | cut -f3 -d- | rev)"
+            printf 'TBVERSION=%s\n' "$(sed -n '/mozilla-thunderbird/p' ChangeLog.txt | sed '/^testing/d' | sed -n 1p | cut -d' ' -f1 | cut -d/ -f2 | sed 's/://' | rev | cut -f3 -d- | rev)"
             grep ^SMVERSION= .github/scripts/genlocaleslackbuilds
             rm ChangeLog.txt
           } >> "$GITHUB_ENV"
