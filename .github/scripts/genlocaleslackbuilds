@@ -47,13 +47,15 @@ trap 'rm -rf "$WORKDIR"' INT TERM HUP QUIT EXIT
 cd "$WORKDIR"
 
 # renovate: datasource=repology depName=slackware_15_0/mozilla-firefox versioning=loose
-FFVERSION=140.1.0esr
+FFVERSION=140.6.0esr
 # renovate: datasource=repology depName=slackware_15_0/mozilla-thunderbird versioning=loose
-TBVERSION=140.1.1esr
+TBVERSION=140.6.0esr
 # renovate: datasource=repology depName=slackware_15_0/seamonkey versioning=loose
-SMVERSION=2.53.21
+SMVERSION=2.53.22
 
-for key_value in "mozilla-firefox:$FFVERSION" "mozilla-thunderbird:$TBVERSION" "seamonkey:$SMVERSION" ; do
+# seamonkey moved to an s3 bucket and needs changes
+#for key_value in "mozilla-firefox:$FFVERSION" "mozilla-thunderbird:$TBVERSION" "seamonkey:$SMVERSION" ; do
+for key_value in "mozilla-firefox:$FFVERSION" "mozilla-thunderbird:$TBVERSION" ; do
   app="$(echo "$key_value" | cut -d: -f1)"
   version="$(echo "$key_value" | cut -d: -f2)"
 
