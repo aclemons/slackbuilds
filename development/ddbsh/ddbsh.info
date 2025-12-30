@@ -2,7 +2,7 @@ PRGNAM="ddbsh"
 VERSION="0.8.1"
 HOMEPAGE="https://github.com/awslabs/dynamodb-shell"
 DOWNLOAD="https://github.com/awslabs/dynamodb-shell/archive/v0.8.1/dynamodb-shell-0.8.1.tar.gz \
-          https://github.com/aws/aws-sdk-cpp/archive/1.11.628/aws-sdk-cpp-1.11.628.tar.gz"
+          https://github.com/aws/aws-sdk-cpp/archive/1.11.720/aws-sdk-cpp-1.11.720.tar.gz"
 MD5SUM="34e70ed3eb17cf16abc3cbab4b7e6363 \
         7fe393d8ccd3513852e336999ac8cc92"
 DOWNLOAD_x86_64=""
