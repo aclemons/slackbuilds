@@ -17,6 +17,7 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
           show-progress: false
+          persist-credentials: true
 
       - name: Update the md5sum of aws/aws-sdk-cpp.
         run: |
