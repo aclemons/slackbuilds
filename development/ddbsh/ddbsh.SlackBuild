@@ -96,6 +96,7 @@ find -L . \
       -DBUILD_SHARED_LIBS=OFF \
       -DENABLE_TESTING=OFF \
       -DFORCE_SHARED_CRT=OFF \
+      -DENFORCE_SUBMODULE_VERSIONS=OFF \
       -DCMAKE_BUILD_TYPE=Release ..
   make
   make install/strip DESTDIR=$TMP/$SRCNAM-$VERSION
