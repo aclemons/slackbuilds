@@ -51,11 +51,11 @@ FFVERSION=140.6.0esr
 # renovate: datasource=repology depName=slackware_15_0/mozilla-thunderbird versioning=loose
 TBVERSION=140.6.0esr
 # renovate: datasource=repology depName=slackware_15_0/seamonkey versioning=loose
-SMVERSION=2.53.22
+SMVERSION=2.53.23
 
 # seamonkey moved to an s3 bucket and needs changes
-#for key_value in "mozilla-firefox:$FFVERSION" "mozilla-thunderbird:$TBVERSION" "seamonkey:$SMVERSION" ; do
-for key_value in "mozilla-firefox:$FFVERSION" "mozilla-thunderbird:$TBVERSION" ; do
+# https://archive.seamonkey-project.org/#releases/2.53.23/langpack/
+for key_value in "mozilla-firefox:$FFVERSION" "mozilla-thunderbird:$TBVERSION" "seamonkey:$SMVERSION" ; do
   app="$(echo "$key_value" | cut -d: -f1)"
   version="$(echo "$key_value" | cut -d: -f2)"
 
@@ -78,8 +78,12 @@ for key_value in "mozilla-firefox:$FFVERSION" "mozilla-thunderbird:$TBVERSION" ;
 
   # assumes we trust our https connection to ftp.mozilla.org
   if [ "$short_app" = "seamonkey" ] ; then
-    lftp -c "open https://archive.seamonkey-project.org/releases/$version/; mirror -x '.*checksums' langpack/"
-    mv langpack/ xpi
+    # lftp -c "open https://archive.seamonkey-project.org/releases/$version/; mirror -x '.*checksums' langpack/"
+    # mv langpack/ xpi
+    if [ ! -e "$HOME/Downloads/langpack.zip" ] ; then
+      continue
+    fi
+    unzip -q -d xpi "$HOME/Downloads/langpack.zip"
   elif [ "$short_app" = "thunderbird" ] ; then
     lftp -c "open https://ftp.mozilla.org/pub/$short_app/releases/$version/linux-x86_64/; mirror xpi/"
   else
