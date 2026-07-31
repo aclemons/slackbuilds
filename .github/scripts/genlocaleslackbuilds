@@ -51,7 +51,7 @@ FFVERSION=140.13.0esr
 # renovate: datasource=repology depName=slackware_15_0/mozilla-thunderbird versioning=loose
 TBVERSION=140.13.0esr
 # renovate: datasource=repology depName=slackware_15_0/seamonkey versioning=loose
-SMVERSION=2.53.23
+SMVERSION=2.53.24
 
 # seamonkey moved to an s3 bucket and needs changes
 # https://archive.seamonkey-project.org/#releases/2.53.23/langpack/
