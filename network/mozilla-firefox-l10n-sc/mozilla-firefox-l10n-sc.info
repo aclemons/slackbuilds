@@ -1,7 +1,7 @@
 PRGNAM="mozilla-firefox-l10n-sc"
 VERSION="153.8.0esr"
 HOMEPAGE="http://www.mozilla.com/"
-DOWNLOAD="https://ftp.mozilla.org/pub/firefox/releases/153.8.0esr/linux-i686/xpi/sc.xpi"
+DOWNLOAD="https://ftp.mozilla.org/pub/firefox/releases/153.8.0esr/linux-x86_64/xpi/sc.xpi"
 MD5SUM="2b789df73f1a1506b2b0322fb2cf1b33"
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""

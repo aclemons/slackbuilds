@@ -1,7 +1,7 @@
 PRGNAM="mozilla-firefox-l10n-ca-valencia"
 VERSION="153.8.0esr"
 HOMEPAGE="http://www.mozilla.com/"
-DOWNLOAD="https://ftp.mozilla.org/pub/firefox/releases/153.8.0esr/linux-i686/xpi/ca-valencia.xpi"
+DOWNLOAD="https://ftp.mozilla.org/pub/firefox/releases/153.8.0esr/linux-x86_64/xpi/ca-valencia.xpi"
 MD5SUM="7720aec75c9d1f3211003c4583eda019"
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""

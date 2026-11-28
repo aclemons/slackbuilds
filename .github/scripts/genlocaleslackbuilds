@@ -145,7 +145,7 @@ EOF
 
     if [ "$app" = "seamonkey" ] ; then
       sed -i "s,DOWNLOAD=.*,DOWNLOAD=\"https://archive.seamonkey-project.org/releases/$version/langpack/seamonkey-$version.$locale.langpack.xpi\"," "$DESTDIR/$app-l10n-$locale/$app-l10n-$locale.info"
-    elif [ "$short_app" = "thunderbird" ] ; then
+    else
       sed -i "s/i686/x86_64/" "$DESTDIR/$app-l10n-$locale/$app-l10n-$locale.info"
     fi
 

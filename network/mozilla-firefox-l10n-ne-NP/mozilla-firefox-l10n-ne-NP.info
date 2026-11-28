@@ -1,7 +1,7 @@
 PRGNAM="mozilla-firefox-l10n-ne-NP"
 VERSION="153.8.0esr"
 HOMEPAGE="http://www.mozilla.com/"
-DOWNLOAD="https://ftp.mozilla.org/pub/firefox/releases/153.8.0esr/linux-i686/xpi/ne-NP.xpi"
+DOWNLOAD="https://ftp.mozilla.org/pub/firefox/releases/153.8.0esr/linux-x86_64/xpi/ne-NP.xpi"
 MD5SUM="b1cdb93e8cb9ba019aabcc0b44d9df7e"
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""

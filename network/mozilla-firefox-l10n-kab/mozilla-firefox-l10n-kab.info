@@ -1,7 +1,7 @@
 PRGNAM="mozilla-firefox-l10n-kab"
 VERSION="153.8.0esr"
 HOMEPAGE="http://www.mozilla.com/"
-DOWNLOAD="https://ftp.mozilla.org/pub/firefox/releases/153.8.0esr/linux-i686/xpi/kab.xpi"
+DOWNLOAD="https://ftp.mozilla.org/pub/firefox/releases/153.8.0esr/linux-x86_64/xpi/kab.xpi"
 MD5SUM="94f9a1ea6d2466d395bdf793f1cd5b37"
 DOWNLOAD_x86_64=""
 MD5SUM_x86_64=""
