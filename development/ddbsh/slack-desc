@@ -8,8 +8,8 @@
      |-----handy-ruler------------------------------------------------------|
 ddbsh: ddbsh (A command line client (shell) for AWS DynamoDB)
 ddbsh:
-ddbsh: ddbsh is a simple CLI for DynamoDB modeled on isql, and the MySQL
-ddbsh: CLIs. ddbsh is open source.
+ddbsh: A command line client (shell) for AWS DynamoDB that offers DDL and
+ddbsh: DML support similar to CLIs for other databases.
 ddbsh:
 ddbsh: https://github.com/awslabs/dynamodb-shell
 ddbsh:
